@@ -1,0 +1,3300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dating Profile Preview Sandbox</title>
+  <style>
+    /* ==========================================================================
+       RESET & BASE STYLES
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --bg-desktop: #0c0f17;
+      --bg-desktop-gradient: radial-gradient(circle at 50% 25%, #182236 0%, #0a0d14 100%);
+      --phone-outer: #1c2029;
+      --phone-rim: #2d3444;
+      --phone-inner-border: #101319;
+      --screen-bg: #11141a;
+      --screen-card-bg: #1a1e27;
+      --screen-card-border: rgba(255, 255, 255, 0.08);
+      --screen-card-hover: rgba(255, 255, 255, 0.03);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --text-dim: #6b7280;
+      
+      /* Dating App Signature Accents */
+      --tinder-flame-start: #fd267d;
+      --tinder-flame-end: #ff6036;
+      --color-pass: #f43f5e;
+      --color-superlike: #0ea5e9;
+      --color-like: #10b981;
+      --color-rewind: #eab308;
+      --color-boost: #a855f7;
+      --color-verified: #2563eb;
+      
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    body {
+      font-family: var(--font-stack);
+      background: var(--bg-desktop-gradient);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      user-select: none;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ==========================================================================
+       DESKTOP WORKSPACE LAYOUT
+       ========================================================================== */
+    .desktop-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 24px 16px;
+      position: relative;
+    }
+
+    /* Ambient Desktop Background Glow */
+    .desktop-glow {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 580px;
+      height: 750px;
+      background: radial-gradient(circle, rgba(253, 38, 125, 0.08) 0%, rgba(14, 165, 233, 0.05) 50%, transparent 75%);
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(40px);
+    }
+
+    /* Desktop Top Header Bar */
+    .desktop-header {
+      width: 100%;
+      max-width: 1100px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 10;
+      padding-bottom: 10px;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
+      background: linear-gradient(135deg, var(--tinder-flame-start), var(--tinder-flame-end));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(253, 38, 125, 0.35);
+      color: #fff;
+    }
+
+    .brand-text h1 {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.2px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .brand-text span.badge {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.12);
+      color: #e5e7eb;
+      padding: 2px 6px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .brand-subtitle {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    .desktop-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-desktop {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #e5e7eb;
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .btn-desktop:hover {
+      background: rgba(255, 255, 255, 0.13);
+      border-color: rgba(255, 255, 255, 0.22);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .btn-desktop.active {
+      background: linear-gradient(135deg, var(--tinder-flame-start), var(--tinder-flame-end));
+      border-color: transparent;
+      color: #fff;
+      box-shadow: 0 2px 10px rgba(253, 38, 125, 0.3);
+    }
+
+    /* ==========================================================================
+       SECTION 4: PHONE MOCKUP CONTAINER
+       ========================================================================== */
+    .mockup-viewport-stage {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 5;
+      padding: 6px 0;
+    }
+
+    /* Outer Phone Chassis */
+    .smartphone-frame {
+      width: 392px;
+      height: 818px;
+      max-height: calc(100vh - 120px);
+      aspect-ratio: 392 / 818;
+      background: var(--phone-outer);
+      border-radius: 50px;
+      padding: 11px;
+      box-shadow: 
+        0 0 0 1px var(--phone-inner-border),
+        0 0 0 3px var(--phone-rim),
+        0 25px 65px -10px rgba(0, 0, 0, 0.8),
+        0 40px 100px -20px rgba(0, 0, 0, 0.95);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      flex-shrink: 0;
+    }
+
+    /* Physical Hardware Side Buttons */
+    .phone-btn-power {
+      position: absolute;
+      right: -5px;
+      top: 195px;
+      width: 4px;
+      height: 62px;
+      background: #2a313f;
+      border-radius: 0 3px 3px 0;
+      box-shadow: 1px 0 2px rgba(0,0,0,0.5);
+    }
+
+    .phone-btn-vol-up {
+      position: absolute;
+      left: -5px;
+      top: 155px;
+      width: 4px;
+      height: 48px;
+      background: #2a313f;
+      border-radius: 3px 0 0 3px;
+      box-shadow: -1px 0 2px rgba(0,0,0,0.5);
+    }
+
+    .phone-btn-vol-down {
+      position: absolute;
+      left: -5px;
+      top: 215px;
+      width: 4px;
+      height: 48px;
+      background: #2a313f;
+      border-radius: 3px 0 0 3px;
+      box-shadow: -1px 0 2px rgba(0,0,0,0.5);
+    }
+
+    /* Inner Screen Viewport */
+    .screen-container {
+      width: 100%;
+      height: 100%;
+      background: var(--screen-bg);
+      border-radius: 40px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Dynamic Island / Top Notch */
+    .dynamic-island {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 116px;
+      height: 30px;
+      background: #000;
+      border-radius: 20px;
+      z-index: 60;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+      pointer-events: none;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    }
+
+    .island-camera {
+      width: 10px;
+      height: 10px;
+      background: #111827;
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .island-camera::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 3px;
+      height: 3px;
+      background: #1e3a8a;
+      border-radius: 50%;
+      opacity: 0.8;
+    }
+
+    .island-sensor {
+      width: 6px;
+      height: 6px;
+      background: #1f2937;
+      border-radius: 50%;
+    }
+
+    /* Status Bar */
+    .status-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 44px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      z-index: 50;
+      pointer-events: none;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+    }
+
+    .status-time {
+      letter-spacing: -0.2px;
+    }
+
+    .status-icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-icon-svg {
+      width: 15px;
+      height: 15px;
+      fill: currentColor;
+    }
+
+    /* App Header Overlay inside Phone */
+    .screen-header-bar {
+      position: absolute;
+      top: 44px;
+      left: 0;
+      right: 0;
+      height: 48px;
+      padding: 0 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 45;
+      pointer-events: none;
+    }
+
+    .header-icon-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      pointer-events: auto;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .header-icon-btn:hover {
+      background: rgba(0, 0, 0, 0.55);
+      transform: scale(1.05);
+    }
+
+    .header-center-badge {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.85);
+      background: rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* ==========================================================================
+       SCROLLABLE PROFILE VIEWPORT (Inside Phone)
+       ========================================================================== */
+    .screen-scroll-container {
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      position: relative;
+      /* Padding at bottom so scroll reaches past fixed action bar */
+      padding-bottom: 120px;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE/Edge */
+    }
+
+    .screen-scroll-container::-webkit-scrollbar {
+      display: none; /* Chrome/Safari */
+    }
+
+    /* --------------------------------------------------------------------------
+       PHOTO CAROUSEL & HERO SECTION
+       -------------------------------------------------------------------------- */
+    .carousel-section {
+      position: relative;
+      width: 100%;
+      height: 480px;
+      background: #171b24;
+      overflow: hidden;
+    }
+
+    /* Top Story Progress Bars */
+    .story-progress-container {
+      position: absolute;
+      top: 48px;
+      left: 12px;
+      right: 12px;
+      display: flex;
+      gap: 5px;
+      z-index: 35;
+      pointer-events: auto;
+    }
+
+    .story-segment {
+      flex: 1;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 3px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.2s ease;
+    }
+
+    .story-segment.active {
+      background: #ffffff;
+      box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+    }
+
+    .story-segment.seen {
+      background: rgba(255, 255, 255, 0.85);
+    }
+
+    /* Carousel Slides Wrapper */
+    .slides-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .slide-item {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #181d26;
+    }
+
+    .slide-item.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .slide-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Image Load Error / Fallback State */
+    .photo-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      text-align: center;
+      background: linear-gradient(145deg, #1f2533, #151a24);
+      color: #94a3b8;
+    }
+
+    .placeholder-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px dashed rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      color: #cbd5e1;
+    }
+
+    .placeholder-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #f1f5f9;
+      margin-bottom: 4px;
+    }
+
+    .placeholder-path {
+      font-family: monospace;
+      font-size: 11px;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 4px 8px;
+      border-radius: 6px;
+      color: #38bdf8;
+      max-width: 90%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin-bottom: 10px;
+    }
+
+    .placeholder-hint {
+      font-size: 11px;
+      color: #64748b;
+      line-height: 1.4;
+    }
+
+    /* Left & Right Tap Navigation Zones */
+    .carousel-tap-zone {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      z-index: 25;
+      cursor: pointer;
+    }
+
+    .tap-zone-left {
+      left: 0;
+      width: 40%;
+    }
+
+    .tap-zone-right {
+      right: 0;
+      width: 60%;
+    }
+
+    /* Desktop Hover Arrow Controls */
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 30;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.2s, background 0.2s, transform 0.15s;
+    }
+
+    .carousel-section:hover .carousel-arrow {
+      opacity: 0.85;
+    }
+
+    .carousel-arrow:hover {
+      opacity: 1 !important;
+      background: rgba(0, 0, 0, 0.7);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .carousel-arrow.prev { left: 10px; }
+    .carousel-arrow.next { right: 10px; }
+
+    /* Photo Counter Pill */
+    .photo-counter {
+      position: absolute;
+      bottom: 125px;
+      right: 14px;
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #fff;
+      z-index: 25;
+      pointer-events: none;
+      letter-spacing: 0.4px;
+    }
+
+    /* Floating Profile Overlay (Photo Bottom) */
+    .photo-gradient-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 190px;
+      background: linear-gradient(to top, rgba(17, 20, 26, 1) 0%, rgba(17, 20, 26, 0.85) 45%, rgba(17, 20, 26, 0) 100%);
+      z-index: 20;
+      pointer-events: none;
+    }
+
+    .photo-info-overlay {
+      position: absolute;
+      bottom: 12px;
+      left: 18px;
+      right: 18px;
+      z-index: 22;
+      pointer-events: none;
+    }
+
+    .hero-name-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .hero-name {
+      font-size: 27px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-age {
+      font-size: 26px;
+      font-weight: 400;
+      color: #f3f4f6;
+    }
+
+    .verified-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-verified);
+      filter: drop-shadow(0 1px 3px rgba(0,0,0,0.5));
+    }
+
+    .hero-pronouns {
+      font-size: 11px;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(4px);
+      padding: 2px 7px;
+      border-radius: 10px;
+      color: #f3f4f6;
+    }
+
+    .hero-subtitles {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      font-size: 13px;
+      color: #e2e8f0;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+    }
+
+    .hero-sub-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 450;
+    }
+
+    .hero-sub-item svg {
+      opacity: 0.85;
+      flex-shrink: 0;
+    }
+
+    .hero-location-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #cbd5e1;
+      margin-top: 2px;
+    }
+
+    /* --------------------------------------------------------------------------
+       SCROLLABLE PROFILE CONTENT FEED
+       -------------------------------------------------------------------------- */
+    .profile-feed-content {
+      padding: 10px 14px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Scroll Cue Button */
+    .scroll-down-cue {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      color: var(--text-dim);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 4px 0 6px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .scroll-down-cue:hover {
+      color: var(--text-muted);
+    }
+
+    .scroll-down-cue svg {
+      animation: bounceSlow 1.8s infinite;
+    }
+
+    @keyframes bounceSlow {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(4px); }
+      60% { transform: translateY(2px); }
+    }
+
+    /* Universal Profile Cards */
+    .profile-card {
+      background: var(--screen-card-bg);
+      border: 1px solid var(--screen-card-border);
+      border-radius: 20px;
+      padding: 18px;
+      position: relative;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .profile-card:hover {
+      border-color: rgba(255, 255, 255, 0.14);
+    }
+
+    .card-title-row {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 10px;
+      color: var(--text-dim);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    /* Bio Section */
+    .bio-text {
+      font-size: 14.5px;
+      line-height: 1.55;
+      color: #e5e7eb;
+      font-weight: 400;
+      white-space: pre-line;
+    }
+
+    /* Essentials / Facts Grid */
+    .essentials-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .essential-chip {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 7px 11px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      color: #e2e8f0;
+      transition: background 0.15s;
+    }
+
+    .essential-chip:hover {
+      background: rgba(255, 255, 255, 0.09);
+    }
+
+    .essential-chip svg {
+      color: #94a3b8;
+      flex-shrink: 0;
+    }
+
+    .essential-label {
+      color: var(--text-dim);
+      font-weight: 400;
+      margin-right: 2px;
+    }
+
+    .essential-val {
+      font-weight: 550;
+      color: #f3f4f6;
+    }
+
+    /* Dating Prompt Cards (Hinge / Bumble Style) */
+    .prompt-card {
+      background: var(--screen-card-bg);
+      border: 1px solid var(--screen-card-border);
+      border-radius: 20px;
+      padding: 20px 18px 18px;
+      position: relative;
+    }
+
+    .prompt-header {
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      color: var(--tinder-flame-start);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .prompt-question {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .prompt-answer {
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.4;
+      color: #ffffff;
+      white-space: pre-line;
+      letter-spacing: -0.2px;
+    }
+
+    .prompt-like-btn {
+      position: absolute;
+      bottom: 14px;
+      right: 14px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .prompt-like-btn:hover {
+      background: rgba(244, 63, 94, 0.15);
+      border-color: rgba(244, 63, 94, 0.4);
+      color: var(--color-pass);
+      transform: scale(1.1);
+    }
+
+    /* Interspersed Full Photo Cards in Feed */
+    .inline-photo-card {
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      background: #171b24;
+      border: 1px solid var(--screen-card-border);
+    }
+
+    .inline-photo-card img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .inline-photo-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 24px 16px 12px;
+      background: linear-gradient(to top, rgba(15,17,21,0.95), transparent);
+      color: #fff;
+      font-size: 12.5px;
+      font-weight: 500;
+    }
+
+    /* Interests & Passions */
+    .interests-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .interest-pill {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #e5e7eb;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* Spotify Anthem Player */
+    .anthem-widget {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 14px;
+      padding: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .anthem-art {
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
+      object-fit: cover;
+      background: #232733;
+      flex-shrink: 0;
+    }
+
+    .anthem-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .anthem-track {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #fff;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .anthem-artist {
+      font-size: 12px;
+      color: var(--text-dim);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .anthem-spotify-icon {
+      color: #1db954;
+      flex-shrink: 0;
+      margin-right: 4px;
+    }
+
+    /* Bottom Safety Actions (Report / Share) */
+    .profile-footer-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .footer-action-btn {
+      width: 100%;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text-dim);
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 12px;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-family: inherit;
+    }
+
+    .footer-action-btn:hover {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-muted);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .footer-action-btn.report:hover {
+      color: var(--color-pass);
+      border-color: rgba(244, 63, 94, 0.3);
+    }
+
+    /* --------------------------------------------------------------------------
+       ACTION BAR (Fixed Bottom Floating Bar)
+       -------------------------------------------------------------------------- */
+    .action-bar-wrapper {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 110px;
+      pointer-events: none;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .action-bar-gradient {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 120px;
+      background: linear-gradient(to top, rgba(17, 20, 26, 0.98) 0%, rgba(17, 20, 26, 0.8) 55%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .action-bar-buttons {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      z-index: 5;
+      pointer-events: auto;
+      margin-bottom: 12px;
+    }
+
+    .dating-action-btn {
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background: #1e232d;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      transition: transform 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s, background 0.15s;
+      outline: none;
+    }
+
+    .dating-action-btn:hover {
+      transform: scale(1.12);
+    }
+
+    .dating-action-btn:active {
+      transform: scale(0.92);
+    }
+
+    /* Specific Action Button Sizes & Themes */
+    .btn-rewind {
+      width: 44px;
+      height: 44px;
+      color: var(--color-rewind);
+    }
+    .btn-rewind:hover {
+      box-shadow: 0 0 16px rgba(234, 179, 8, 0.45);
+      background: rgba(234, 179, 8, 0.12);
+    }
+
+    .btn-pass {
+      width: 54px;
+      height: 54px;
+      color: var(--color-pass);
+    }
+    .btn-pass:hover {
+      box-shadow: 0 0 20px rgba(244, 63, 94, 0.5);
+      background: rgba(244, 63, 94, 0.14);
+    }
+
+    .btn-superlike {
+      width: 44px;
+      height: 44px;
+      color: var(--color-superlike);
+    }
+    .btn-superlike:hover {
+      box-shadow: 0 0 18px rgba(14, 165, 233, 0.45);
+      background: rgba(14, 165, 233, 0.12);
+    }
+
+    .btn-like {
+      width: 54px;
+      height: 54px;
+      color: var(--color-like);
+    }
+    .btn-like:hover {
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+      background: rgba(16, 185, 129, 0.14);
+    }
+
+    .btn-boost {
+      width: 44px;
+      height: 44px;
+      color: var(--color-boost);
+    }
+    .btn-boost:hover {
+      box-shadow: 0 0 16px rgba(168, 85, 247, 0.45);
+      background: rgba(168, 85, 247, 0.12);
+    }
+
+    /* Stamp Animations (Tinder-style LIKE / NOPE / SUPER LIKE) */
+    .stamp-badge {
+      position: absolute;
+      top: 140px;
+      padding: 6px 18px;
+      border-radius: 10px;
+      font-size: 32px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      pointer-events: none;
+      z-index: 55;
+      opacity: 0;
+      transform: scale(0.6);
+      transition: opacity 0.25s, transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .stamp-badge.like {
+      right: 30px;
+      color: var(--color-like);
+      border: 4px solid var(--color-like);
+      transform: rotate(15deg) scale(0.7);
+    }
+
+    .stamp-badge.nope {
+      left: 30px;
+      color: var(--color-pass);
+      border: 4px solid var(--color-pass);
+      transform: rotate(-15deg) scale(0.7);
+    }
+
+    .stamp-badge.superlike {
+      left: 50%;
+      top: 180px;
+      transform: translateX(-50%) rotate(0deg) scale(0.7);
+      color: var(--color-superlike);
+      border: 4px solid var(--color-superlike);
+    }
+
+    .stamp-badge.visible {
+      opacity: 1;
+      transform: scale(1) !important;
+    }
+
+    .stamp-badge.like.visible {
+      transform: rotate(15deg) scale(1) !important;
+    }
+
+    .stamp-badge.nope.visible {
+      transform: rotate(-15deg) scale(1) !important;
+    }
+
+    .stamp-badge.superlike.visible {
+      transform: translateX(-50%) scale(1) !important;
+    }
+
+    /* Toast Notification inside phone */
+    .action-toast {
+      position: absolute;
+      top: 96px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-10px);
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      z-index: 58;
+      pointer-events: none;
+      opacity: 0;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .action-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Hardware Home Indicator Bar */
+    .home-indicator {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 130px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 10px;
+      z-index: 60;
+      pointer-events: none;
+    }
+
+    /* ==========================================================================
+       DESKTOP FOOTER / KEYBOARD SHORTCUTS HINTS
+       ========================================================================== */
+    .desktop-footer {
+      width: 100%;
+      max-width: 900px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding-top: 10px;
+      z-index: 10;
+      flex-wrap: wrap;
+    }
+
+    .shortcut-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      color: var(--text-dim);
+    }
+
+    .kbd-chip {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+      color: #e5e7eb;
+      font-family: inherit;
+      font-size: 10.5px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 5px;
+    }
+
+    /* ==========================================================================
+       INTERACTIVE LIVE EDITOR DRAWER (Slide-over Modal)
+       ========================================================================== */
+    .editor-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .editor-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .editor-drawer {
+      width: 480px;
+      max-width: 95vw;
+      height: 100%;
+      background: #141720;
+      border-left: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      box-shadow: -15px 0 40px rgba(0, 0, 0, 0.6);
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .editor-overlay.open .editor-drawer {
+      transform: translateX(0);
+    }
+
+    .editor-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .editor-header h2 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .editor-close-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: none;
+      color: #9ca3af;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+
+    .editor-close-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+    }
+
+    .editor-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .form-row .form-group {
+      flex: 1;
+    }
+
+    .form-input, .form-textarea {
+      background: #1c212d;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 9px;
+      padding: 10px 12px;
+      color: #f3f4f6;
+      font-size: 13.5px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-input:focus, .form-textarea:focus {
+      border-color: var(--tinder-flame-start);
+      box-shadow: 0 0 0 2px rgba(253, 38, 125, 0.25);
+    }
+
+    .form-textarea {
+      min-height: 85px;
+      resize: vertical;
+      line-height: 1.45;
+    }
+
+    .editor-footer {
+      padding: 16px 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .btn-apply {
+      flex: 1;
+      background: linear-gradient(135deg, var(--tinder-flame-start), var(--tinder-flame-end));
+      color: #fff;
+      border: none;
+      padding: 11px 18px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+
+    .btn-apply:hover {
+      box-shadow: 0 4px 15px rgba(253, 38, 125, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .btn-copy-code {
+      background: rgba(255, 255, 255, 0.08);
+      color: #e5e7eb;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      padding: 11px 16px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-copy-code:hover {
+      background: rgba(255, 255, 255, 0.14);
+      color: #fff;
+    }
+
+    /* Local File Picker Hint */
+    .file-drop-area {
+      border: 1.5px dashed rgba(255, 255, 255, 0.18);
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.02);
+      transition: all 0.2s;
+    }
+
+    .file-drop-area:hover {
+      border-color: var(--tinder-flame-start);
+      background: rgba(253, 38, 125, 0.05);
+    }
+
+    .file-drop-text {
+      font-size: 12px;
+      color: #94a3b8;
+    }
+
+    /* Photo Order Manager in Editor */
+    .photo-manager-section {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .photo-manager-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .photo-manager-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .photo-manager-desc {
+      font-size: 11.5px;
+      color: #94a3b8;
+      line-height: 1.4;
+    }
+
+    .photo-order-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .photo-order-card {
+      background: #191e2a;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: border-color 0.15s, background-color 0.15s;
+    }
+
+    .photo-order-card:hover {
+      border-color: rgba(255, 255, 255, 0.18);
+      background: #1d2332;
+    }
+
+    .photo-order-card.is-hero {
+      border-color: rgba(253, 38, 125, 0.4);
+      background: rgba(253, 38, 125, 0.05);
+    }
+
+    .photo-order-badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 6px;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #e5e7eb;
+      min-width: 28px;
+      text-align: center;
+      flex-shrink: 0;
+      letter-spacing: 0.3px;
+    }
+
+    .photo-order-card.is-hero .photo-order-badge {
+      background: linear-gradient(135deg, var(--tinder-flame-start), var(--tinder-flame-end));
+      color: #fff;
+    }
+
+    .photo-order-thumb {
+      width: 44px;
+      height: 44px;
+      border-radius: 6px;
+      object-fit: cover;
+      background: #101319;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      flex-shrink: 0;
+      image-orientation: from-image;
+    }
+
+    .photo-order-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
+    }
+
+    .photo-order-path-input {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      color: #e2e8f0;
+      font-size: 12px;
+      font-family: monospace;
+      padding: 5px 8px;
+      width: 100%;
+      outline: none;
+    }
+
+    .photo-order-path-input:focus {
+      border-color: var(--tinder-flame-start);
+    }
+
+    .photo-order-caption-input {
+      background: transparent;
+      border: 1px dashed rgba(255, 255, 255, 0.08);
+      border-radius: 4px;
+      color: #94a3b8;
+      font-size: 11px;
+      font-family: inherit;
+      padding: 2px 6px;
+      width: 100%;
+      outline: none;
+    }
+
+    .photo-order-caption-input:focus {
+      color: #e2e8f0;
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .photo-order-actions {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .btn-photo-action {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-photo-action:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.16);
+      color: #fff;
+    }
+
+    .btn-photo-action:disabled {
+      opacity: 0.25;
+      cursor: not-allowed;
+    }
+
+    .btn-photo-action.delete:hover:not(:disabled) {
+      background: rgba(244, 63, 94, 0.2);
+      border-color: rgba(244, 63, 94, 0.4);
+      color: var(--color-pass);
+    }
+
+    .photo-add-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 2px;
+    }
+
+    .photo-add-input {
+      flex: 1;
+      background: #1c212d;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 7px 10px;
+      color: #f3f4f6;
+      font-size: 12.5px;
+      font-family: monospace;
+      outline: none;
+    }
+
+    .photo-add-input:focus {
+      border-color: var(--tinder-flame-start);
+    }
+
+    .btn-photo-add {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: #e2e8f0;
+      border-radius: 8px;
+      padding: 7px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+
+    .btn-photo-add:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+    }
+
+    .btn-export-json {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+
+    .btn-export-json:hover {
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .btn-import-json {
+      background: rgba(255, 255, 255, 0.08);
+      color: #e5e7eb;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-import-json:hover {
+      background: rgba(255, 255, 255, 0.14);
+      color: #fff;
+    }
+
+    /* Small Screen Adjustments */
+    @media (max-height: 860px) {
+      .desktop-wrapper {
+        padding: 8px 16px 8px;
+      }
+      .smartphone-frame {
+        max-height: calc(100vh - 80px);
+      }
+      .desktop-footer {
+        padding-top: 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Ambient Mesh Glow -->
+  <div class="desktop-glow"></div>
+
+  <div class="desktop-wrapper">
+    
+    <!-- DESKTOP TOP HEADER -->
+    <header class="desktop-header">
+      <div class="brand-group">
+        <div class="brand-icon">
+          <!-- Flame SVG -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.5 2C12.5 2 11.2 4.1 11.2 5.8C11.2 7.1 12 8.1 13 8.9C14.7 10.3 16 12.3 16 14.7C16 18.2 13.1 21 9.5 21C6.2 21 3.5 18.5 3.5 15.3C3.5 11.9 6.2 8.5 8.7 6.4C8.9 6.2 9.2 6.4 9.2 6.7C8.9 8.2 9.2 9.6 10.1 10.5C10.3 10.7 10.7 10.6 10.7 10.3C10.7 7.7 12.2 4.1 12.5 2Z"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>Dating Profile Preview <span class="badge">Live Sandbox</span></h1>
+          <div class="brand-subtitle">Simulated Mobile Dating App Environment</div>
+        </div>
+      </div>
+
+      <div class="desktop-actions">
+        <button class="btn-desktop" id="btn-toggle-editor" title="Edit Profile Details live in browser">
+          <!-- Edit Icon -->
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+          </svg>
+          Quick Edit
+        </button>
+
+        <button class="btn-desktop" id="btn-header-export-json" title="Export current settings as profile.json">
+          <!-- Download Icon -->
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Export JSON
+        </button>
+
+        <button class="btn-desktop" id="btn-header-import-json" title="Load profile settings from JSON file">
+          <!-- Upload Icon -->
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+          Load JSON
+        </button>
+        <input type="file" id="json-file-picker" accept=".json" style="display: none;">
+
+        <button class="btn-desktop" id="btn-reset-view" title="Reset scroll position to top">
+          <!-- Refresh Icon -->
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="23 4 23 10 17 10"/>
+            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+          </svg>
+          Reset View
+        </button>
+      </div>
+    </header>
+
+    <!-- CENTERED SMARTPHONE VIEWPORT STAGE (Section 4) -->
+    <main class="mockup-viewport-stage">
+      
+      <!-- Outer Smartphone Frame -->
+      <div class="smartphone-frame" id="smartphone-frame">
+        <!-- Physical Buttons -->
+        <div class="phone-btn-vol-up"></div>
+        <div class="phone-btn-vol-down"></div>
+        <div class="phone-btn-power"></div>
+
+        <!-- Phone Inner Screen -->
+        <div class="screen-container">
+          
+          <!-- Dynamic Island / Top Pill Notch -->
+          <div class="dynamic-island">
+            <div class="island-camera"></div>
+            <div class="island-sensor"></div>
+          </div>
+
+          <!-- Status Bar -->
+          <div class="status-bar">
+            <div class="status-time" id="status-time">09:41</div>
+            <div class="status-icons">
+              <!-- Cellular Icon -->
+              <svg class="status-icon-svg" viewBox="0 0 24 24">
+                <path d="M2 17h3v4H2v-4zm6-5h3v9H8v-9zm6-4h3v13h-3V8zm6-5h3v18h-3V3z"/>
+              </svg>
+              <!-- WiFi Icon -->
+              <svg class="status-icon-svg" viewBox="0 0 24 24">
+                <path d="M12 3c-4.97 0-9.49 2.05-12.73 5.37l1.42 1.42C3.33 7.14 7.42 5.25 12 5.25c4.58 0 8.67 1.89 11.31 4.54l1.42-1.42C21.49 5.05 16.97 3 12 3zm0 4.5c-3.66 0-6.98 1.51-9.36 3.96l1.42 1.42C5.81 11.13 8.74 9.75 12 9.75c3.26 0 6.19 1.38 7.94 3.13l1.42-1.42C18.98 9.01 15.66 7.5 12 7.5zm0 4.5c-2.35 0-4.48.97-6 2.54l1.42 1.42c1.17-1.17 2.79-1.96 4.58-1.96s3.41.79 4.58 1.96l1.42-1.42c-1.52-1.57-3.65-2.54-6-2.54zm0 4.5a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5z"/>
+              </svg>
+              <!-- Battery Icon -->
+              <svg class="status-icon-svg" viewBox="0 0 24 24" style="width: 17px; height: 17px;">
+                <path d="M17 6H4c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h13c1.1 0 2-.9 2-2v-1.5h1c.83 0 1.5-.67 1.5-1.5v-2c0-.83-.67-1.5-1.5-1.5h-1V8c0-1.1-.9-2-2-2zm0 10H4V8h13v8z"/>
+                <rect x="6" y="10" width="7" height="4" rx="1" fill="currentColor"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- App Header Overlay inside Phone -->
+          <div class="screen-header-bar">
+            <div class="header-icon-btn" id="btn-header-minimize" title="Scroll down / view details">
+              <!-- Chevron Down -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+            <div class="header-center-badge">Preview</div>
+            <div class="header-icon-btn" id="btn-header-share" title="Share profile simulation">
+              <!-- Share Icon -->
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="18" cy="5" r="3"></circle>
+                <circle cx="6" cy="12" r="3"></circle>
+                <circle cx="18" cy="19" r="3"></circle>
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Toast Feedback Bubble -->
+          <div class="action-toast" id="action-toast">Liked Alex!</div>
+
+          <!-- Dating Stamp Badges (LIKE / NOPE / SUPER LIKE) -->
+          <div class="stamp-badge like" id="stamp-like">LIKE</div>
+          <div class="stamp-badge nope" id="stamp-nope">NOPE</div>
+          <div class="stamp-badge superlike" id="stamp-superlike">SUPER LIKE</div>
+
+          <!-- INTERNAL SCROLL CONTAINER -->
+          <div class="screen-scroll-container" id="screen-scroll-container">
+            
+            <!-- SECTION 4: PHOTO CAROUSEL HERO -->
+            <section class="carousel-section" id="carousel-section">
+              
+              <!-- Story Progress Segments -->
+              <div class="story-progress-container" id="story-progress-container">
+                <!-- Dynamically generated segments -->
+              </div>
+
+              <!-- Slides Image Container -->
+              <div class="slides-wrapper" id="slides-wrapper">
+                <!-- Dynamically populated slides -->
+              </div>
+
+              <!-- Interactive Left & Right Tap Zones -->
+              <div class="carousel-tap-zone tap-zone-left" id="tap-zone-left" title="Tap left: Previous photo"></div>
+              <div class="carousel-tap-zone tap-zone-right" id="tap-zone-right" title="Tap right: Next photo"></div>
+
+              <!-- Desktop Arrow Buttons -->
+              <button class="carousel-arrow prev" id="arrow-prev" aria-label="Previous photo">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+              </button>
+              <button class="carousel-arrow next" id="arrow-next" aria-label="Next photo">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </button>
+
+              <!-- Photo Counter Pill -->
+              <div class="photo-counter" id="photo-counter">1 / 1</div>
+
+              <!-- Gradient Fade at Base of Photo -->
+              <div class="photo-gradient-overlay"></div>
+
+              <!-- Floating Profile Header Overlay -->
+              <div class="photo-info-overlay" id="photo-info-overlay">
+                <div class="hero-name-row">
+                  <span class="hero-name" id="hero-name">Alex</span>
+                  <span class="hero-age" id="hero-age">27</span>
+                  <span class="verified-badge" id="hero-verified" title="Verified Profile">
+                    <!-- Blue Checkmark -->
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.2 14.2l-3.5-3.5 1.4-1.4 2.1 2.1 5.6-5.6 1.4 1.4-7 7z"/>
+                    </svg>
+                  </span>
+                  <span class="hero-pronouns" id="hero-pronouns">she/her</span>
+                </div>
+
+                <div class="hero-subtitles">
+                  <div class="hero-sub-item" id="hero-job-row">
+                    <!-- Briefcase -->
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                      <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                    </svg>
+                    <span id="hero-job">Senior Product Designer</span>
+                  </div>
+                  <div class="hero-sub-item" id="hero-school-row">
+                    <!-- School Cap -->
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                      <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                    </svg>
+                    <span id="hero-school">RISD</span>
+                  </div>
+                  <div class="hero-location-badge">
+                    <!-- Pin -->
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                      <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                    <span id="hero-location">Brooklyn, New York</span>
+                    <span>•</span>
+                    <span id="hero-distance">3 miles away</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- SECTION 4: SCROLLABLE PROFILE CONTENT SECTION -->
+            <div class="profile-feed-content">
+              
+              <!-- Subtle Scroll Cue -->
+              <div class="scroll-down-cue" id="btn-scroll-down">
+                <span>View Full Profile</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
+
+              <!-- BIO CARD -->
+              <div class="profile-card bio-card">
+                <div class="card-title-row">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                  </svg>
+                  <span>About Me</span>
+                </div>
+                <div class="bio-text" id="feed-bio">
+                  Architectural nerd by day, amateur sourdough baker by weekend. Looking for someone who can introduce me to obscure indie cinema or challenge me to Mario Kart. Always down for late-night street tacos and gallery hops.
+                </div>
+              </div>
+
+              <!-- DATING APP ESSENTIALS / LIFESTYLE BADGES -->
+              <div class="profile-card essentials-card">
+                <div class="card-title-row">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="12" y1="8" x2="12" y2="12"/>
+                    <line x1="12" y1="16" x2="12.01" y2="16"/>
+                  </svg>
+                  <span>Essentials</span>
+                </div>
+                <div class="essentials-grid" id="feed-essentials">
+                  <!-- Dynamically populated chips -->
+                </div>
+              </div>
+
+              <!-- DYNAMIC PROMPT BLOCKS & SECONDARY PHOTOS CONTAINER -->
+              <div id="feed-prompts-and-media" style="display: flex; flex-direction: column; gap: 12px;">
+                <!-- Dynamically injected prompts & interleaved photos -->
+              </div>
+
+              <!-- PASSIONS / INTERESTS CARD -->
+              <div class="profile-card interests-card">
+                <div class="card-title-row">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                  </svg>
+                  <span>Interests</span>
+                </div>
+                <div class="interests-tags" id="feed-interests">
+                  <!-- Dynamically injected tags -->
+                </div>
+              </div>
+
+              <!-- SPOTIFY ANTHEM CARD -->
+              <div class="profile-card anthem-card" id="card-anthem">
+                <div class="card-title-row">
+                  <svg class="anthem-spotify-icon" width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+                  </svg>
+                  <span>My Anthem</span>
+                </div>
+                <div class="anthem-widget">
+                  <img class="anthem-art" id="anthem-art" src="" alt="Album Artwork" onerror="this.style.display='none'">
+                  <div class="anthem-info">
+                    <div class="anthem-track" id="anthem-track">Sweet Disposition</div>
+                    <div class="anthem-artist" id="anthem-artist">The Temper Trap</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- FOOTER ACTIONS -->
+              <div class="profile-footer-actions">
+                <button class="footer-action-btn" id="btn-share-profile">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="18" cy="5" r="3"></circle>
+                    <circle cx="6" cy="12" r="3"></circle>
+                    <circle cx="18" cy="19" r="3"></circle>
+                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                  </svg>
+                  Share Profile
+                </button>
+                <button class="footer-action-btn report" id="btn-report-profile">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/>
+                    <line x1="4" y1="22" x2="4" y2="15"/>
+                  </svg>
+                  Report Profile
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- SECTION 4: SIMULATED DATING ACTION BAR (Fixed Bottom) -->
+          <div class="action-bar-wrapper">
+            <div class="action-bar-gradient"></div>
+            <div class="action-bar-buttons">
+              
+              <!-- Rewind Button -->
+              <button class="dating-action-btn btn-rewind" id="act-rewind" title="Rewind (R / 1)" aria-label="Rewind">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6">
+                  <polyline points="1 4 1 10 7 10"/>
+                  <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                </svg>
+              </button>
+
+              <!-- Pass / Nope Button -->
+              <button class="dating-action-btn btn-pass" id="act-pass" title="Pass / Nope (X / 2)" aria-label="Pass">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+                  <line x1="18" y1="6" x2="6" y2="18"/>
+                  <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+              </button>
+
+              <!-- Super Like Button -->
+              <button class="dating-action-btn btn-superlike" id="act-superlike" title="Super Like (S / 3)" aria-label="Super Like">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                </svg>
+              </button>
+
+              <!-- Like Button -->
+              <button class="dating-action-btn btn-like" id="act-like" title="Like / Match (L / 4)" aria-label="Like">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+              </button>
+
+              <!-- Boost Button -->
+              <button class="dating-action-btn btn-boost" id="act-boost" title="Boost (B / 5)" aria-label="Boost">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                </svg>
+              </button>
+
+            </div>
+          </div>
+
+          <!-- Physical iOS-Style Home Indicator Bar -->
+          <div class="home-indicator"></div>
+
+        </div>
+      </div>
+    </main>
+
+    <!-- DESKTOP FOOTER (KEYBOARD SHORTCUTS) -->
+    <footer class="desktop-footer">
+      <div class="shortcut-item">
+        <kbd class="kbd-chip">←</kbd> <kbd class="kbd-chip">→</kbd>
+        <span>Cycle Photos</span>
+      </div>
+      <div class="shortcut-item">
+        <kbd class="kbd-chip">↑</kbd> <kbd class="kbd-chip">↓</kbd>
+        <span>Scroll Profile</span>
+      </div>
+      <div class="shortcut-item">
+        <kbd class="kbd-chip">X</kbd> <span>Pass</span>
+      </div>
+      <div class="shortcut-item">
+        <kbd class="kbd-chip">S</kbd> <span>Super Like</span>
+      </div>
+      <div class="shortcut-item">
+        <kbd class="kbd-chip">L</kbd> <span>Like</span>
+      </div>
+      <div class="shortcut-item">
+        <kbd class="kbd-chip">R</kbd> <span>Rewind</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- INTERACTIVE LIVE EDITOR DRAWER (Slide-over Modal) -->
+  <div class="editor-overlay" id="editor-overlay">
+    <div class="editor-drawer">
+      <div class="editor-header">
+        <h2>Edit Profile Sandbox</h2>
+        <button class="editor-close-btn" id="btn-close-editor" aria-label="Close editor">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="editor-body">
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="input-name">Name</label>
+            <input type="text" id="input-name" class="form-input">
+          </div>
+          <div class="form-group" style="max-width: 75px;">
+            <label for="input-age">Age</label>
+            <input type="number" id="input-age" class="form-input">
+          </div>
+          <div class="form-group" style="max-width: 105px;">
+            <label for="input-pronouns">Pronouns</label>
+            <input type="text" id="input-pronouns" class="form-input" placeholder="she/her">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="input-job">Job / Occupation</label>
+            <input type="text" id="input-job" class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="input-school">School / College</label>
+            <input type="text" id="input-school" class="form-input">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="input-location">Location</label>
+            <input type="text" id="input-location" class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="input-distance">Distance</label>
+            <input type="text" id="input-distance" class="form-input">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="input-bio">About Me (Bio)</label>
+          <textarea id="input-bio" class="form-textarea"></textarea>
+        </div>
+
+        <!-- Configurable Photo Order & Gallery Manager -->
+        <div class="photo-manager-section">
+          <div class="photo-manager-header">
+            <div class="photo-manager-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21 15 16 10 5 21"/>
+              </svg>
+              <span>Image Order & Gallery</span>
+            </div>
+            <span class="photo-manager-desc" id="photo-count-badge">4 photos</span>
+          </div>
+          <div class="photo-manager-desc">
+            The first image is your main hero photo. Reorder them using the Up (↑) / Down (↓) buttons or type paths below.
+          </div>
+
+          <!-- Dynamic List of Photo Order Cards -->
+          <div class="photo-order-list" id="photo-order-list">
+            <!-- Populated dynamically by JS -->
+          </div>
+
+          <!-- Add Photo Row -->
+          <div class="photo-add-row">
+            <input type="text" id="input-new-photo-path" class="photo-add-input" placeholder="e.g. photos/5.jpg or URL">
+            <button type="button" class="btn-photo-add" id="btn-add-photo">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+              Add
+            </button>
+          </div>
+
+          <!-- Toggle Raw Textarea -->
+          <details style="font-size: 11.5px; color: #94a3b8; cursor: pointer; margin-top: 4px;">
+            <summary style="user-select: none;">Edit as Raw Text List (one path per line)</summary>
+            <div class="form-group" style="margin-top: 8px;">
+              <textarea id="input-photos" class="form-textarea" style="min-height: 85px; font-family: monospace; font-size: 11.5px;"></textarea>
+            </div>
+          </details>
+
+          <!-- Local Photo Picker -->
+          <div class="file-drop-area" id="file-drop-area" style="margin-top: 2px;">
+            <input type="file" id="local-file-picker" accept="image/*" multiple style="display: none;">
+            <div class="file-drop-text">
+              📁 Click to select local photo files from disk (instant sandbox preview)
+            </div>
+          </div>
+        </div>
+
+        <!-- Prompts -->
+        <div class="form-group">
+          <label>Prompt 1: Question & Answer</label>
+          <input type="text" id="input-prompt-q1" class="form-input" style="margin-bottom: 6px;">
+          <textarea id="input-prompt-a1" class="form-textarea" style="min-height: 60px;"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Prompt 2: Question & Answer</label>
+          <input type="text" id="input-prompt-q2" class="form-input" style="margin-bottom: 6px;">
+          <textarea id="input-prompt-a2" class="form-textarea" style="min-height: 60px;"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Prompt 3: Question & Answer</label>
+          <input type="text" id="input-prompt-q3" class="form-input" style="margin-bottom: 6px;">
+          <textarea id="input-prompt-a3" class="form-textarea" style="min-height: 60px;"></textarea>
+        </div>
+
+      </div>
+
+      <div class="editor-footer" style="flex-wrap: wrap; gap: 8px;">
+        <button type="button" class="btn-import-json" id="btn-editor-import-json" title="Import profile settings from a JSON file">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+          Load JSON
+        </button>
+        <button type="button" class="btn-export-json" id="btn-editor-export-json" title="Download updated profile.json">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Export JSON
+        </button>
+        <button type="button" class="btn-copy-code" id="btn-copy-json" title="Copy profile JSON to clipboard">
+          Copy JSON
+        </button>
+        <button type="button" class="btn-apply" id="btn-apply-editor">
+          Apply to Sandbox
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    /* ==========================================================================
+       SECTION 3: PROFILE CONFIGURATION OBJECT
+       ==========================================================================
+       👉 EDIT YOUR PROFILE DATA HERE!
+       This object drives all photos, bio text, and Q&A prompt blocks.
+       You can use relative local paths (e.g. "photo1.jpg") or web URLs.
+       ========================================================================== */
+    const PROFILE_CONFIG = {
+      // Basic Personal & Header Info
+      name: "Alex Rivera",
+      age: 27,
+      verified: true,
+      pronouns: "she/her",
+      job: "Senior Product Designer",
+      school: "RISD (Design)",
+      location: "Brooklyn, New York",
+      distance: "3 miles away",
+
+      // Configurable Image Order
+      imageOrder: [
+        "photos/1.jpg",
+        "photos/2.jpg",
+        "photos/3.jpg",
+        "photos/4.jpg"
+      ],
+
+      // Photo Assets (Array of relative local paths or web URLs)
+      photos: [
+        {
+          url: "photos/1.jpg",
+          caption: ""
+        },
+        {
+          url: "photos/2.jpg",
+          caption: ""
+        },
+        {
+          url: "photos/3.jpg",
+          caption: ""
+        },
+        {
+          url: "photos/4.jpg",
+          caption: ""
+        }
+      ],
+
+      // Main Personal Description / Bio Block
+      bio: "Architectural nerd by day, amateur sourdough baker by weekend. Looking for someone who can introduce me to obscure indie cinema or challenge me to Mario Kart. Always down for late-night street tacos and gallery hops.",
+
+      // Structured Dating App Q&A Prompt Blocks
+      prompts: [
+        {
+          category: "Dating me is like",
+          answer: "Having someone who will always let you pick the playlist on road trips, but will mercilessly critique your font choices on restaurant menus."
+        },
+        {
+          category: "Two truths and a lie",
+          answer: "1. I have an accidental collection of 42 house plants.\n2. I once cooked cacio e pepe for Pedro Pascal.\n3. I can solve a Rubik's cube under 45 seconds."
+        },
+        {
+          category: "My simple pleasures",
+          answer: "The smell of rain on warm asphalt, finding a first edition paperback at a thrift shop, and the first sip of an iced oat latte on Saturday morning."
+        }
+      ],
+
+      // Essentials Badges (Work, Height, Lifestyle, Intentions)
+      essentials: [
+        { icon: "search", label: "Looking for", value: "Long-term partner" },
+        { icon: "ruler", label: "Height", value: "5'8\" (173 cm)" },
+        { icon: "zodiac", label: "Zodiac", value: "Leo ♌" },
+        { icon: "wine", label: "Drinking", value: "Socially on weekends" },
+        { icon: "smoke", label: "Smoking", value: "Never" },
+        { icon: "paw", label: "Pets", value: "Has a dog (Miso 🐶)" },
+        { icon: "chat", label: "Communication", value: "Fast texter, voice notes" }
+      ],
+
+      // Interests / Passions Pills
+      interests: [
+        "🎨 Design", "☕ Specialty Coffee", "🧗 Rock Climbing", 
+        "📷 Film Photography", "🍜 Ramen", "🌲 Hiking", 
+        "🎬 A24 Films", "🐕 Dogs", "🎵 Vinyl Records"
+      ],
+
+      // Spotify Anthem (Optional Dating App Staple)
+      anthem: {
+        track: "Sweet Disposition",
+        artist: "The Temper Trap",
+        albumArt: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&w=200&q=80"
+      }
+    };
+
+
+    /* ==========================================================================
+       APPLICATION LOGIC & RENDERING ENGINE
+       ========================================================================== */
+    let currentPhotoIndex = 0;
+    let activeProfile = JSON.parse(JSON.stringify(PROFILE_CONFIG));
+    let currentEditorPhotos = JSON.parse(JSON.stringify(PROFILE_CONFIG.photos));
+
+    // SVG Icons Map for Essentials
+    const ESSENTIAL_ICONS = {
+      search: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`,
+      ruler: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.3 8.7L8.7 21.3c-1 1-2.5 1-3.5 0l-1.5-1.5c-1-1-1-2.5 0-3.5L16.3 3.7c1-1 2.5-1 3.5 0l1.5 1.5c1 1 1 2.5 0 3.5z"/><line x1="14" y1="6" x2="16" y2="8"/><line x1="10" y1="10" x2="13" y2="13"/><line x1="6" y1="14" x2="8" y2="16"/></svg>`,
+      zodiac: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/></svg>`,
+      wine: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 22h8"/><path d="M7 10h10"/><path d="M12 15v7"/><path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z"/></svg>`,
+      smoke: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>`,
+      paw: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v2a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-2a5 5 0 0 1 5-5z"/></svg>`,
+      chat: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`
+    };
+
+    /**
+     * Initialize Application
+     */
+    async function initApp() {
+      setupEventListeners();
+      setupKeyboardControls();
+      updateClock();
+      setInterval(updateClock, 30000);
+      await loadInitialProfile();
+    }
+
+    /**
+     * Load Profile Data: Tries to load from profile.json first,
+     * falls back gracefully to embedded PROFILE_CONFIG (e.g. on file://)
+     */
+    async function loadInitialProfile() {
+      try {
+        const res = await fetch("profile.json?t=" + Date.now(), { cache: "no-store" });
+        if (res.ok) {
+          const data = await res.json();
+          applyConfig(data);
+          console.log("Loaded profile configuration from profile.json");
+          return;
+        }
+      } catch (err) {
+        console.info("Could not fetch profile.json automatically (likely offline or running on file://). Using embedded PROFILE_CONFIG.");
+      }
+      applyConfig(PROFILE_CONFIG);
+    }
+
+    /**
+     * Apply a profile configuration object to active profile state
+     */
+    function applyConfig(config) {
+      let photos = Array.isArray(config.photos) ? [...config.photos] : [];
+
+      // If imageOrder is present, sort / arrange photos to match it
+      if (Array.isArray(config.imageOrder) && config.imageOrder.length > 0) {
+        const photoMap = new Map();
+        photos.forEach(p => {
+          const u = typeof p === "string" ? p : p.url;
+          photoMap.set(u, typeof p === "string" ? { url: p, caption: "" } : p);
+        });
+
+        const ordered = [];
+        config.imageOrder.forEach(url => {
+          if (photoMap.has(url)) {
+            ordered.push(photoMap.get(url));
+            photoMap.delete(url);
+          } else {
+            ordered.push({ url: url, caption: "" });
+          }
+        });
+        photoMap.forEach(p => ordered.push(p));
+        photos = ordered;
+      }
+
+      activeProfile = Object.assign({}, config, {
+        photos: photos,
+        imageOrder: photos.map(p => typeof p === "string" ? p : p.url)
+      });
+
+      currentEditorPhotos = JSON.parse(JSON.stringify(activeProfile.photos));
+      renderProfile(activeProfile);
+      populateEditorFields();
+    }
+
+    /**
+     * Render the entire profile based on configuration
+     */
+    function renderProfile(config) {
+      // 1. Text & Header Info
+      document.getElementById("hero-name").textContent = config.name || "Alex";
+      document.getElementById("hero-age").textContent = config.age ? config.age : "";
+      document.getElementById("hero-pronouns").textContent = config.pronouns || "";
+      document.getElementById("hero-pronouns").style.display = config.pronouns ? "inline-block" : "none";
+      document.getElementById("hero-verified").style.display = config.verified ? "inline-flex" : "none";
+      
+      // Job & School
+      const jobEl = document.getElementById("hero-job");
+      const jobRow = document.getElementById("hero-job-row");
+      if (config.job) {
+        jobEl.textContent = config.job;
+        jobRow.style.display = "flex";
+      } else {
+        jobRow.style.display = "none";
+      }
+
+      const schoolEl = document.getElementById("hero-school");
+      const schoolRow = document.getElementById("hero-school-row");
+      if (config.school) {
+        schoolEl.textContent = config.school;
+        schoolRow.style.display = "flex";
+      } else {
+        schoolRow.style.display = "none";
+      }
+
+      // Location & Distance
+      document.getElementById("hero-location").textContent = config.location || "";
+      document.getElementById("hero-distance").textContent = config.distance || "";
+
+      // Bio Text
+      document.getElementById("feed-bio").textContent = config.bio || "";
+
+      // 2. Carousel & Photos
+      renderCarousel(config.photos || []);
+
+      // 3. Essentials Badges
+      renderEssentials(config.essentials || []);
+
+      // 4. Prompts & Interspersed Photos
+      renderPromptsAndMedia(config.prompts || [], config.photos || []);
+
+      // 5. Interests
+      renderInterests(config.interests || []);
+
+      // 6. Anthem
+      renderAnthem(config.anthem);
+    }
+
+    /**
+     * Render Carousel Progress Bars and Slides
+     */
+    function renderCarousel(photos) {
+      const storyContainer = document.getElementById("story-progress-container");
+      const slidesWrapper = document.getElementById("slides-wrapper");
+      
+      storyContainer.innerHTML = "";
+      slidesWrapper.innerHTML = "";
+
+      const normalizedPhotos = (photos.length > 0) ? photos : [{ url: "", caption: "" }];
+
+      normalizedPhotos.forEach((photoItem, index) => {
+        // Story Segment
+        const segment = document.createElement("div");
+        segment.className = "story-segment" + (index === 0 ? " active" : "");
+        segment.setAttribute("data-index", index);
+        segment.addEventListener("click", (e) => {
+          e.stopPropagation();
+          goToPhoto(index);
+        });
+        storyContainer.appendChild(segment);
+
+        // Slide Item
+        const slide = document.createElement("div");
+        slide.className = "slide-item" + (index === 0 ? " active" : "");
+        slide.setAttribute("data-index", index);
+
+        const photoUrl = typeof photoItem === "string" ? photoItem : photoItem.url;
+        
+        if (photoUrl && photoUrl.trim() !== "") {
+          const img = document.createElement("img");
+          img.src = photoUrl;
+          img.alt = `Photo ${index + 1}`;
+          img.loading = index === 0 ? "eager" : "lazy";
+          
+          // Fallback if image path does not exist
+          img.onerror = () => handlePhotoError(slide, index, photoUrl);
+          slide.appendChild(img);
+        } else {
+          handlePhotoError(slide, index, "No URL specified");
+        }
+
+        slidesWrapper.appendChild(slide);
+      });
+
+      currentPhotoIndex = 0;
+      updatePhotoCounter();
+    }
+
+    /**
+     * Fallback UI when local photo or URL fails to load
+     */
+    function handlePhotoError(container, index, rawPath) {
+      container.innerHTML = `
+        <div class="photo-placeholder">
+          <div class="placeholder-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="3" y="3" width="18" height="18" rx="4" ry="4"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+          </div>
+          <div class="placeholder-title">Photo ${index + 1}</div>
+          <div class="placeholder-path"><code>${escapeHtml(rawPath)}</code></div>
+          <div class="placeholder-hint">Add this file to your folder or update <code>PROFILE_CONFIG</code> in the script tag</div>
+        </div>
+      `;
+    }
+
+    /**
+     * Cycle to next / previous photo
+     */
+    function nextPhoto() {
+      const photos = activeProfile.photos || [];
+      if (photos.length <= 1) return;
+      currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+      updateCarouselUI();
+    }
+
+    function prevPhoto() {
+      const photos = activeProfile.photos || [];
+      if (photos.length <= 1) return;
+      currentPhotoIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
+      updateCarouselUI();
+    }
+
+    function goToPhoto(index) {
+      const photos = activeProfile.photos || [];
+      if (index >= 0 && index < photos.length) {
+        currentPhotoIndex = index;
+        updateCarouselUI();
+      }
+    }
+
+    function updateCarouselUI() {
+      const segments = document.querySelectorAll(".story-segment");
+      const slides = document.querySelectorAll(".slide-item");
+
+      segments.forEach((seg, i) => {
+        seg.classList.remove("active", "seen");
+        if (i === currentPhotoIndex) {
+          seg.classList.add("active");
+        } else if (i < currentPhotoIndex) {
+          seg.classList.add("seen");
+        }
+      });
+
+      slides.forEach((slide, i) => {
+        if (i === currentPhotoIndex) {
+          slide.classList.add("active");
+        } else {
+          slide.classList.remove("active");
+        }
+      });
+
+      updatePhotoCounter();
+    }
+
+    function updatePhotoCounter() {
+      const countEl = document.getElementById("photo-counter");
+      const total = (activeProfile.photos && activeProfile.photos.length) || 1;
+      countEl.textContent = `${currentPhotoIndex + 1} / ${total}`;
+    }
+
+    /**
+     * Render Essentials Badges
+     */
+    function renderEssentials(essentials) {
+      const container = document.getElementById("feed-essentials");
+      container.innerHTML = "";
+
+      essentials.forEach(item => {
+        const chip = document.createElement("div");
+        chip.className = "essential-chip";
+        const iconSvg = ESSENTIAL_ICONS[item.icon] || ESSENTIAL_ICONS.search;
+        chip.innerHTML = `
+          ${iconSvg}
+          <span class="essential-label">${escapeHtml(item.label)}:</span>
+          <span class="essential-val">${escapeHtml(item.value)}</span>
+        `;
+        container.appendChild(chip);
+      });
+    }
+
+    /**
+     * Render Prompts and interleave secondary photos (Hinge / Dating App style)
+     */
+    function renderPromptsAndMedia(prompts, photos) {
+      const container = document.getElementById("feed-prompts-and-media");
+      container.innerHTML = "";
+
+      // Interleave secondary photos after prompts if available
+      prompts.forEach((promptItem, pIndex) => {
+        // Prompt Card
+        const promptCard = document.createElement("div");
+        promptCard.className = "prompt-card";
+        promptCard.innerHTML = `
+          <div class="prompt-header">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/>
+            </svg>
+            <span>Dating App Prompt</span>
+          </div>
+          <div class="prompt-question">${escapeHtml(promptItem.category)}</div>
+          <div class="prompt-answer">${escapeHtml(promptItem.answer)}</div>
+          <button class="prompt-like-btn" title="Like this prompt" aria-label="Like prompt">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+          </button>
+        `;
+
+        // Like prompt interaction
+        promptCard.querySelector(".prompt-like-btn").addEventListener("click", (e) => {
+          e.stopPropagation();
+          showToast(`Liked prompt: "${promptItem.category}"`);
+          triggerStamp("like");
+        });
+
+        container.appendChild(promptCard);
+
+        // Optionally append a full inline photo card between prompts (for photos 1, 2, 3...)
+        const secondaryPhoto = photos[pIndex + 1];
+        if (secondaryPhoto) {
+          const photoUrl = typeof secondaryPhoto === "string" ? secondaryPhoto : secondaryPhoto.url;
+          const photoCaption = typeof secondaryPhoto === "object" ? secondaryPhoto.caption : "";
+          
+          if (photoUrl && photoUrl.trim() !== "") {
+            const inlineCard = document.createElement("div");
+            inlineCard.className = "inline-photo-card";
+            inlineCard.innerHTML = `
+              <img src="${escapeHtml(photoUrl)}" alt="Profile photo" onerror="this.parentElement.style.display='none'">
+              ${photoCaption ? `<div class="inline-photo-caption">${escapeHtml(photoCaption)}</div>` : ''}
+            `;
+            container.appendChild(inlineCard);
+          }
+        }
+      });
+
+      // If there are additional photos beyond prompt count, render them in order at the end of the feed
+      for (let i = prompts.length + 1; i < photos.length; i++) {
+        const extraPhoto = photos[i];
+        if (extraPhoto) {
+          const photoUrl = typeof extraPhoto === "string" ? extraPhoto : extraPhoto.url;
+          const photoCaption = typeof extraPhoto === "object" ? extraPhoto.caption : "";
+          if (photoUrl && photoUrl.trim() !== "") {
+            const inlineCard = document.createElement("div");
+            inlineCard.className = "inline-photo-card";
+            inlineCard.innerHTML = `
+              <img src="${escapeHtml(photoUrl)}" alt="Profile photo" onerror="this.parentElement.style.display='none'">
+              ${photoCaption ? `<div class="inline-photo-caption">${escapeHtml(photoCaption)}</div>` : ''}
+            `;
+            container.appendChild(inlineCard);
+          }
+        }
+      }
+    }
+
+    /**
+     * Render Interests Tags
+     */
+    function renderInterests(interests) {
+      const container = document.getElementById("feed-interests");
+      container.innerHTML = "";
+
+      interests.forEach(interest => {
+        const pill = document.createElement("div");
+        pill.className = "interest-pill";
+        pill.textContent = interest;
+        container.appendChild(pill);
+      });
+    }
+
+    /**
+     * Render Anthem
+     */
+    function renderAnthem(anthem) {
+      const anthemCard = document.getElementById("card-anthem");
+      if (!anthem || !anthem.track) {
+        anthemCard.style.display = "none";
+        return;
+      }
+      anthemCard.style.display = "block";
+      document.getElementById("anthem-track").textContent = anthem.track || "";
+      document.getElementById("anthem-artist").textContent = anthem.artist || "";
+      const artImg = document.getElementById("anthem-art");
+      if (anthem.albumArt) {
+        artImg.src = anthem.albumArt;
+        artImg.style.display = "block";
+      } else {
+        artImg.style.display = "none";
+      }
+    }
+
+    /**
+     * Dating Action Stamp Animations & Toasts
+     */
+    let stampTimeout = null;
+    let toastTimeout = null;
+
+    function triggerStamp(type) {
+      const stamps = {
+        like: document.getElementById("stamp-like"),
+        nope: document.getElementById("stamp-nope"),
+        superlike: document.getElementById("stamp-superlike")
+      };
+
+      Object.values(stamps).forEach(s => s.classList.remove("visible"));
+
+      const target = stamps[type];
+      if (target) {
+        clearTimeout(stampTimeout);
+        // Force reflow
+        void target.offsetWidth;
+        target.classList.add("visible");
+        stampTimeout = setTimeout(() => {
+          target.classList.remove("visible");
+        }, 1100);
+      }
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById("action-toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove("show");
+      }, 1800);
+    }
+
+    /**
+     * Setup Event Listeners
+     */
+    function setupEventListeners() {
+      // Tap navigation zones
+      document.getElementById("tap-zone-left").addEventListener("click", (e) => {
+        e.stopPropagation();
+        prevPhoto();
+      });
+
+      document.getElementById("tap-zone-right").addEventListener("click", (e) => {
+        e.stopPropagation();
+        nextPhoto();
+      });
+
+      // Desktop arrow buttons
+      document.getElementById("arrow-prev").addEventListener("click", (e) => {
+        e.stopPropagation();
+        prevPhoto();
+      });
+
+      document.getElementById("arrow-next").addEventListener("click", (e) => {
+        e.stopPropagation();
+        nextPhoto();
+      });
+
+      // Header Minimize / Scroll Cue
+      const scrollContainer = document.getElementById("screen-scroll-container");
+      
+      document.getElementById("btn-header-minimize").addEventListener("click", () => {
+        scrollContainer.scrollTo({ top: 400, behavior: "smooth" });
+      });
+
+      document.getElementById("btn-scroll-down").addEventListener("click", () => {
+        scrollContainer.scrollTo({ top: 480, behavior: "smooth" });
+      });
+
+      document.getElementById("btn-reset-view").addEventListener("click", () => {
+        scrollContainer.scrollTo({ top: 0, behavior: "smooth" });
+        goToPhoto(0);
+        showToast("View Reset");
+      });
+
+      // Share button simulation
+      document.getElementById("btn-header-share").addEventListener("click", () => {
+        showToast("Profile link copied!");
+      });
+
+      document.getElementById("btn-share-profile").addEventListener("click", () => {
+        showToast("Share options opened!");
+      });
+
+      document.getElementById("btn-report-profile").addEventListener("click", () => {
+        showToast("Report modal simulated");
+      });
+
+      // Bottom Action Bar Buttons
+      document.getElementById("act-rewind").addEventListener("click", () => {
+        showToast("Rewind step");
+        goToPhoto(0);
+        scrollContainer.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      document.getElementById("act-pass").addEventListener("click", () => {
+        triggerStamp("nope");
+        showToast(`Passed on ${activeProfile.name || "Alex"}`);
+      });
+
+      document.getElementById("act-superlike").addEventListener("click", () => {
+        triggerStamp("superlike");
+        showToast(`Super Liked ${activeProfile.name || "Alex"}! ⭐`);
+      });
+
+      document.getElementById("act-like").addEventListener("click", () => {
+        triggerStamp("like");
+        showToast(`Liked ${activeProfile.name || "Alex"}! 💚`);
+      });
+
+      document.getElementById("act-boost").addEventListener("click", () => {
+        showToast("Boost activated! ⚡");
+      });
+
+      // Live Editor Modal Controls
+      const editorOverlay = document.getElementById("editor-overlay");
+      document.getElementById("btn-toggle-editor").addEventListener("click", () => {
+        populateEditorFields();
+        editorOverlay.classList.add("open");
+      });
+
+      document.getElementById("btn-close-editor").addEventListener("click", () => {
+        editorOverlay.classList.remove("open");
+      });
+
+      editorOverlay.addEventListener("click", (e) => {
+        if (e.target === editorOverlay) {
+          editorOverlay.classList.remove("open");
+        }
+      });
+
+      document.getElementById("btn-apply-editor").addEventListener("click", () => {
+        applyEditorChanges();
+        editorOverlay.classList.remove("open");
+        showToast("Changes applied to preview!");
+      });
+
+      // JSON Export and Import Controls
+      const jsonFilePicker = document.getElementById("json-file-picker");
+      jsonFilePicker.addEventListener("change", (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+          try {
+            const parsed = JSON.parse(evt.target.result);
+            applyConfig(parsed);
+            showToast(`Imported ${file.name}!`);
+          } catch (err) {
+            alert("Error parsing JSON: " + err.message);
+          }
+        };
+        reader.readAsText(file);
+        jsonFilePicker.value = "";
+      });
+
+      document.getElementById("btn-header-export-json").addEventListener("click", exportProfileJson);
+      document.getElementById("btn-header-import-json").addEventListener("click", () => jsonFilePicker.click());
+      document.getElementById("btn-editor-export-json").addEventListener("click", exportProfileJson);
+      document.getElementById("btn-editor-import-json").addEventListener("click", () => jsonFilePicker.click());
+      document.getElementById("btn-copy-json").addEventListener("click", copyProfileJson);
+
+      // Photo Order & Manager Controls
+      const btnAddPhoto = document.getElementById("btn-add-photo");
+      const inputNewPhoto = document.getElementById("input-new-photo-path");
+      
+      btnAddPhoto.addEventListener("click", () => {
+        const path = inputNewPhoto.value.trim();
+        if (!path) return;
+        currentEditorPhotos.push({ url: path, caption: "" });
+        inputNewPhoto.value = "";
+        renderPhotoOrderManager();
+        syncPhotosToTextarea();
+      });
+
+      inputNewPhoto.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          btnAddPhoto.click();
+        }
+      });
+
+      // Raw textarea two-way sync
+      const rawPhotosTextarea = document.getElementById("input-photos");
+      rawPhotosTextarea.addEventListener("input", () => {
+        const lines = rawPhotosTextarea.value.split("\n").map(l => l.trim()).filter(Boolean);
+        currentEditorPhotos = lines.map((url, i) => {
+          const existing = currentEditorPhotos[i];
+          return {
+            url: url,
+            caption: (existing && typeof existing === "object") ? (existing.caption || "") : ""
+          };
+        });
+        renderPhotoOrderManager();
+      });
+
+      // Local File Picker
+      const dropArea = document.getElementById("file-drop-area");
+      const fileInput = document.getElementById("local-file-picker");
+
+      dropArea.addEventListener("click", () => fileInput.click());
+
+      fileInput.addEventListener("change", (e) => {
+        const files = Array.from(e.target.files);
+        if (files.length === 0) return;
+
+        const newPhotos = files.map((file) => ({
+          url: URL.createObjectURL(file),
+          caption: `${file.name}`
+        }));
+
+        currentEditorPhotos.push(...newPhotos);
+        renderPhotoOrderManager();
+        syncPhotosToTextarea();
+        showToast(`Added ${files.length} local photo(s)!`);
+        fileInput.value = "";
+      });
+    }
+
+    /**
+     * Render the visual draggable / re-orderable photo cards in editor
+     */
+    function renderPhotoOrderManager() {
+      const container = document.getElementById("photo-order-list");
+      const countBadge = document.getElementById("photo-count-badge");
+      if (!container) return;
+
+      container.innerHTML = "";
+      if (countBadge) {
+        countBadge.textContent = `${currentEditorPhotos.length} photo${currentEditorPhotos.length === 1 ? '' : 's'}`;
+      }
+
+      if (currentEditorPhotos.length === 0) {
+        container.innerHTML = `<div style="font-size: 12px; color: #64748b; font-style: italic; padding: 6px 0;">No photos in list. Add a file path or URL below.</div>`;
+        return;
+      }
+
+      currentEditorPhotos.forEach((photoItem, index) => {
+        const photoUrl = typeof photoItem === "string" ? photoItem : photoItem.url;
+        const photoCaption = typeof photoItem === "object" ? (photoItem.caption || "") : "";
+        const isHero = index === 0;
+
+        const card = document.createElement("div");
+        card.className = "photo-order-card" + (isHero ? " is-hero" : "");
+        card.innerHTML = `
+          <div class="photo-order-badge" title="${isHero ? 'Primary Hero Cover Photo' : 'Photo #' + (index + 1)}">
+            ${isHero ? 'Hero' : '#' + (index + 1)}
+          </div>
+          <img class="photo-order-thumb" src="${escapeHtml(photoUrl)}" alt="Photo ${index + 1}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'40\\' height=\\'40\\' viewBox=\\'0 0 24 24\\' fill=\\'none\\' stroke=\\'%23666\\' stroke-width=\\'2\\'><rect x=\\'3\\' y=\\'3\\' width=\\'18\\' height=\\'18\\' rx=\\'2\\' ry=\\'2\\'/><circle cx=\\'8.5\\' cy=\\'8.5\\' r=\\'1.5\\'/><polyline points=\\'21 15 16 10 5 21\\'/></svg>'">
+          <div class="photo-order-info">
+            <input type="text" class="photo-order-path-input" value="${escapeHtml(photoUrl)}" placeholder="Path or URL" aria-label="Photo path">
+            <input type="text" class="photo-order-caption-input" value="${escapeHtml(photoCaption)}" placeholder="Optional caption..." aria-label="Photo caption">
+          </div>
+          <div class="photo-order-actions">
+            <button type="button" class="btn-photo-action move-up" title="Move up in order" ${index === 0 ? "disabled" : ""}>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><polyline points="18 15 12 9 6 15"/></svg>
+            </button>
+            <button type="button" class="btn-photo-action move-down" title="Move down in order" ${index === currentEditorPhotos.length - 1 ? "disabled" : ""}>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <button type="button" class="btn-photo-action delete" title="Remove photo">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+        `;
+
+        const pathInput = card.querySelector(".photo-order-path-input");
+        const thumbImg = card.querySelector(".photo-order-thumb");
+        const captionInput = card.querySelector(".photo-order-caption-input");
+
+        pathInput.addEventListener("input", (e) => {
+          const val = e.target.value;
+          if (typeof currentEditorPhotos[index] === "string") {
+            currentEditorPhotos[index] = { url: val, caption: "" };
+          } else {
+            currentEditorPhotos[index].url = val;
+          }
+          thumbImg.src = val;
+          syncPhotosToTextarea();
+        });
+
+        captionInput.addEventListener("input", (e) => {
+          const val = e.target.value;
+          if (typeof currentEditorPhotos[index] === "string") {
+            currentEditorPhotos[index] = { url: currentEditorPhotos[index], caption: val };
+          } else {
+            currentEditorPhotos[index].caption = val;
+          }
+        });
+
+        card.querySelector(".move-up").addEventListener("click", () => {
+          if (index > 0) {
+            const temp = currentEditorPhotos[index];
+            currentEditorPhotos[index] = currentEditorPhotos[index - 1];
+            currentEditorPhotos[index - 1] = temp;
+            renderPhotoOrderManager();
+            syncPhotosToTextarea();
+          }
+        });
+
+        card.querySelector(".move-down").addEventListener("click", () => {
+          if (index < currentEditorPhotos.length - 1) {
+            const temp = currentEditorPhotos[index];
+            currentEditorPhotos[index] = currentEditorPhotos[index + 1];
+            currentEditorPhotos[index + 1] = temp;
+            renderPhotoOrderManager();
+            syncPhotosToTextarea();
+          }
+        });
+
+        card.querySelector(".delete").addEventListener("click", () => {
+          currentEditorPhotos.splice(index, 1);
+          renderPhotoOrderManager();
+          syncPhotosToTextarea();
+        });
+
+        container.appendChild(card);
+      });
+    }
+
+    /**
+     * Synchronize current photos to the raw textarea
+     */
+    function syncPhotosToTextarea() {
+      const textarea = document.getElementById("input-photos");
+      if (!textarea) return;
+      const urls = currentEditorPhotos.map(p => typeof p === "string" ? p : p.url);
+      textarea.value = urls.join("\n");
+    }
+
+    /**
+     * Desktop Keyboard Navigation
+     */
+    function setupKeyboardControls() {
+      window.addEventListener("keydown", (e) => {
+        // Ignore key events when typing inside editor inputs
+        if (["INPUT", "TEXTAREA"].includes(document.activeElement.tagName)) {
+          return;
+        }
+
+        const scrollContainer = document.getElementById("screen-scroll-container");
+
+        switch (e.key) {
+          case "ArrowLeft":
+            prevPhoto();
+            break;
+          case "ArrowRight":
+            nextPhoto();
+            break;
+          case "ArrowDown":
+            scrollContainer.scrollBy({ top: 120, behavior: "smooth" });
+            break;
+          case "ArrowUp":
+            scrollContainer.scrollBy({ top: -120, behavior: "smooth" });
+            break;
+          case "x":
+          case "X":
+          case "2":
+            document.getElementById("act-pass").click();
+            break;
+          case "l":
+          case "L":
+          case "4":
+            document.getElementById("act-like").click();
+            break;
+          case "s":
+          case "S":
+          case "3":
+            document.getElementById("act-superlike").click();
+            break;
+          case "r":
+          case "R":
+          case "1":
+            document.getElementById("act-rewind").click();
+            break;
+          case "b":
+          case "B":
+          case "5":
+            document.getElementById("act-boost").click();
+            break;
+          case "Escape":
+            document.getElementById("editor-overlay").classList.remove("open");
+            break;
+        }
+      });
+    }
+
+    /**
+     * Live Editor Drawer Sync
+     */
+    function populateEditorFields() {
+      document.getElementById("input-name").value = activeProfile.name || "";
+      document.getElementById("input-age").value = activeProfile.age || "";
+      const pronounsEl = document.getElementById("input-pronouns");
+      if (pronounsEl) pronounsEl.value = activeProfile.pronouns || "";
+      document.getElementById("input-job").value = activeProfile.job || "";
+      document.getElementById("input-school").value = activeProfile.school || "";
+      document.getElementById("input-location").value = activeProfile.location || "";
+      document.getElementById("input-distance").value = activeProfile.distance || "";
+      document.getElementById("input-bio").value = activeProfile.bio || "";
+
+      // Photos & Image Order Manager
+      currentEditorPhotos = JSON.parse(JSON.stringify(activeProfile.photos || []));
+      renderPhotoOrderManager();
+      syncPhotosToTextarea();
+
+      // Prompts
+      const prompts = activeProfile.prompts || [];
+      document.getElementById("input-prompt-q1").value = prompts[0]?.category || "";
+      document.getElementById("input-prompt-a1").value = prompts[0]?.answer || "";
+      document.getElementById("input-prompt-q2").value = prompts[1]?.category || "";
+      document.getElementById("input-prompt-a2").value = prompts[1]?.answer || "";
+      document.getElementById("input-prompt-q3").value = prompts[2]?.category || "";
+      document.getElementById("input-prompt-a3").value = prompts[2]?.answer || "";
+    }
+
+    function applyEditorChanges() {
+      activeProfile.name = document.getElementById("input-name").value.trim();
+      activeProfile.age = parseInt(document.getElementById("input-age").value, 10) || "";
+      const pronounsEl = document.getElementById("input-pronouns");
+      if (pronounsEl) activeProfile.pronouns = pronounsEl.value.trim();
+      activeProfile.job = document.getElementById("input-job").value.trim();
+      activeProfile.school = document.getElementById("input-school").value.trim();
+      activeProfile.location = document.getElementById("input-location").value.trim();
+      activeProfile.distance = document.getElementById("input-distance").value.trim();
+      activeProfile.bio = document.getElementById("input-bio").value.trim();
+
+      // Apply photos & image order from current editor state
+      activeProfile.photos = JSON.parse(JSON.stringify(currentEditorPhotos));
+      activeProfile.imageOrder = activeProfile.photos.map(p => typeof p === "string" ? p : p.url);
+
+      // Parse prompts
+      const newPrompts = [];
+      const q1 = document.getElementById("input-prompt-q1").value.trim();
+      const a1 = document.getElementById("input-prompt-a1").value.trim();
+      if (q1 || a1) newPrompts.push({ category: q1 || "Prompt", answer: a1 });
+
+      const q2 = document.getElementById("input-prompt-q2").value.trim();
+      const a2 = document.getElementById("input-prompt-a2").value.trim();
+      if (q2 || a2) newPrompts.push({ category: q2 || "Prompt", answer: a2 });
+
+      const q3 = document.getElementById("input-prompt-q3").value.trim();
+      const a3 = document.getElementById("input-prompt-a3").value.trim();
+      if (q3 || a3) newPrompts.push({ category: q3 || "Prompt", answer: a3 });
+
+      activeProfile.prompts = newPrompts;
+
+      renderProfile(activeProfile);
+    }
+
+    /**
+     * Export Profile Settings as JSON file
+     */
+    function exportProfileJson() {
+      applyEditorChanges();
+
+      const exportObject = {
+        name: activeProfile.name || "",
+        age: activeProfile.age || "",
+        verified: activeProfile.verified !== false,
+        pronouns: activeProfile.pronouns || "",
+        job: activeProfile.job || "",
+        school: activeProfile.school || "",
+        location: activeProfile.location || "",
+        distance: activeProfile.distance || "",
+        bio: activeProfile.bio || "",
+        imageOrder: (activeProfile.photos || []).map(p => typeof p === "string" ? p : p.url),
+        photos: activeProfile.photos || [],
+        prompts: activeProfile.prompts || [],
+        essentials: activeProfile.essentials || [],
+        interests: activeProfile.interests || [],
+        anthem: activeProfile.anthem || {}
+      };
+
+      const jsonString = JSON.stringify(exportObject, null, 2);
+      const blob = new Blob([jsonString], { type: "application/json;charset=utf-8" });
+      const downloadUrl = URL.createObjectURL(blob);
+      const dlAnchor = document.createElement("a");
+      dlAnchor.href = downloadUrl;
+      dlAnchor.download = "profile.json";
+      document.body.appendChild(dlAnchor);
+      dlAnchor.click();
+      document.body.removeChild(dlAnchor);
+      URL.revokeObjectURL(downloadUrl);
+
+      showToast("Exported profile.json successfully!");
+    }
+
+    /**
+     * Copy profile settings JSON to clipboard
+     */
+    function copyProfileJson() {
+      applyEditorChanges();
+
+      const exportObject = {
+        name: activeProfile.name || "",
+        age: activeProfile.age || "",
+        verified: activeProfile.verified !== false,
+        pronouns: activeProfile.pronouns || "",
+        job: activeProfile.job || "",
+        school: activeProfile.school || "",
+        location: activeProfile.location || "",
+        distance: activeProfile.distance || "",
+        bio: activeProfile.bio || "",
+        imageOrder: (activeProfile.photos || []).map(p => typeof p === "string" ? p : p.url),
+        photos: activeProfile.photos || [],
+        prompts: activeProfile.prompts || [],
+        essentials: activeProfile.essentials || [],
+        interests: activeProfile.interests || [],
+        anthem: activeProfile.anthem || {}
+      };
+
+      const jsonString = JSON.stringify(exportObject, null, 2);
+
+      navigator.clipboard.writeText(jsonString).then(() => {
+        showToast("Profile JSON copied to clipboard!");
+      }).catch(() => {
+        prompt("Copy profile JSON:", jsonString);
+      });
+    }
+
+    /**
+     * Clock updater for phone status bar
+     */
+    function updateClock() {
+      const now = new Date();
+      let hours = now.getHours();
+      let minutes = now.getMinutes();
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      hours = hours < 10 ? "0" + hours : hours;
+      const timeStr = `${hours}:${minutes}`;
+      const statusTime = document.getElementById("status-time");
+      if (statusTime) statusTime.textContent = timeStr;
+    }
+
+    /**
+     * Utility: HTML escape
+     */
+    function escapeHtml(str) {
+      if (!str) return "";
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    // Run on page load
+    window.addEventListener("DOMContentLoaded", initApp);
+  </script>
+</body>
+</html>
