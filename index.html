@@ -1692,6 +1692,166 @@
       color: #fff;
     }
 
+    /* Live Server Connection Badge */
+    .live-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .live-status-badge.connected {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #34d399;
+    }
+
+    .live-status-badge.connected .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 8px #10b981;
+      animation: pulse-dot 2s infinite;
+    }
+
+    .live-status-badge.offline {
+      background: rgba(148, 163, 184, 0.1);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      color: #94a3b8;
+    }
+
+    .live-status-badge.offline .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #64748b;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+
+    /* Inline Bio Edit Button & Controls */
+    .card-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-title-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .bio-inline-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #cbd5e1;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 5px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s;
+    }
+
+    .bio-inline-btn:hover {
+      background: rgba(255, 255, 255, 0.16);
+      color: #fff;
+    }
+
+    .bio-inline-textarea {
+      width: 100%;
+      min-height: 85px;
+      background: #11141c;
+      border: 1px solid var(--tinder-flame-start);
+      border-radius: 8px;
+      color: #f3f4f6;
+      font-size: 13.5px;
+      font-family: inherit;
+      padding: 8px 10px;
+      margin-top: 8px;
+      resize: vertical;
+      line-height: 1.45;
+      outline: none;
+    }
+
+    .bio-inline-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+      justify-content: flex-end;
+    }
+
+    .btn-bio-save {
+      background: linear-gradient(135deg, var(--tinder-flame-start), var(--tinder-flame-end));
+      border: none;
+      color: #fff;
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-bio-cancel {
+      background: rgba(255, 255, 255, 0.08);
+      border: none;
+      color: #9ca3af;
+      font-size: 11.5px;
+      padding: 5px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    /* Enhanced Upload Dropzone */
+    .upload-dropzone {
+      border: 1.5px dashed rgba(253, 38, 125, 0.35);
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+      cursor: pointer;
+      background: rgba(253, 38, 125, 0.03);
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .upload-dropzone:hover, .upload-dropzone.dragover {
+      border-color: var(--tinder-flame-start);
+      background: rgba(253, 38, 125, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .upload-dropzone-icon {
+      color: var(--tinder-flame-start);
+    }
+
+    .upload-dropzone-text {
+      font-size: 12px;
+      font-weight: 600;
+      color: #e2e8f0;
+    }
+
+    .upload-dropzone-sub {
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
     /* Small Screen Adjustments */
     @media (max-height: 860px) {
       .desktop-wrapper {
@@ -1725,6 +1885,10 @@
         <div class="brand-text">
           <h1>Dating Profile Preview <span class="badge">Live Sandbox</span></h1>
           <div class="brand-subtitle">Simulated Mobile Dating App Environment</div>
+        </div>
+        <div class="live-status-badge offline" id="server-status-badge" title="Checking connection to local server...">
+          <span class="status-dot"></span>
+          <span id="server-status-text">Static Mode</span>
         </div>
       </div>
 
@@ -1933,16 +2097,32 @@
               </div>
 
               <!-- BIO CARD -->
-              <div class="profile-card bio-card">
+              <div class="profile-card bio-card" id="card-bio">
                 <div class="card-title-row">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                    <circle cx="12" cy="7" r="4"/>
-                  </svg>
-                  <span>About Me</span>
+                  <div class="card-title-left">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                      <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                    <span>About Me</span>
+                  </div>
+                  <button type="button" class="bio-inline-btn" id="btn-quick-edit-bio" title="Edit bio text">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M12 20h9"/>
+                      <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                    </svg>
+                    Edit
+                  </button>
                 </div>
                 <div class="bio-text" id="feed-bio">
                   Architectural nerd by day, amateur sourdough baker by weekend. Looking for someone who can introduce me to obscure indie cinema or challenge me to Mario Kart. Always down for late-night street tacos and gallery hops.
+                </div>
+                <div class="bio-inline-edit-box" id="bio-inline-edit-box" style="display: none;">
+                  <textarea class="bio-inline-textarea" id="bio-inline-input" placeholder="Write your bio here..."></textarea>
+                  <div class="bio-inline-actions">
+                    <button type="button" class="btn-bio-cancel" id="btn-bio-inline-cancel">Cancel</button>
+                    <button type="button" class="btn-bio-save" id="btn-bio-inline-save">Save Bio</button>
+                  </div>
                 </div>
               </div>
 
@@ -2197,11 +2377,21 @@
             </div>
           </details>
 
-          <!-- Local Photo Picker -->
-          <div class="file-drop-area" id="file-drop-area" style="margin-top: 2px;">
+          <!-- Interactive Photo Upload (Persistent) -->
+          <div class="upload-dropzone" id="file-drop-area" style="margin-top: 6px;">
             <input type="file" id="local-file-picker" accept="image/*" multiple style="display: none;">
-            <div class="file-drop-text">
-              📁 Click to select local photo files from disk (instant sandbox preview)
+            <div class="upload-dropzone-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+            </div>
+            <div class="upload-dropzone-text" id="upload-status-text">
+              Upload New Photos
+            </div>
+            <div class="upload-dropzone-sub">
+              Click or drag images here (saves directly to disk in interactive mode)
             </div>
           </div>
         </div>
@@ -2247,7 +2437,12 @@
           Copy JSON
         </button>
         <button type="button" class="btn-apply" id="btn-apply-editor">
-          Apply to Sandbox
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+            <polyline points="17 21 17 13 7 13 7 21"/>
+            <polyline points="7 3 7 8 15 8"/>
+          </svg>
+          Save to Disk
         </button>
       </div>
     </div>
@@ -2365,33 +2560,183 @@
       chat: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`
     };
 
+    let isServerConnected = false;
+
+    /**
+     * Check if running on local interactive server (e.g. node server.js)
+     */
+    async function checkServerConnection() {
+      try {
+        const res = await fetch('/api/status', { cache: 'no-store' });
+        if (res.ok) {
+          const json = await res.json();
+          if (json.success && json.mode === 'interactive') {
+            isServerConnected = true;
+            updateServerBadge(true);
+            return true;
+          }
+        }
+      } catch (e) {}
+      isServerConnected = false;
+      updateServerBadge(false);
+      return false;
+    }
+
+    function updateServerBadge(connected) {
+      const badge = document.getElementById("server-status-badge");
+      const text = document.getElementById("server-status-text");
+      if (!badge || !text) return;
+      if (connected) {
+        badge.className = "live-status-badge connected";
+        badge.title = "Connected to local server (Changes save directly to disk)";
+        text.textContent = "Live Server";
+      } else {
+        badge.className = "live-status-badge offline";
+        badge.title = "Static preview mode. Run 'node server.js' for live disk persistence.";
+        text.textContent = "Static Mode";
+      }
+    }
+
+    /**
+     * Save updated profile fields to server (persisting to profile.json on disk)
+     */
+    async function saveProfileToServer(updatedFields) {
+      if (!isServerConnected) return false;
+      try {
+        const res = await fetch('/api/profile', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(updatedFields)
+        });
+        if (res.ok) {
+          const result = await res.json();
+          return result.success;
+        }
+      } catch (err) {
+        console.error("Save profile error:", err);
+      }
+      return false;
+    }
+
+    /**
+     * Upload photo to server (persisting to photos/ folder on disk)
+     */
+    async function uploadPhotoToServer(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+          const base64Data = e.target.result;
+          try {
+            const res = await fetch('/api/photos/upload', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                filename: file.name,
+                data: base64Data
+              })
+            });
+            if (res.ok) {
+              const json = await res.json();
+              resolve(json);
+            } else {
+              const errJson = await res.json().catch(() => ({}));
+              reject(new Error(errJson.error || 'Upload failed'));
+            }
+          } catch (err) {
+            reject(err);
+          }
+        };
+        reader.onerror = () => reject(new Error('Failed to read file'));
+        reader.readAsDataURL(file);
+      });
+    }
+
+    /**
+     * Delete photo from server (removes file from photos/ and updates profile.json)
+     */
+    async function deletePhotoFromServer(photoUrl) {
+      if (!isServerConnected) return true;
+      try {
+        const res = await fetch(`/api/photos?url=${encodeURIComponent(photoUrl)}`, {
+          method: 'DELETE'
+        });
+        if (res.ok) {
+          const json = await res.json();
+          return json.success;
+        }
+      } catch (err) {
+        console.error("Delete photo error:", err);
+      }
+      return false;
+    }
+
+    /**
+     * Reorder photos on server
+     */
+    async function reorderPhotosOnServer(newOrder) {
+      if (!isServerConnected) return;
+      try {
+        await fetch('/api/photos/reorder', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ imageOrder: newOrder })
+        });
+      } catch (err) {
+        console.error("Reorder photos error:", err);
+      }
+    }
+
     /**
      * Initialize Application
      */
     async function initApp() {
       setupEventListeners();
       setupKeyboardControls();
+      setupBioInlineEditor();
       updateClock();
       setInterval(updateClock, 30000);
       await loadInitialProfile();
     }
 
     /**
-     * Load Profile Data: Tries to load from profile.json first,
-     * falls back gracefully to embedded PROFILE_CONFIG (e.g. on file://)
+     * Load Profile Data:
+     * 1. Checks local server (/api/profile) if running
+     * 2. Falls back to static profile.json
+     * 3. Falls back to embedded PROFILE_CONFIG
      */
     async function loadInitialProfile() {
+      const serverAvailable = await checkServerConnection();
+
+      if (serverAvailable) {
+        try {
+          const res = await fetch('/api/profile?t=' + Date.now(), { cache: 'no-store' });
+          if (res.ok) {
+            const data = await res.json();
+            if (data.profile) {
+              applyConfig(data.profile);
+              console.log("Loaded profile configuration from live interactive server");
+              return;
+            }
+          }
+        } catch (err) {
+          console.warn("Could not load from /api/profile:", err);
+        }
+      }
+
+      // Fallback 1: Static profile.json
       try {
         const res = await fetch("profile.json?t=" + Date.now(), { cache: "no-store" });
         if (res.ok) {
           const data = await res.json();
           applyConfig(data);
-          console.log("Loaded profile configuration from profile.json");
+          console.log("Loaded profile configuration from static profile.json");
           return;
         }
       } catch (err) {
-        console.info("Could not fetch profile.json automatically (likely offline or running on file://). Using embedded PROFILE_CONFIG.");
+        console.info("Could not fetch profile.json automatically. Using embedded default.");
       }
+
+      // Fallback 2: Embedded default
       applyConfig(PROFILE_CONFIG);
     }
 
@@ -2876,10 +3221,20 @@
         }
       });
 
-      document.getElementById("btn-apply-editor").addEventListener("click", () => {
+      document.getElementById("btn-apply-editor").addEventListener("click", async () => {
         applyEditorChanges();
         editorOverlay.classList.remove("open");
-        showToast("Changes applied to preview!");
+        
+        if (isServerConnected) {
+          const ok = await saveProfileToServer(activeProfile);
+          if (ok) {
+            showToast("Profile & bio saved permanently to disk!");
+          } else {
+            showToast("Changes applied (error writing to disk)");
+          }
+        } else {
+          showToast("Changes applied to preview!");
+        }
       });
 
       // JSON Export and Import Controls
@@ -2911,13 +3266,20 @@
       const btnAddPhoto = document.getElementById("btn-add-photo");
       const inputNewPhoto = document.getElementById("input-new-photo-path");
       
-      btnAddPhoto.addEventListener("click", () => {
+      btnAddPhoto.addEventListener("click", async () => {
         const path = inputNewPhoto.value.trim();
         if (!path) return;
         currentEditorPhotos.push({ url: path, caption: "" });
+        activeProfile.photos = currentEditorPhotos;
+        activeProfile.imageOrder = currentEditorPhotos.map(p => typeof p === "string" ? p : p.url);
         inputNewPhoto.value = "";
         renderPhotoOrderManager();
         syncPhotosToTextarea();
+        renderProfile(activeProfile);
+
+        if (isServerConnected) {
+          await saveProfileToServer({ photos: activeProfile.photos, imageOrder: activeProfile.imageOrder });
+        }
       });
 
       inputNewPhoto.addEventListener("keydown", (e) => {
@@ -2929,7 +3291,7 @@
 
       // Raw textarea two-way sync
       const rawPhotosTextarea = document.getElementById("input-photos");
-      rawPhotosTextarea.addEventListener("input", () => {
+      rawPhotosTextarea.addEventListener("input", async () => {
         const lines = rawPhotosTextarea.value.split("\n").map(l => l.trim()).filter(Boolean);
         currentEditorPhotos = lines.map((url, i) => {
           const existing = currentEditorPhotos[i];
@@ -2938,29 +3300,129 @@
             caption: (existing && typeof existing === "object") ? (existing.caption || "") : ""
           };
         });
+        activeProfile.photos = currentEditorPhotos;
+        activeProfile.imageOrder = currentEditorPhotos.map(p => typeof p === "string" ? p : p.url);
         renderPhotoOrderManager();
+        renderProfile(activeProfile);
+
+        if (isServerConnected) {
+          await reorderPhotosOnServer(activeProfile.imageOrder);
+        }
       });
 
-      // Local File Picker
+      // Interactive Photo Upload
       const dropArea = document.getElementById("file-drop-area");
       const fileInput = document.getElementById("local-file-picker");
 
       dropArea.addEventListener("click", () => fileInput.click());
 
-      fileInput.addEventListener("change", (e) => {
+      fileInput.addEventListener("change", async (e) => {
         const files = Array.from(e.target.files);
         if (files.length === 0) return;
 
-        const newPhotos = files.map((file) => ({
-          url: URL.createObjectURL(file),
-          caption: `${file.name}`
-        }));
+        const uploadText = document.getElementById("upload-status-text");
+        if (uploadText) uploadText.textContent = `Uploading ${files.length} photo(s)...`;
 
-        currentEditorPhotos.push(...newPhotos);
+        for (const file of files) {
+          if (isServerConnected) {
+            try {
+              const res = await uploadPhotoToServer(file);
+              if (res && res.photo) {
+                currentEditorPhotos.push(res.photo);
+                activeProfile.photos = currentEditorPhotos;
+                activeProfile.imageOrder = currentEditorPhotos.map(p => typeof p === "string" ? p : p.url);
+                showToast(`Saved "${file.name}" to photos/ folder!`);
+              }
+            } catch (err) {
+              console.error("Upload error:", err);
+              showToast(`Upload failed: ${err.message}`);
+            }
+          } else {
+            currentEditorPhotos.push({
+              url: URL.createObjectURL(file),
+              caption: file.name
+            });
+            activeProfile.photos = currentEditorPhotos;
+            activeProfile.imageOrder = currentEditorPhotos.map(p => typeof p === "string" ? p : p.url);
+            showToast(`Loaded ${file.name} (static mode)`);
+          }
+        }
+
+        if (uploadText) uploadText.textContent = "Upload New Photos";
+        renderProfile(activeProfile);
         renderPhotoOrderManager();
         syncPhotosToTextarea();
-        showToast(`Added ${files.length} local photo(s)!`);
         fileInput.value = "";
+      });
+
+      // Drag and drop handlers
+      dropArea.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        dropArea.classList.add("dragover");
+      });
+
+      dropArea.addEventListener("dragleave", () => {
+        dropArea.classList.remove("dragover");
+      });
+
+      dropArea.addEventListener("drop", (e) => {
+        e.preventDefault();
+        dropArea.classList.remove("dragover");
+        if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+          fileInput.files = e.dataTransfer.files;
+          fileInput.dispatchEvent(new Event("change"));
+        }
+      });
+    }
+
+    /**
+     * Setup inline bio editor on phone mockup card
+     */
+    function setupBioInlineEditor() {
+      const btnEdit = document.getElementById("btn-quick-edit-bio");
+      const bioText = document.getElementById("feed-bio");
+      const editBox = document.getElementById("bio-inline-edit-box");
+      const textarea = document.getElementById("bio-inline-input");
+      const btnSave = document.getElementById("btn-bio-inline-save");
+      const btnCancel = document.getElementById("btn-bio-inline-cancel");
+
+      if (!btnEdit || !bioText || !editBox) return;
+
+      btnEdit.addEventListener("click", (e) => {
+        e.stopPropagation();
+        textarea.value = activeProfile.bio || "";
+        bioText.style.display = "none";
+        editBox.style.display = "block";
+        textarea.focus();
+      });
+
+      btnCancel.addEventListener("click", (e) => {
+        e.stopPropagation();
+        editBox.style.display = "none";
+        bioText.style.display = "block";
+      });
+
+      btnSave.addEventListener("click", async (e) => {
+        e.stopPropagation();
+        const newBio = textarea.value.trim();
+        activeProfile.bio = newBio;
+        bioText.textContent = newBio;
+        editBox.style.display = "none";
+        bioText.style.display = "block";
+
+        const drawerBio = document.getElementById("input-bio");
+        if (drawerBio) drawerBio.value = newBio;
+
+        if (isServerConnected) {
+          const ok = await saveProfileToServer({ bio: newBio });
+          if (ok) {
+            showToast("Bio saved permanently to disk!");
+          } else {
+            showToast("Bio updated in preview");
+          }
+        } else {
+          showToast("Bio updated in preview!");
+        }
       });
     }
 
@@ -3005,7 +3467,7 @@
             <button type="button" class="btn-photo-action move-down" title="Move down in order" ${index === currentEditorPhotos.length - 1 ? "disabled" : ""}>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><polyline points="6 9 12 15 18 9"/></svg>
             </button>
-            <button type="button" class="btn-photo-action delete" title="Remove photo">
+            <button type="button" class="btn-photo-action delete" title="Delete photo permanently">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </button>
           </div>
@@ -3035,28 +3497,70 @@
           }
         });
 
-        card.querySelector(".move-up").addEventListener("click", () => {
+        card.querySelector(".move-up").addEventListener("click", async () => {
           if (index > 0) {
             const temp = currentEditorPhotos[index];
             currentEditorPhotos[index] = currentEditorPhotos[index - 1];
             currentEditorPhotos[index - 1] = temp;
+
+            activeProfile.photos = currentEditorPhotos;
+            activeProfile.imageOrder = currentEditorPhotos.map(p => typeof p === "string" ? p : p.url);
+
+            renderProfile(activeProfile);
             renderPhotoOrderManager();
             syncPhotosToTextarea();
+
+            if (isServerConnected) {
+              await reorderPhotosOnServer(activeProfile.imageOrder);
+            }
           }
         });
 
-        card.querySelector(".move-down").addEventListener("click", () => {
+        card.querySelector(".move-down").addEventListener("click", async () => {
           if (index < currentEditorPhotos.length - 1) {
             const temp = currentEditorPhotos[index];
             currentEditorPhotos[index] = currentEditorPhotos[index + 1];
             currentEditorPhotos[index + 1] = temp;
+
+            activeProfile.photos = currentEditorPhotos;
+            activeProfile.imageOrder = currentEditorPhotos.map(p => typeof p === "string" ? p : p.url);
+
+            renderProfile(activeProfile);
             renderPhotoOrderManager();
             syncPhotosToTextarea();
+
+            if (isServerConnected) {
+              await reorderPhotosOnServer(activeProfile.imageOrder);
+            }
           }
         });
 
-        card.querySelector(".delete").addEventListener("click", () => {
+        card.querySelector(".delete").addEventListener("click", async () => {
+          const toDelete = currentEditorPhotos[index];
+          const photoUrl = typeof toDelete === "string" ? toDelete : toDelete.url;
+
+          const confirmMsg = isServerConnected
+            ? `Delete "${photoUrl}" permanently from disk and profile?`
+            : `Remove photo from preview?`;
+
+          if (!confirm(confirmMsg)) {
+            return;
+          }
+
+          if (isServerConnected && photoUrl.startsWith("photos/")) {
+            const ok = await deletePhotoFromServer(photoUrl);
+            if (ok) {
+              showToast("Photo deleted permanently from disk!");
+            }
+          } else {
+            showToast("Photo removed from list");
+          }
+
           currentEditorPhotos.splice(index, 1);
+          activeProfile.photos = currentEditorPhotos;
+          activeProfile.imageOrder = currentEditorPhotos.map(p => typeof p === "string" ? p : p.url);
+
+          renderProfile(activeProfile);
           renderPhotoOrderManager();
           syncPhotosToTextarea();
         });

@@ -1,2 +1,22 @@
-photos/
+# Personal & Private Profile Information
 profile.json
+profile.local.json
+*.local.json
+
+# Private Photo Assets & Uploads
+photos/
+uploads/
+*.jpg
+*.jpeg
+*.png
+*.webp
+*.gif
+*.avif
+
+# System & Runtime
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
+.env
+.env.*
