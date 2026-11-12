@@ -1,5 +1,7 @@
 # Dating Profile Preview Sandbox
 
+[Page](https://paul3756769.github.io/DatingProfileSimulator/)
+
 A standalone, 100% serverless, client-side web application designed to preview, craft, and fine-tune dating profiles (Tinder / Hinge style) in an authentic mobile viewport mockup.
 
 Hosted directly via **GitHub Pages** or run locally by opening `index.html` in any browser.
