@@ -3,13 +3,25 @@
   "age": 27,
   "verified": true,
   "pronouns": "she/her",
-  "job": "Senior Product Designer",
+  "job": "Senior UX Designer",
   "school": "RISD (Design)",
   "location": "Brooklyn, New York",
   "distance": "3 miles away",
-  "bio": "Architectural nerd by day, amateur sourdough baker by weekend. Looking for someone who can introduce me to obscure indie cinema or challenge me to Mario Kart. Always down for late-night street tacos and gallery hops.",
-  "imageOrder": [],
-  "photos": [],
+  "bio": "Architectural enthusiast by day, amateur sourdough baker by weekend. Looking for someone who can introduce me to obscure indie cinema or challenge me to Mario Kart. Always down for late-night street tacos and gallery hops.",
+  "imageOrder": [
+    "default_photos/default_hero.jpg"
+  ],
+  "photos": [
+    {
+      "url": "default_photos/default_hero.jpg",
+      "caption": "Golden hour in the city 🌇",
+      "position": {
+        "x": 50,
+        "y": 30
+      },
+      "zoom": 1.05
+    }
+  ],
   "prompts": [
     {
       "category": "Dating me is like",
@@ -75,6 +87,6 @@
   "anthem": {
     "track": "Sweet Disposition",
     "artist": "The Temper Trap",
-    "albumArt": ""
+    "albumArt": "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&w=200&q=80"
   }
 }

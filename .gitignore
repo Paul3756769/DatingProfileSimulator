@@ -1,17 +1,27 @@
-# Personal & Private Profile Information
-profile.json
+# Private / Local Profile Overrides
 profile.local.json
 *.local.json
 
 # Private Photo Assets & Uploads
 photos/
 uploads/
+default_photos_old/
+
+# Preserve Default Stock Photos for GitHub Pages
+!default_photos/
+!default_photos/**
+
+# File Types (exclude private photos except in default_photos)
 *.jpg
 *.jpeg
 *.png
 *.webp
 *.gif
 *.avif
+!default_photos/*.jpg
+!default_photos/*.jpeg
+!default_photos/*.png
+!default_photos/*.webp
 
 # System & Runtime
 node_modules/

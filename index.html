@@ -1850,7 +1850,416 @@
     .upload-dropzone-sub {
       font-size: 11px;
       color: #94a3b8;
+    }    /* GitHub Pages Client Sandbox Badge */
+    .live-status-badge.github-ready {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #34d399;
     }
+    .live-status-badge.github-ready .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 8px #10b981;
+      animation: pulse-dot 2s infinite;
+    }
+
+    /* Full Window Drag & Drop Overlay */
+    .window-drop-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(12, 15, 23, 0.88);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+    .window-drop-overlay.active {
+      display: flex;
+    }
+    .drop-overlay-box {
+      border: 2px dashed var(--tinder-flame-start);
+      background: rgba(253, 38, 125, 0.08);
+      border-radius: 20px;
+      padding: 40px 60px;
+      text-align: center;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
+    .drop-overlay-box svg {
+      color: var(--tinder-flame-start);
+    }
+    .drop-overlay-box h3 {
+      font-size: 20px;
+      font-weight: 700;
+    }
+    .drop-overlay-box p {
+      font-size: 13px;
+      color: #94a3b8;
+    }
+
+    /* Form Section Headers & Containers */
+    .form-section-container {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .form-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .form-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-section-add {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: #e2e8f0;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s;
+    }
+    .btn-section-add:hover {
+      background: rgba(255, 255, 255, 0.16);
+      color: #fff;
+      border-color: var(--tinder-flame-start);
+    }
+
+    /* Toggle Switch */
+    .toggle-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+      font-size: 12px;
+      color: #cbd5e1;
+    }
+    .toggle-switch input {
+      display: none;
+    }
+    .toggle-slider {
+      width: 34px;
+      height: 19px;
+      background: #2d3444;
+      border-radius: 20px;
+      position: relative;
+      transition: background 0.2s;
+    }
+    .toggle-slider::after {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: #fff;
+      transition: transform 0.2s;
+    }
+    .toggle-switch input:checked + .toggle-slider {
+      background: linear-gradient(135deg, var(--tinder-flame-start), var(--tinder-flame-end));
+    }
+    .toggle-switch input:checked + .toggle-slider::after {
+      transform: translateX(15px);
+    }
+
+    /* Dynamic Prompts Editor Cards */
+    .prompts-editor-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .prompt-editor-card {
+      background: #191e2a;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 9px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .prompt-editor-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .prompt-num-badge {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #94a3b8;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 2px 6px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .prompt-preset-select {
+      flex: 1;
+      background: #12151e;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 6px;
+      color: #f1f5f9;
+      font-size: 12px;
+      padding: 5px 8px;
+      outline: none;
+    }
+    .prompt-editor-actions {
+      display: flex;
+      gap: 4px;
+    }
+    .btn-card-action {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+      width: 24px;
+      height: 24px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 11px;
+      transition: all 0.15s;
+    }
+    .btn-card-action:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+    }
+    .btn-card-action.del:hover {
+      background: rgba(244, 63, 94, 0.2);
+      color: var(--color-pass);
+      border-color: rgba(244, 63, 94, 0.4);
+    }
+    .btn-card-action:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    /* Essentials Badges Editor */
+    .essentials-editor-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .essential-editor-card {
+      background: #191e2a;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .essential-icon-select {
+      background: #12151e;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 6px;
+      color: #cbd5e1;
+      font-size: 12px;
+      padding: 5px;
+      width: 95px;
+      outline: none;
+    }
+    .essential-input-label {
+      width: 105px;
+      background: #12151e;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 6px;
+      color: #e2e8f0;
+      font-size: 12px;
+      padding: 5px 8px;
+      outline: none;
+    }
+    .essential-input-value {
+      flex: 1;
+      background: #12151e;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 6px;
+      color: #e2e8f0;
+      font-size: 12px;
+      padding: 5px 8px;
+      outline: none;
+    }
+
+    /* Interests Chips Editor */
+    .interests-editor-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      max-height: 140px;
+      overflow-y: auto;
+      padding: 4px;
+      background: #12151e;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 8px;
+    }
+    .interest-editor-chip {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #f1f5f9;
+      font-size: 11.5px;
+      padding: 3px 8px;
+      border-radius: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .interest-chip-del {
+      cursor: pointer;
+      color: #94a3b8;
+      font-size: 12px;
+      line-height: 1;
+      transition: color 0.15s;
+    }
+    .interest-chip-del:hover {
+      color: var(--color-pass);
+    }
+    .interest-add-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    /* Anthem Fields */
+    .anthem-editor-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    /* Manual Photo Framing & Cropping Panel */
+    .photo-framing-panel {
+      background: #121620;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 10px;
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .photo-framing-panel.hidden {
+      display: none;
+    }
+    .photo-framing-body {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .focal-pad {
+      width: 76px;
+      height: 98px;
+      border-radius: 8px;
+      background: #090c12;
+      border: 1.5px solid rgba(255, 255, 255, 0.2);
+      position: relative;
+      cursor: crosshair;
+      overflow: hidden;
+      flex-shrink: 0;
+      user-select: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    }
+    .focal-pad img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.65;
+      pointer-events: none;
+    }
+    .focal-crosshair {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      background: rgba(253, 38, 125, 0.7);
+      box-shadow: 0 0 6px rgba(0,0,0,0.8);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      transition: none;
+    }
+    .framing-controls {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .framing-slider-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: #94a3b8;
+    }
+    .framing-slider-row label {
+      width: 52px;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+    .framing-slider-row input[type="range"] {
+      flex: 1;
+      accent-color: var(--tinder-flame-start);
+      height: 4px;
+      cursor: pointer;
+    }
+    .framing-val-badge {
+      width: 34px;
+      text-align: right;
+      font-family: monospace;
+      color: #e2e8f0;
+      font-size: 11px;
+    }
+    .framing-presets {
+      display: flex;
+      gap: 6px;
+      margin-top: 2px;
+    }
+    .btn-framing-preset {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+      font-size: 10.5px;
+      padding: 3px 8px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-framing-preset:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+    }
+    .btn-photo-action.active {
+      background: rgba(253, 38, 125, 0.3);
+      border-color: var(--tinder-flame-start);
+      color: #fff;
+    }
+
+
 
     /* Small Screen Adjustments */
     @media (max-height: 860px) {
@@ -1867,6 +2276,19 @@
   </style>
 </head>
 <body>
+  <!-- Full Window Drag & Drop Overlay -->
+  <div id="window-drop-overlay" class="window-drop-overlay">
+    <div class="drop-overlay-box">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="17 8 12 3 7 8"/>
+        <line x1="12" y1="3" x2="12" y2="15"/>
+      </svg>
+      <h3>Drop JSON config or photos here</h3>
+      <p>Release anywhere to load profile configuration or upload photos to preview</p>
+    </div>
+  </div>
+
 
   <!-- Background Ambient Mesh Glow -->
   <div class="desktop-glow"></div>
@@ -1886,10 +2308,11 @@
           <h1>Dating Profile Preview <span class="badge">Live Sandbox</span></h1>
           <div class="brand-subtitle">Simulated Mobile Dating App Environment</div>
         </div>
-        <div class="live-status-badge offline" id="server-status-badge" title="Checking connection to local server...">
+                <div class="live-status-badge github-ready" id="server-status-badge" title="Running 100% client-side in browser (GitHub Pages Ready)">
           <span class="status-dot"></span>
-          <span id="server-status-text">Static Mode</span>
+          <span id="server-status-text">Client Sandbox</span>
         </div>
+
       </div>
 
       <div class="desktop-actions">
@@ -2292,19 +2715,28 @@
       </div>
 
       <div class="editor-body">
+      <div class="editor-body">
         
+        <!-- Basic Personal Info -->
         <div class="form-row">
           <div class="form-group">
             <label for="input-name">Name</label>
             <input type="text" id="input-name" class="form-input">
           </div>
-          <div class="form-group" style="max-width: 75px;">
+          <div class="form-group" style="max-width: 70px;">
             <label for="input-age">Age</label>
             <input type="number" id="input-age" class="form-input">
           </div>
-          <div class="form-group" style="max-width: 105px;">
+          <div class="form-group" style="max-width: 95px;">
             <label for="input-pronouns">Pronouns</label>
             <input type="text" id="input-pronouns" class="form-input" placeholder="she/her">
+          </div>
+          <div class="form-group" style="max-width: 95px; justify-content: flex-end; padding-bottom: 2px;">
+            <label class="toggle-switch" title="Toggle verified blue badge">
+              <input type="checkbox" id="input-verified" checked>
+              <span class="toggle-slider"></span>
+              <span>Verified</span>
+            </label>
           </div>
         </div>
 
@@ -2325,17 +2757,109 @@
             <input type="text" id="input-location" class="form-input">
           </div>
           <div class="form-group">
-            <label for="input-distance">Distance</label>
+            <label for="input-distance">Distance Text</label>
             <input type="text" id="input-distance" class="form-input">
           </div>
         </div>
 
         <div class="form-group">
           <label for="input-bio">About Me (Bio)</label>
-          <textarea id="input-bio" class="form-textarea"></textarea>
+          <textarea id="input-bio" class="form-textarea" placeholder="Write your dating profile bio..."></textarea>
         </div>
 
-        <!-- Configurable Photo Order & Gallery Manager -->
+        <!-- Dynamic Dating Prompts Section -->
+        <div class="form-section-container">
+          <div class="form-section-header">
+            <div class="form-section-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/>
+              </svg>
+              <span>Prompts &amp; Q&amp;A Blocks</span>
+            </div>
+            <button type="button" class="btn-section-add" id="btn-add-prompt">
+              + Add Prompt
+            </button>
+          </div>
+          <div class="prompts-editor-list" id="prompts-editor-list">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Essentials Badges Section -->
+        <div class="form-section-container">
+          <div class="form-section-header">
+            <div class="form-section-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>
+                <line x1="7" y1="7" x2="7.01" y2="7"/>
+              </svg>
+              <span>Lifestyle &amp; Essentials Badges</span>
+            </div>
+            <button type="button" class="btn-section-add" id="btn-add-essential">
+              + Add Badge
+            </button>
+          </div>
+          <div class="essentials-editor-list" id="essentials-editor-list">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Interests / Passions Section -->
+        <div class="form-section-container">
+          <div class="form-section-header">
+            <div class="form-section-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+              <span>Interests &amp; Passions</span>
+            </div>
+          </div>
+          <div class="interests-editor-chips" id="interests-editor-chips">
+            <!-- Rendered by JS -->
+          </div>
+          <div class="interest-add-row">
+            <input type="text" id="input-new-interest" class="form-input" placeholder="e.g. 🧗 Rock Climbing or Film Photography">
+            <button type="button" class="btn-photo-add" id="btn-add-interest">+ Add</button>
+          </div>
+        </div>
+
+        <!-- Spotify Anthem Section -->
+        <div class="form-section-container">
+          <div class="form-section-header">
+            <div class="form-section-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <polygon points="10 8 16 12 10 16 10 8"/>
+              </svg>
+              <span>Spotify Anthem</span>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="input-anthem-enabled" checked>
+              <span class="toggle-slider"></span>
+              <span>Show Anthem</span>
+            </label>
+          </div>
+          <div id="anthem-editor-fields" class="anthem-editor-fields">
+            <div class="form-group">
+              <label for="input-anthem-track">Track Title</label>
+              <input type="text" id="input-anthem-track" class="form-input">
+            </div>
+            <div class="form-group">
+              <label for="input-anthem-artist">Artist</label>
+              <input type="text" id="input-anthem-artist" class="form-input">
+            </div>
+            <div class="form-group">
+              <label for="input-anthem-art">Album Art URL or Pick File</label>
+              <div style="display:flex; gap:8px;">
+                <input type="text" id="input-anthem-art" class="form-input" style="flex:1;">
+                <button type="button" class="btn-desktop" id="btn-pick-anthem-art" style="padding:6px 12px; font-size:12px;">Browse</button>
+              </div>
+              <input type="file" id="anthem-file-picker" accept="image/*" style="display:none;">
+            </div>
+          </div>
+        </div>
+
+        <!-- Photo Order, Gallery & Manual Framing Manager -->
         <div class="photo-manager-section">
           <div class="photo-manager-header">
             <div class="photo-manager-title">
@@ -2344,28 +2868,26 @@
                 <circle cx="8.5" cy="8.5" r="1.5"/>
                 <polyline points="21 15 16 10 5 21"/>
               </svg>
-              <span>Image Order & Gallery</span>
+              <span>Image Order &amp; Manual Framing</span>
             </div>
-            <span class="photo-manager-desc" id="photo-count-badge">4 photos</span>
+            <span class="photo-manager-desc" id="photo-count-badge">0 photos</span>
           </div>
           <div class="photo-manager-desc">
-            The first image is your main hero photo. Reorder them using the Up (↑) / Down (↓) buttons or type paths below.
+            The first image is your main hero photo. Click the <strong>Frame (📐)</strong> button on any photo to adjust focal position &amp; zoom.
           </div>
 
-          <!-- Dynamic List of Photo Order Cards -->
-          <div class="photo-order-list" id="photo-order-list">
-            <!-- Populated dynamically by JS -->
-          </div>
+          <!-- Dynamic List of Photo Cards -->
+          <div class="photo-order-list" id="photo-order-list"></div>
 
-          <!-- Add Photo Row -->
+          <!-- Add Photo by Path / URL -->
           <div class="photo-add-row">
-            <input type="text" id="input-new-photo-path" class="photo-add-input" placeholder="e.g. photos/5.jpg or URL">
+            <input type="text" id="input-new-photo-path" class="photo-add-input" placeholder="e.g. photos/5.jpg or image URL">
             <button type="button" class="btn-photo-add" id="btn-add-photo">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <line x1="12" y1="5" x2="12" y2="19"/>
                 <line x1="5" y1="12" x2="19" y2="12"/>
               </svg>
-              Add
+              Add Path
             </button>
           </div>
 
@@ -2377,9 +2899,10 @@
             </div>
           </details>
 
-          <!-- Interactive Photo Upload (Persistent) -->
+          <!-- Interactive Photo Upload from Disk -->
           <div class="upload-dropzone" id="file-drop-area" style="margin-top: 6px;">
             <input type="file" id="local-file-picker" accept="image/*" multiple style="display: none;">
+            <input type="file" id="single-photo-replace-picker" accept="image/*" style="display: none;">
             <div class="upload-dropzone-icon">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -2388,36 +2911,17 @@
               </svg>
             </div>
             <div class="upload-dropzone-text" id="upload-status-text">
-              Upload New Photos
+              Upload Photos from Disk
             </div>
             <div class="upload-dropzone-sub">
-              Click or drag images here (saves directly to disk in interactive mode)
+              Click or drag images here (stored in browser IndexedDB)
             </div>
           </div>
         </div>
 
-        <!-- Prompts -->
-        <div class="form-group">
-          <label>Prompt 1: Question & Answer</label>
-          <input type="text" id="input-prompt-q1" class="form-input" style="margin-bottom: 6px;">
-          <textarea id="input-prompt-a1" class="form-textarea" style="min-height: 60px;"></textarea>
-        </div>
-
-        <div class="form-group">
-          <label>Prompt 2: Question & Answer</label>
-          <input type="text" id="input-prompt-q2" class="form-input" style="margin-bottom: 6px;">
-          <textarea id="input-prompt-a2" class="form-textarea" style="min-height: 60px;"></textarea>
-        </div>
-
-        <div class="form-group">
-          <label>Prompt 3: Question & Answer</label>
-          <input type="text" id="input-prompt-q3" class="form-input" style="margin-bottom: 6px;">
-          <textarea id="input-prompt-a3" class="form-textarea" style="min-height: 60px;"></textarea>
-        </div>
-
       </div>
 
-      <div class="editor-footer" style="flex-wrap: wrap; gap: 8px;">
+            <div class="editor-footer" style="flex-wrap: wrap; gap: 8px;">
         <button type="button" class="btn-import-json" id="btn-editor-import-json" title="Import profile settings from a JSON file">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="17 8 12 3 7 8"/>
@@ -2436,1369 +2940,1613 @@
         <button type="button" class="btn-copy-code" id="btn-copy-json" title="Copy profile JSON to clipboard">
           Copy JSON
         </button>
+        <button type="button" class="btn-copy-code" id="btn-reset-defaults" title="Reset profile to generated example">
+          Reset Example
+        </button>
         <button type="button" class="btn-apply" id="btn-apply-editor">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
-            <polyline points="17 21 17 13 7 13 7 21"/>
-            <polyline points="7 3 7 8 15 8"/>
-          </svg>
-          Save to Disk
+          Apply Changes
         </button>
       </div>
+
     </div>
   </div>
 
   <!-- JAVASCRIPT LOGIC -->
-  <script>
-    /* ==========================================================================
-       SECTION 3: PROFILE CONFIGURATION OBJECT
-       ==========================================================================
-       👉 EDIT YOUR PROFILE DATA HERE!
-       This object drives all photos, bio text, and Q&A prompt blocks.
-       You can use relative local paths (e.g. "photo1.jpg") or web URLs.
-       ========================================================================== */
-    const PROFILE_CONFIG = {
-      // Basic Personal & Header Info
-      name: "Alex Rivera",
-      age: 27,
-      verified: true,
-      pronouns: "she/her",
-      job: "Senior Product Designer",
-      school: "RISD (Design)",
-      location: "Brooklyn, New York",
-      distance: "3 miles away",
+  
 
-      // Configurable Image Order
-      imageOrder: [
-        "photos/1.jpg",
-        "photos/2.jpg",
-        "photos/3.jpg",
-        "photos/4.jpg"
-      ],
-
-      // Photo Assets (Array of relative local paths or web URLs)
-      photos: [
-        {
-          url: "photos/1.jpg",
-          caption: ""
-        },
-        {
-          url: "photos/2.jpg",
-          caption: ""
-        },
-        {
-          url: "photos/3.jpg",
-          caption: ""
-        },
-        {
-          url: "photos/4.jpg",
-          caption: ""
-        }
-      ],
-
-      // Main Personal Description / Bio Block
-      bio: "Architectural nerd by day, amateur sourdough baker by weekend. Looking for someone who can introduce me to obscure indie cinema or challenge me to Mario Kart. Always down for late-night street tacos and gallery hops.",
-
-      // Structured Dating App Q&A Prompt Blocks
-      prompts: [
-        {
-          category: "Dating me is like",
-          answer: "Having someone who will always let you pick the playlist on road trips, but will mercilessly critique your font choices on restaurant menus."
-        },
-        {
-          category: "Two truths and a lie",
-          answer: "1. I have an accidental collection of 42 house plants.\n2. I once cooked cacio e pepe for Pedro Pascal.\n3. I can solve a Rubik's cube under 45 seconds."
-        },
-        {
-          category: "My simple pleasures",
-          answer: "The smell of rain on warm asphalt, finding a first edition paperback at a thrift shop, and the first sip of an iced oat latte on Saturday morning."
-        }
-      ],
-
-      // Essentials Badges (Work, Height, Lifestyle, Intentions)
-      essentials: [
-        { icon: "search", label: "Looking for", value: "Long-term partner" },
-        { icon: "ruler", label: "Height", value: "5'8\" (173 cm)" },
-        { icon: "zodiac", label: "Zodiac", value: "Leo ♌" },
-        { icon: "wine", label: "Drinking", value: "Socially on weekends" },
-        { icon: "smoke", label: "Smoking", value: "Never" },
-        { icon: "paw", label: "Pets", value: "Has a dog (Miso 🐶)" },
-        { icon: "chat", label: "Communication", value: "Fast texter, voice notes" }
-      ],
-
-      // Interests / Passions Pills
-      interests: [
-        "🎨 Design", "☕ Specialty Coffee", "🧗 Rock Climbing", 
-        "📷 Film Photography", "🍜 Ramen", "🌲 Hiking", 
-        "🎬 A24 Films", "🐕 Dogs", "🎵 Vinyl Records"
-      ],
-
-      // Spotify Anthem (Optional Dating App Staple)
-      anthem: {
-        track: "Sweet Disposition",
-        artist: "The Temper Trap",
-        albumArt: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&w=200&q=80"
+<script>
+  /* ==========================================================================
+     DEFAULT PROFILE CONFIGURATION (FALLBACK & INITIAL STATE)
+     ========================================================================== */
+  const DEFAULT_PROFILE_CONFIG = {
+    name: "Alex Rivera",
+    age: 27,
+    verified: true,
+    pronouns: "she/her",
+    job: "Senior UX Designer",
+    school: "RISD (Design)",
+    location: "Brooklyn, New York",
+    distance: "3 miles away",
+    bio: "Architectural enthusiast by day, amateur sourdough baker by weekend. Looking for someone who can introduce me to obscure indie cinema or challenge me to Mario Kart. Always down for late-night street tacos and gallery hops.",
+    imageOrder: [
+      "default_photos/default_hero.jpg"
+    ],
+    photos: [
+      {
+        url: "default_photos/default_hero.jpg",
+        caption: "Golden hour in the city 🌇",
+        position: { x: 50, y: 30 },
+        zoom: 1.05
       }
-    };
-
-
-    /* ==========================================================================
-       APPLICATION LOGIC & RENDERING ENGINE
-       ========================================================================== */
-    let currentPhotoIndex = 0;
-    let activeProfile = JSON.parse(JSON.stringify(PROFILE_CONFIG));
-    let currentEditorPhotos = JSON.parse(JSON.stringify(PROFILE_CONFIG.photos));
-
-    // SVG Icons Map for Essentials
-    const ESSENTIAL_ICONS = {
-      search: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`,
-      ruler: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.3 8.7L8.7 21.3c-1 1-2.5 1-3.5 0l-1.5-1.5c-1-1-1-2.5 0-3.5L16.3 3.7c1-1 2.5-1 3.5 0l1.5 1.5c1 1 1 2.5 0 3.5z"/><line x1="14" y1="6" x2="16" y2="8"/><line x1="10" y1="10" x2="13" y2="13"/><line x1="6" y1="14" x2="8" y2="16"/></svg>`,
-      zodiac: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/></svg>`,
-      wine: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 22h8"/><path d="M7 10h10"/><path d="M12 15v7"/><path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z"/></svg>`,
-      smoke: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>`,
-      paw: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v2a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-2a5 5 0 0 1 5-5z"/></svg>`,
-      chat: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`
-    };
-
-    let isServerConnected = false;
-
-    /**
-     * Check if running on local interactive server (e.g. node server.js)
-     */
-    async function checkServerConnection() {
-      try {
-        const res = await fetch('/api/status', { cache: 'no-store' });
-        if (res.ok) {
-          const json = await res.json();
-          if (json.success && json.mode === 'interactive') {
-            isServerConnected = true;
-            updateServerBadge(true);
-            return true;
-          }
-        }
-      } catch (e) {}
-      isServerConnected = false;
-      updateServerBadge(false);
-      return false;
-    }
-
-    function updateServerBadge(connected) {
-      const badge = document.getElementById("server-status-badge");
-      const text = document.getElementById("server-status-text");
-      if (!badge || !text) return;
-      if (connected) {
-        badge.className = "live-status-badge connected";
-        badge.title = "Connected to local server (Changes save directly to disk)";
-        text.textContent = "Live Server";
-      } else {
-        badge.className = "live-status-badge offline";
-        badge.title = "Static preview mode. Run 'node server.js' for live disk persistence.";
-        text.textContent = "Static Mode";
+    ],
+    prompts: [
+      {
+        category: "Dating me is like",
+        answer: "Having someone who will always let you pick the playlist on road trips, but will mercilessly critique your font choices on restaurant menus."
+      },
+      {
+        category: "Two truths and a lie",
+        answer: "1. I have an accidental collection of 42 house plants.\n2. I once cooked cacio e pepe for Pedro Pascal.\n3. I can solve a Rubik's cube under 45 seconds."
+      },
+      {
+        category: "My simple pleasures",
+        answer: "The smell of rain on warm asphalt, finding a first edition paperback at a thrift shop, and the first sip of an iced oat latte on Saturday morning."
       }
+    ],
+    essentials: [
+      { icon: "search", label: "Looking for", value: "Long-term partner" },
+      { icon: "ruler", label: "Height", value: "5'8\" (173 cm)" },
+      { icon: "zodiac", label: "Zodiac", value: "Leo ♌" },
+      { icon: "wine", label: "Drinking", value: "Socially on weekends" },
+      { icon: "smoke", label: "Smoking", value: "Never" },
+      { icon: "paw", label: "Pets", value: "Has a dog (Miso 🐶)" },
+      { icon: "chat", label: "Communication", value: "Fast texter, voice notes" }
+    ],
+    interests: [
+      "🎨 Design", "☕ Specialty Coffee", "🧗 Rock Climbing", 
+      "📷 Film Photography", "🍜 Ramen", "🌲 Hiking", 
+      "🎬 A24 Films", "🐕 Dogs", "🎵 Vinyl Records"
+    ],
+    anthem: {
+      enabled: true,
+      track: "Sweet Disposition",
+      artist: "The Temper Trap",
+      albumArt: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&w=200&q=80"
     }
+  };
 
-    /**
-     * Save updated profile fields to server (persisting to profile.json on disk)
-     */
-    async function saveProfileToServer(updatedFields) {
-      if (!isServerConnected) return false;
-      try {
-        const res = await fetch('/api/profile', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(updatedFields)
-        });
-        if (res.ok) {
-          const result = await res.json();
-          return result.success;
+  /* Preset Dating Prompts (Tinder & Hinge Favorites) */
+  const PRESET_PROMPTS = [
+    "Dating me is like",
+    "Two truths and a lie",
+    "My simple pleasures",
+    "Together we could...",
+    "I go crazy for...",
+    "I'm convinced that...",
+    "The key to my heart is...",
+    "A shower thought I had recently",
+    "Unusual skills",
+    "Best travel story",
+    "Give me travel tips for",
+    "All I ask is that you",
+    "Change my mind about",
+    "We'll get along if",
+    "The way to win me over is",
+    "My most controversial opinion",
+    "Don't hate me if I",
+    "I'll pick the topic if you pick the",
+    "Worst idea I've ever had",
+    "Fact about me that surprises people",
+    "I get way too excited about",
+    "Custom Question..."
+  ];
+
+  /* SVG Icons Map */
+  const ESSENTIAL_ICONS = {
+    search: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`,
+    ruler: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.3 8.7L8.7 21.3c-1 1-2.5 1-3.5 0l-1.5-1.5c-1-1-1-2.5 0-3.5L16.3 3.7c1-1 2.5-1 3.5 0l1.5 1.5c1 1 1 2.5 0 3.5z"/><line x1="14" y1="6" x2="16" y2="8"/><line x1="10" y1="10" x2="13" y2="13"/><line x1="6" y1="14" x2="8" y2="16"/></svg>`,
+    zodiac: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/></svg>`,
+    wine: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 22h8"/><path d="M7 10h10"/><path d="M12 15v7"/><path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z"/></svg>`,
+    smoke: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>`,
+    paw: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v2a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-2a5 5 0 0 1 5-5z"/></svg>`,
+    chat: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
+    heart: `<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`,
+    gym: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 5v14M18 5v14M2 9v6M22 9v6M6 12h12"/></svg>`
+  };
+
+  /* Stylish Vector Portrait Fallback when photo cannot be loaded */
+  const FALLBACK_AVATAR_SVG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500' width='400' height='500'><defs><linearGradient id='g' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%23fd267d'/><stop offset='100%' stop-color='%231e293b'/></linearGradient></defs><rect width='100%' height='100%' fill='url(%23g)'/><circle cx='200' cy='180' r='60' fill='%23ffffff' opacity='0.25'/><path d='M100 360 C100 280, 300 280, 300 360 Z' fill='%23ffffff' opacity='0.25'/><text x='200' y='410' font-family='sans-serif' font-size='16' font-weight='600' fill='%23ffffff' text-anchor='middle' opacity='0.8'>Add your photo in Quick Edit</text></svg>";
+
+  /* ==========================================================================
+     INDEXED-DB CLIENT-SIDE STORAGE ENGINE FOR UPLOADED PHOTOS
+     ========================================================================== */
+  const DB_NAME = "dating_profile_sandbox_db";
+  const DB_STORE = "photos";
+  let idbInstance = null;
+
+  function openIndexedDb() {
+    return new Promise((resolve, reject) => {
+      if (idbInstance) return resolve(idbInstance);
+      const req = indexedDB.open(DB_NAME, 1);
+      req.onupgradeneeded = (e) => {
+        const db = e.target.result;
+        if (!db.objectStoreNames.contains(DB_STORE)) {
+          db.createObjectStore(DB_STORE, { keyPath: "key" });
         }
-      } catch (err) {
-        console.error("Save profile error:", err);
-      }
-      return false;
-    }
+      };
+      req.onsuccess = (e) => {
+        idbInstance = e.target.result;
+        resolve(idbInstance);
+      };
+      req.onerror = () => reject(req.error);
+    });
+  }
 
-    /**
-     * Upload photo to server (persisting to photos/ folder on disk)
-     */
-    async function uploadPhotoToServer(file) {
+  async function idbSavePhoto(key, blob) {
+    try {
+      const db = await openIndexedDb();
       return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = async (e) => {
-          const base64Data = e.target.result;
-          try {
-            const res = await fetch('/api/photos/upload', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                filename: file.name,
-                data: base64Data
-              })
-            });
-            if (res.ok) {
-              const json = await res.json();
-              resolve(json);
-            } else {
-              const errJson = await res.json().catch(() => ({}));
-              reject(new Error(errJson.error || 'Upload failed'));
-            }
-          } catch (err) {
-            reject(err);
-          }
-        };
-        reader.onerror = () => reject(new Error('Failed to read file'));
-        reader.readAsDataURL(file);
+        const tx = db.transaction(DB_STORE, "readwrite");
+        const store = tx.objectStore(DB_STORE);
+        store.put({ key, blob, timestamp: Date.now() });
+        tx.oncomplete = () => resolve(true);
+        tx.onerror = () => reject(tx.error);
       });
-    }
-
-    /**
-     * Delete photo from server (removes file from photos/ and updates profile.json)
-     */
-    async function deletePhotoFromServer(photoUrl) {
-      if (!isServerConnected) return true;
-      try {
-        const res = await fetch(`/api/photos?url=${encodeURIComponent(photoUrl)}`, {
-          method: 'DELETE'
-        });
-        if (res.ok) {
-          const json = await res.json();
-          return json.success;
-        }
-      } catch (err) {
-        console.error("Delete photo error:", err);
-      }
+    } catch (e) {
+      console.warn("IndexedDB save error:", e);
       return false;
     }
+  }
 
-    /**
-     * Reorder photos on server
-     */
-    async function reorderPhotosOnServer(newOrder) {
-      if (!isServerConnected) return;
-      try {
-        await fetch('/api/photos/reorder', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ imageOrder: newOrder })
-        });
-      } catch (err) {
-        console.error("Reorder photos error:", err);
-      }
+  async function idbGetAllPhotos() {
+    try {
+      const db = await openIndexedDb();
+      return new Promise((resolve) => {
+        const tx = db.transaction(DB_STORE, "readonly");
+        const store = tx.objectStore(DB_STORE);
+        const req = store.getAll();
+        req.onsuccess = () => resolve(req.result || []);
+        req.onerror = () => resolve([]);
+      });
+    } catch (e) {
+      return [];
     }
+  }
 
-    /**
-     * Initialize Application
-     */
-    async function initApp() {
-      setupEventListeners();
-      setupKeyboardControls();
-      setupBioInlineEditor();
-      updateClock();
-      setInterval(updateClock, 30000);
-      await loadInitialProfile();
+  async function idbDeletePhoto(key) {
+    try {
+      const db = await openIndexedDb();
+      return new Promise((resolve) => {
+        const tx = db.transaction(DB_STORE, "readwrite");
+        tx.objectStore(DB_STORE).delete(key);
+        tx.oncomplete = () => resolve(true);
+        tx.onerror = () => resolve(false);
+      });
+    } catch (e) {
+      return false;
     }
+  }
 
-    /**
-     * Load Profile Data:
-     * 1. Checks local server (/api/profile) if running
-     * 2. Falls back to static profile.json
-     * 3. Falls back to embedded PROFILE_CONFIG
-     */
-    async function loadInitialProfile() {
-      const serverAvailable = await checkServerConnection();
+  /* Registry of in-memory object URLs for uploaded files */
+  const photoBlobMap = new Map();
 
-      if (serverAvailable) {
-        try {
-          const res = await fetch('/api/profile?t=' + Date.now(), { cache: 'no-store' });
-          if (res.ok) {
-            const data = await res.json();
-            if (data.profile) {
-              applyConfig(data.profile);
-              console.log("Loaded profile configuration from live interactive server");
-              return;
-            }
-          }
-        } catch (err) {
-          console.warn("Could not load from /api/profile:", err);
+  function registerBlobUrl(name, blob) {
+    const objUrl = URL.createObjectURL(blob);
+    photoBlobMap.set(name, objUrl);
+    photoBlobMap.set("photos/" + name, objUrl);
+    if (name.startsWith("photos/")) {
+      photoBlobMap.set(name.replace(/^photos\//, ""), objUrl);
+    }
+    return objUrl;
+  }
+
+  function resolvePhotoUrl(rawUrl) {
+    if (!rawUrl || typeof rawUrl !== "string") return "default_photos/default_hero.jpg";
+    if (rawUrl.startsWith("blob:") || rawUrl.startsWith("data:")) return rawUrl;
+    if (photoBlobMap.has(rawUrl)) return photoBlobMap.get(rawUrl);
+
+    const stripped = rawUrl.replace(/^photos\//, "");
+    if (photoBlobMap.has(stripped)) return photoBlobMap.get(stripped);
+    if (photoBlobMap.has("photos/" + stripped)) return photoBlobMap.get("photos/" + stripped);
+
+    return rawUrl;
+  }
+
+  /* ==========================================================================
+     APP STATE & INITIALIZATION
+     ========================================================================== */
+  let currentPhotoIndex = 0;
+  let activeProfile = JSON.parse(JSON.stringify(DEFAULT_PROFILE_CONFIG));
+  let currentEditorPhotos = JSON.parse(JSON.stringify(DEFAULT_PROFILE_CONFIG.photos));
+  let openFramingCardIndex = null;
+  let replaceSlotIndex = null;
+
+  async function initApp() {
+    setupEventListeners();
+    setupKeyboardControls();
+    setupBioInlineEditor();
+    setupWindowDropzone();
+    updateClock();
+    setInterval(updateClock, 30000);
+
+    // 1. Restore cached photo blobs from IndexedDB
+    try {
+      const storedBlobs = await idbGetAllPhotos();
+      storedBlobs.forEach(item => {
+        if (item && item.key && item.blob) {
+          registerBlobUrl(item.key, item.blob);
         }
-      }
+      });
+    } catch (err) {
+      console.warn("Could not restore IndexedDB photos:", err);
+    }
 
-      // Fallback 1: Static profile.json
-      try {
-        const res = await fetch("profile.json?t=" + Date.now(), { cache: "no-store" });
-        if (res.ok) {
-          const data = await res.json();
-          applyConfig(data);
-          console.log("Loaded profile configuration from static profile.json");
+    // 2. Load Profile (LocalStorage Draft -> profile.json -> profile.example.json -> DEFAULT)
+    await loadInitialProfile();
+  }
+
+  async function loadInitialProfile() {
+    // Priority A: Saved in-browser draft from LocalStorage
+    try {
+      const draft = localStorage.getItem("dating_profile_sandbox_draft");
+      if (draft) {
+        const parsed = JSON.parse(draft);
+        if (parsed && (parsed.name || parsed.photos)) {
+          applyConfig(parsed);
+          console.log("Loaded profile from browser local draft");
           return;
         }
-      } catch (err) {
-        console.info("Could not fetch profile.json automatically. Using embedded default.");
       }
+    } catch (e) {}
 
-      // Fallback 2: Embedded default
-      applyConfig(PROFILE_CONFIG);
-    }
-
-    /**
-     * Apply a profile configuration object to active profile state
-     */
-    function applyConfig(config) {
-      let photos = Array.isArray(config.photos) ? [...config.photos] : [];
-
-      // If imageOrder is present, sort / arrange photos to match it
-      if (Array.isArray(config.imageOrder) && config.imageOrder.length > 0) {
-        const photoMap = new Map();
-        photos.forEach(p => {
-          const u = typeof p === "string" ? p : p.url;
-          photoMap.set(u, typeof p === "string" ? { url: p, caption: "" } : p);
-        });
-
-        const ordered = [];
-        config.imageOrder.forEach(url => {
-          if (photoMap.has(url)) {
-            ordered.push(photoMap.get(url));
-            photoMap.delete(url);
-          } else {
-            ordered.push({ url: url, caption: "" });
-          }
-        });
-        photoMap.forEach(p => ordered.push(p));
-        photos = ordered;
-      }
-
-      activeProfile = Object.assign({}, config, {
-        photos: photos,
-        imageOrder: photos.map(p => typeof p === "string" ? p : p.url)
-      });
-
-      currentEditorPhotos = JSON.parse(JSON.stringify(activeProfile.photos));
-      renderProfile(activeProfile);
-      populateEditorFields();
-    }
-
-    /**
-     * Render the entire profile based on configuration
-     */
-    function renderProfile(config) {
-      // 1. Text & Header Info
-      document.getElementById("hero-name").textContent = config.name || "Alex";
-      document.getElementById("hero-age").textContent = config.age ? config.age : "";
-      document.getElementById("hero-pronouns").textContent = config.pronouns || "";
-      document.getElementById("hero-pronouns").style.display = config.pronouns ? "inline-block" : "none";
-      document.getElementById("hero-verified").style.display = config.verified ? "inline-flex" : "none";
-      
-      // Job & School
-      const jobEl = document.getElementById("hero-job");
-      const jobRow = document.getElementById("hero-job-row");
-      if (config.job) {
-        jobEl.textContent = config.job;
-        jobRow.style.display = "flex";
-      } else {
-        jobRow.style.display = "none";
-      }
-
-      const schoolEl = document.getElementById("hero-school");
-      const schoolRow = document.getElementById("hero-school-row");
-      if (config.school) {
-        schoolEl.textContent = config.school;
-        schoolRow.style.display = "flex";
-      } else {
-        schoolRow.style.display = "none";
-      }
-
-      // Location & Distance
-      document.getElementById("hero-location").textContent = config.location || "";
-      document.getElementById("hero-distance").textContent = config.distance || "";
-
-      // Bio Text
-      document.getElementById("feed-bio").textContent = config.bio || "";
-
-      // 2. Carousel & Photos
-      renderCarousel(config.photos || []);
-
-      // 3. Essentials Badges
-      renderEssentials(config.essentials || []);
-
-      // 4. Prompts & Interspersed Photos
-      renderPromptsAndMedia(config.prompts || [], config.photos || []);
-
-      // 5. Interests
-      renderInterests(config.interests || []);
-
-      // 6. Anthem
-      renderAnthem(config.anthem);
-    }
-
-    /**
-     * Render Carousel Progress Bars and Slides
-     */
-    function renderCarousel(photos) {
-      const storyContainer = document.getElementById("story-progress-container");
-      const slidesWrapper = document.getElementById("slides-wrapper");
-      
-      storyContainer.innerHTML = "";
-      slidesWrapper.innerHTML = "";
-
-      const normalizedPhotos = (photos.length > 0) ? photos : [{ url: "", caption: "" }];
-
-      normalizedPhotos.forEach((photoItem, index) => {
-        // Story Segment
-        const segment = document.createElement("div");
-        segment.className = "story-segment" + (index === 0 ? " active" : "");
-        segment.setAttribute("data-index", index);
-        segment.addEventListener("click", (e) => {
-          e.stopPropagation();
-          goToPhoto(index);
-        });
-        storyContainer.appendChild(segment);
-
-        // Slide Item
-        const slide = document.createElement("div");
-        slide.className = "slide-item" + (index === 0 ? " active" : "");
-        slide.setAttribute("data-index", index);
-
-        const photoUrl = typeof photoItem === "string" ? photoItem : photoItem.url;
-        
-        if (photoUrl && photoUrl.trim() !== "") {
-          const img = document.createElement("img");
-          img.src = photoUrl;
-          img.alt = `Photo ${index + 1}`;
-          img.loading = index === 0 ? "eager" : "lazy";
-          
-          // Fallback if image path does not exist
-          img.onerror = () => handlePhotoError(slide, index, photoUrl);
-          slide.appendChild(img);
-        } else {
-          handlePhotoError(slide, index, "No URL specified");
-        }
-
-        slidesWrapper.appendChild(slide);
-      });
-
-      currentPhotoIndex = 0;
-      updatePhotoCounter();
-    }
-
-    /**
-     * Fallback UI when local photo or URL fails to load
-     */
-    function handlePhotoError(container, index, rawPath) {
-      container.innerHTML = `
-        <div class="photo-placeholder">
-          <div class="placeholder-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <rect x="3" y="3" width="18" height="18" rx="4" ry="4"/>
-              <circle cx="8.5" cy="8.5" r="1.5"/>
-              <polyline points="21 15 16 10 5 21"/>
-            </svg>
-          </div>
-          <div class="placeholder-title">Photo ${index + 1}</div>
-          <div class="placeholder-path"><code>${escapeHtml(rawPath)}</code></div>
-          <div class="placeholder-hint">Add this file to your folder or update <code>PROFILE_CONFIG</code> in the script tag</div>
-        </div>
-      `;
-    }
-
-    /**
-     * Cycle to next / previous photo
-     */
-    function nextPhoto() {
-      const photos = activeProfile.photos || [];
-      if (photos.length <= 1) return;
-      currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
-      updateCarouselUI();
-    }
-
-    function prevPhoto() {
-      const photos = activeProfile.photos || [];
-      if (photos.length <= 1) return;
-      currentPhotoIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
-      updateCarouselUI();
-    }
-
-    function goToPhoto(index) {
-      const photos = activeProfile.photos || [];
-      if (index >= 0 && index < photos.length) {
-        currentPhotoIndex = index;
-        updateCarouselUI();
-      }
-    }
-
-    function updateCarouselUI() {
-      const segments = document.querySelectorAll(".story-segment");
-      const slides = document.querySelectorAll(".slide-item");
-
-      segments.forEach((seg, i) => {
-        seg.classList.remove("active", "seen");
-        if (i === currentPhotoIndex) {
-          seg.classList.add("active");
-        } else if (i < currentPhotoIndex) {
-          seg.classList.add("seen");
-        }
-      });
-
-      slides.forEach((slide, i) => {
-        if (i === currentPhotoIndex) {
-          slide.classList.add("active");
-        } else {
-          slide.classList.remove("active");
-        }
-      });
-
-      updatePhotoCounter();
-    }
-
-    function updatePhotoCounter() {
-      const countEl = document.getElementById("photo-counter");
-      const total = (activeProfile.photos && activeProfile.photos.length) || 1;
-      countEl.textContent = `${currentPhotoIndex + 1} / ${total}`;
-    }
-
-    /**
-     * Render Essentials Badges
-     */
-    function renderEssentials(essentials) {
-      const container = document.getElementById("feed-essentials");
-      container.innerHTML = "";
-
-      essentials.forEach(item => {
-        const chip = document.createElement("div");
-        chip.className = "essential-chip";
-        const iconSvg = ESSENTIAL_ICONS[item.icon] || ESSENTIAL_ICONS.search;
-        chip.innerHTML = `
-          ${iconSvg}
-          <span class="essential-label">${escapeHtml(item.label)}:</span>
-          <span class="essential-val">${escapeHtml(item.value)}</span>
-        `;
-        container.appendChild(chip);
-      });
-    }
-
-    /**
-     * Render Prompts and interleave secondary photos (Hinge / Dating App style)
-     */
-    function renderPromptsAndMedia(prompts, photos) {
-      const container = document.getElementById("feed-prompts-and-media");
-      container.innerHTML = "";
-
-      // Interleave secondary photos after prompts if available
-      prompts.forEach((promptItem, pIndex) => {
-        // Prompt Card
-        const promptCard = document.createElement("div");
-        promptCard.className = "prompt-card";
-        promptCard.innerHTML = `
-          <div class="prompt-header">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/>
-            </svg>
-            <span>Dating App Prompt</span>
-          </div>
-          <div class="prompt-question">${escapeHtml(promptItem.category)}</div>
-          <div class="prompt-answer">${escapeHtml(promptItem.answer)}</div>
-          <button class="prompt-like-btn" title="Like this prompt" aria-label="Like prompt">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-            </svg>
-          </button>
-        `;
-
-        // Like prompt interaction
-        promptCard.querySelector(".prompt-like-btn").addEventListener("click", (e) => {
-          e.stopPropagation();
-          showToast(`Liked prompt: "${promptItem.category}"`);
-          triggerStamp("like");
-        });
-
-        container.appendChild(promptCard);
-
-        // Optionally append a full inline photo card between prompts (for photos 1, 2, 3...)
-        const secondaryPhoto = photos[pIndex + 1];
-        if (secondaryPhoto) {
-          const photoUrl = typeof secondaryPhoto === "string" ? secondaryPhoto : secondaryPhoto.url;
-          const photoCaption = typeof secondaryPhoto === "object" ? secondaryPhoto.caption : "";
-          
-          if (photoUrl && photoUrl.trim() !== "") {
-            const inlineCard = document.createElement("div");
-            inlineCard.className = "inline-photo-card";
-            inlineCard.innerHTML = `
-              <img src="${escapeHtml(photoUrl)}" alt="Profile photo" onerror="this.parentElement.style.display='none'">
-              ${photoCaption ? `<div class="inline-photo-caption">${escapeHtml(photoCaption)}</div>` : ''}
-            `;
-            container.appendChild(inlineCard);
-          }
-        }
-      });
-
-      // If there are additional photos beyond prompt count, render them in order at the end of the feed
-      for (let i = prompts.length + 1; i < photos.length; i++) {
-        const extraPhoto = photos[i];
-        if (extraPhoto) {
-          const photoUrl = typeof extraPhoto === "string" ? extraPhoto : extraPhoto.url;
-          const photoCaption = typeof extraPhoto === "object" ? extraPhoto.caption : "";
-          if (photoUrl && photoUrl.trim() !== "") {
-            const inlineCard = document.createElement("div");
-            inlineCard.className = "inline-photo-card";
-            inlineCard.innerHTML = `
-              <img src="${escapeHtml(photoUrl)}" alt="Profile photo" onerror="this.parentElement.style.display='none'">
-              ${photoCaption ? `<div class="inline-photo-caption">${escapeHtml(photoCaption)}</div>` : ''}
-            `;
-            container.appendChild(inlineCard);
-          }
-        }
-      }
-    }
-
-    /**
-     * Render Interests Tags
-     */
-    function renderInterests(interests) {
-      const container = document.getElementById("feed-interests");
-      container.innerHTML = "";
-
-      interests.forEach(interest => {
-        const pill = document.createElement("div");
-        pill.className = "interest-pill";
-        pill.textContent = interest;
-        container.appendChild(pill);
-      });
-    }
-
-    /**
-     * Render Anthem
-     */
-    function renderAnthem(anthem) {
-      const anthemCard = document.getElementById("card-anthem");
-      if (!anthem || !anthem.track) {
-        anthemCard.style.display = "none";
+    // Priority B: Local / repo profile.json
+    try {
+      const res = await fetch("profile.json?t=" + Date.now(), { cache: "no-store" });
+      if (res.ok) {
+        const data = await res.json();
+        applyConfig(data);
+        console.log("Loaded profile from profile.json");
         return;
       }
-      anthemCard.style.display = "block";
-      document.getElementById("anthem-track").textContent = anthem.track || "";
-      document.getElementById("anthem-artist").textContent = anthem.artist || "";
-      const artImg = document.getElementById("anthem-art");
-      if (anthem.albumArt) {
-        artImg.src = anthem.albumArt;
-        artImg.style.display = "block";
-      } else {
-        artImg.style.display = "none";
+    } catch (err) {}
+
+    // Priority C: profile.example.json
+    try {
+      const resEx = await fetch("profile.example.json?t=" + Date.now(), { cache: "no-store" });
+      if (resEx.ok) {
+        const dataEx = await resEx.json();
+        applyConfig(dataEx);
+        console.log("Loaded profile from profile.example.json");
+        return;
       }
-    }
+    } catch (err) {}
 
-    /**
-     * Dating Action Stamp Animations & Toasts
-     */
-    let stampTimeout = null;
-    let toastTimeout = null;
+    // Priority D: Embedded default configuration
+    applyConfig(DEFAULT_PROFILE_CONFIG);
+  }
 
-    function triggerStamp(type) {
-      const stamps = {
-        like: document.getElementById("stamp-like"),
-        nope: document.getElementById("stamp-nope"),
-        superlike: document.getElementById("stamp-superlike")
+  function saveDraftToStorage() {
+    try {
+      localStorage.setItem("dating_profile_sandbox_draft", JSON.stringify(activeProfile));
+    } catch (e) {}
+  }
+
+  /* ==========================================================================
+     CONFIG NORMALIZATION & RENDERING
+     ========================================================================== */
+  function applyConfig(config) {
+    let photos = Array.isArray(config.photos) ? [...config.photos] : [];
+
+    // Normalize photos to objects with framing
+    photos = photos.map(p => {
+      if (typeof p === "string") {
+        return {
+          url: p,
+          caption: "",
+          position: { x: 50, y: 50 },
+          zoom: 1.0
+        };
+      }
+      return {
+        url: p.url || "",
+        caption: p.caption || "",
+        position: p.position ? { x: Number(p.position.x) || 50, y: Number(p.position.y) || 50 } : { x: 50, y: 50 },
+        zoom: typeof p.zoom === "number" ? p.zoom : 1.0
       };
+    });
 
-      Object.values(stamps).forEach(s => s.classList.remove("visible"));
+    if (photos.length === 0) {
+      photos = [{
+        url: "default_photos/default_hero.jpg",
+        caption: "Golden hour in the city 🌇",
+        position: { x: 50, y: 30 },
+        zoom: 1.05
+      }];
+    }
 
-      const target = stamps[type];
-      if (target) {
-        clearTimeout(stampTimeout);
-        // Force reflow
-        void target.offsetWidth;
-        target.classList.add("visible");
-        stampTimeout = setTimeout(() => {
-          target.classList.remove("visible");
-        }, 1100);
+    // Sort by imageOrder if provided
+    if (Array.isArray(config.imageOrder) && config.imageOrder.length > 0) {
+      const map = new Map();
+      photos.forEach(p => map.set(p.url, p));
+      const ordered = [];
+      config.imageOrder.forEach(url => {
+        if (map.has(url)) {
+          ordered.push(map.get(url));
+          map.delete(url);
+        } else {
+          ordered.push({ url, caption: "", position: { x: 50, y: 50 }, zoom: 1.0 });
+        }
+      });
+      map.forEach(p => ordered.push(p));
+      photos = ordered;
+    }
+
+    activeProfile = Object.assign({}, DEFAULT_PROFILE_CONFIG, config, {
+      photos: photos,
+      imageOrder: photos.map(p => p.url)
+    });
+
+    currentEditorPhotos = JSON.parse(JSON.stringify(activeProfile.photos));
+    renderProfile(activeProfile);
+    populateEditorFields();
+    saveDraftToStorage();
+  }
+
+  function renderProfile(config) {
+    // Header & Bio
+    document.getElementById("hero-name").textContent = config.name || "Alex";
+    document.getElementById("hero-age").textContent = config.age ? config.age : "";
+    document.getElementById("hero-pronouns").textContent = config.pronouns || "";
+    document.getElementById("hero-pronouns").style.display = config.pronouns ? "inline-block" : "none";
+    document.getElementById("hero-verified").style.display = (config.verified !== false) ? "inline-flex" : "none";
+
+    const jobEl = document.getElementById("hero-job");
+    const jobRow = document.getElementById("hero-job-row");
+    if (config.job) {
+      jobEl.textContent = config.job;
+      jobRow.style.display = "flex";
+    } else {
+      jobRow.style.display = "none";
+    }
+
+    const schoolEl = document.getElementById("hero-school");
+    const schoolRow = document.getElementById("hero-school-row");
+    if (config.school) {
+      schoolEl.textContent = config.school;
+      schoolRow.style.display = "flex";
+    } else {
+      schoolRow.style.display = "none";
+    }
+
+    document.getElementById("hero-location").textContent = config.location || "";
+    document.getElementById("hero-distance").textContent = config.distance || "";
+    document.getElementById("feed-bio").textContent = config.bio || "";
+
+    // Photos, Badges, Prompts, Interests, Anthem
+    renderCarousel(config.photos || []);
+    renderEssentials(config.essentials || []);
+    renderPromptsAndMedia(config.prompts || [], config.photos || []);
+    renderInterests(config.interests || []);
+    renderAnthem(config.anthem);
+  }
+
+  /* ==========================================================================
+     PHOTO CAROUSEL & MANUAL FRAMING RENDERING
+     ========================================================================== */
+  function renderCarousel(photos) {
+    const storyContainer = document.getElementById("story-progress-container");
+    const slidesWrapper = document.getElementById("slides-wrapper");
+    storyContainer.innerHTML = "";
+    slidesWrapper.innerHTML = "";
+
+    const list = (photos.length > 0) ? photos : [{
+      url: "default_photos/default_hero.jpg",
+      caption: "",
+      position: { x: 50, y: 30 },
+      zoom: 1.05
+    }];
+
+    list.forEach((photo, index) => {
+      // Progress Segment
+      const segment = document.createElement("div");
+      segment.className = "story-segment" + (index === 0 ? " active" : "");
+      segment.setAttribute("data-index", index);
+      segment.addEventListener("click", (e) => {
+        e.stopPropagation();
+        goToPhoto(index);
+      });
+      storyContainer.appendChild(segment);
+
+      // Slide Item
+      const slide = document.createElement("div");
+      slide.className = "slide-item" + (index === 0 ? " active" : "");
+      slide.setAttribute("data-index", index);
+
+      const rawUrl = typeof photo === "string" ? photo : photo.url;
+      const displayUrl = resolvePhotoUrl(rawUrl);
+
+      const img = document.createElement("img");
+      img.src = displayUrl;
+      img.alt = `Photo ${index + 1}`;
+      img.loading = index === 0 ? "eager" : "lazy";
+
+      // Apply Manual Framing & Zoom
+      const pos = (photo && photo.position) ? photo.position : { x: 50, y: 50 };
+      const zoom = (photo && typeof photo.zoom === "number") ? photo.zoom : 1.0;
+      img.style.objectPosition = `${pos.x}% ${pos.y}%`;
+      img.style.transform = `scale(${zoom})`;
+      img.style.transformOrigin = `${pos.x}% ${pos.y}%`;
+
+      // Fallback Cascade
+      img.onerror = () => handleImageError(img, rawUrl);
+
+      slide.appendChild(img);
+      slidesWrapper.appendChild(slide);
+    });
+
+    currentPhotoIndex = 0;
+    updatePhotoCounter();
+  }
+
+  function handleImageError(img, rawUrl) {
+    if (img.dataset.failedOnce) {
+      img.src = FALLBACK_AVATAR_SVG;
+      return;
+    }
+    img.dataset.failedOnce = "true";
+    if (img.src.indexOf("default_photos/default_hero.jpg") === -1) {
+      img.src = "default_photos/default_hero.jpg";
+    } else {
+      img.src = FALLBACK_AVATAR_SVG;
+    }
+  }
+
+  function nextPhoto() {
+    const photos = activeProfile.photos || [];
+    if (photos.length <= 1) return;
+    currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+    updateCarouselUI();
+  }
+
+  function prevPhoto() {
+    const photos = activeProfile.photos || [];
+    if (photos.length <= 1) return;
+    currentPhotoIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
+    updateCarouselUI();
+  }
+
+  function goToPhoto(index) {
+    const photos = activeProfile.photos || [];
+    if (index >= 0 && index < photos.length) {
+      currentPhotoIndex = index;
+      updateCarouselUI();
+    }
+  }
+
+  function updateCarouselUI() {
+    const segments = document.querySelectorAll(".story-segment");
+    const slides = document.querySelectorAll(".slide-item");
+
+    segments.forEach((seg, i) => {
+      seg.classList.remove("active", "seen");
+      if (i === currentPhotoIndex) {
+        seg.classList.add("active");
+      } else if (i < currentPhotoIndex) {
+        seg.classList.add("seen");
+      }
+    });
+
+    slides.forEach((slide, i) => {
+      if (i === currentPhotoIndex) {
+        slide.classList.add("active");
+      } else {
+        slide.classList.remove("active");
+      }
+    });
+
+    updatePhotoCounter();
+  }
+
+  function updatePhotoCounter() {
+    const countEl = document.getElementById("photo-counter");
+    const total = (activeProfile.photos && activeProfile.photos.length) || 1;
+    countEl.textContent = `${currentPhotoIndex + 1} / ${total}`;
+  }
+
+  /* ==========================================================================
+     FEED CARDS: ESSENTIALS, PROMPTS & INTERSPERSED PHOTOS
+     ========================================================================== */
+  function renderEssentials(essentials) {
+    const container = document.getElementById("feed-essentials");
+    container.innerHTML = "";
+
+    essentials.forEach(item => {
+      const chip = document.createElement("div");
+      chip.className = "essential-chip";
+      const iconSvg = ESSENTIAL_ICONS[item.icon] || ESSENTIAL_ICONS.search;
+      chip.innerHTML = `
+        ${iconSvg}
+        <span class="essential-label">${escapeHtml(item.label)}:</span>
+        <span class="essential-val">${escapeHtml(item.value)}</span>
+      `;
+      container.appendChild(chip);
+    });
+  }
+
+  function renderPromptsAndMedia(prompts, photos) {
+    const container = document.getElementById("feed-prompts-and-media");
+    container.innerHTML = "";
+
+    prompts.forEach((promptItem, pIndex) => {
+      // Prompt Card
+      const promptCard = document.createElement("div");
+      promptCard.className = "prompt-card";
+      promptCard.innerHTML = `
+        <div class="prompt-header">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/>
+          </svg>
+          <span>Dating App Prompt</span>
+        </div>
+        <div class="prompt-question">${escapeHtml(promptItem.category)}</div>
+        <div class="prompt-answer">${escapeHtml(promptItem.answer)}</div>
+        <button class="prompt-like-btn" title="Like this prompt" aria-label="Like prompt">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+        </button>
+      `;
+
+      promptCard.querySelector(".prompt-like-btn").addEventListener("click", (e) => {
+        e.stopPropagation();
+        showToast(`Liked prompt: "${promptItem.category}"`);
+        triggerStamp("like");
+      });
+
+      container.appendChild(promptCard);
+
+      // Interspersed secondary photo
+      const secondaryPhoto = photos[pIndex + 1];
+      if (secondaryPhoto) {
+        const rawUrl = typeof secondaryPhoto === "string" ? secondaryPhoto : secondaryPhoto.url;
+        const caption = typeof secondaryPhoto === "object" ? secondaryPhoto.caption : "";
+        const pos = secondaryPhoto.position || { x: 50, y: 50 };
+        const zoom = typeof secondaryPhoto.zoom === "number" ? secondaryPhoto.zoom : 1.0;
+
+        const inlineCard = document.createElement("div");
+        inlineCard.className = "inline-photo-card";
+        inlineCard.innerHTML = `
+          <img src="${escapeHtml(resolvePhotoUrl(rawUrl))}" alt="Profile photo" style="object-position: ${pos.x}% ${pos.y}%; transform: scale(${zoom}); transform-origin: ${pos.x}% ${pos.y}%;">
+          ${caption ? `<div class="inline-photo-caption">${escapeHtml(caption)}</div>` : ''}
+        `;
+        const img = inlineCard.querySelector("img");
+        img.onerror = () => handleImageError(img, rawUrl);
+        container.appendChild(inlineCard);
+      }
+    });
+
+    // Remaining photos
+    for (let i = prompts.length + 1; i < photos.length; i++) {
+      const extraPhoto = photos[i];
+      if (extraPhoto) {
+        const rawUrl = typeof extraPhoto === "string" ? extraPhoto : extraPhoto.url;
+        const caption = typeof extraPhoto === "object" ? extraPhoto.caption : "";
+        const pos = extraPhoto.position || { x: 50, y: 50 };
+        const zoom = typeof extraPhoto.zoom === "number" ? extraPhoto.zoom : 1.0;
+
+        const inlineCard = document.createElement("div");
+        inlineCard.className = "inline-photo-card";
+        inlineCard.innerHTML = `
+          <img src="${escapeHtml(resolvePhotoUrl(rawUrl))}" alt="Profile photo" style="object-position: ${pos.x}% ${pos.y}%; transform: scale(${zoom}); transform-origin: ${pos.x}% ${pos.y}%;">
+          ${caption ? `<div class="inline-photo-caption">${escapeHtml(caption)}</div>` : ''}
+        `;
+        const img = inlineCard.querySelector("img");
+        img.onerror = () => handleImageError(img, rawUrl);
+        container.appendChild(inlineCard);
+      }
+    }
+  }
+
+  function renderInterests(interests) {
+    const container = document.getElementById("feed-interests");
+    container.innerHTML = "";
+    (interests || []).forEach(interest => {
+      const pill = document.createElement("div");
+      pill.className = "interest-pill";
+      pill.textContent = interest;
+      container.appendChild(pill);
+    });
+  }
+
+  function renderAnthem(anthem) {
+    const anthemCard = document.getElementById("card-anthem");
+    if (!anthem || anthem.enabled === false || !anthem.track) {
+      anthemCard.style.display = "none";
+      return;
+    }
+    anthemCard.style.display = "block";
+    document.getElementById("anthem-track").textContent = anthem.track || "";
+    document.getElementById("anthem-artist").textContent = anthem.artist || "";
+    const artImg = document.getElementById("anthem-art");
+    if (anthem.albumArt) {
+      artImg.src = resolvePhotoUrl(anthem.albumArt);
+      artImg.style.display = "block";
+    } else {
+      artImg.style.display = "none";
+    }
+  }
+
+  /* ==========================================================================
+     QUICK EDIT DRAWER: COMPLETE CONFIGURATION ENGINE
+     ========================================================================== */
+  function populateEditorFields() {
+    // Header & Bio
+    document.getElementById("input-name").value = activeProfile.name || "";
+    document.getElementById("input-age").value = activeProfile.age || "";
+    document.getElementById("input-pronouns").value = activeProfile.pronouns || "";
+    document.getElementById("input-verified").checked = (activeProfile.verified !== false);
+    document.getElementById("input-job").value = activeProfile.job || "";
+    document.getElementById("input-school").value = activeProfile.school || "";
+    document.getElementById("input-location").value = activeProfile.location || "";
+    document.getElementById("input-distance").value = activeProfile.distance || "";
+    document.getElementById("input-bio").value = activeProfile.bio || "";
+
+    // Photos
+    currentEditorPhotos = JSON.parse(JSON.stringify(activeProfile.photos || []));
+    renderPhotoOrderManager();
+    syncPhotosToTextarea();
+
+    // Prompts
+    renderPromptsEditor();
+
+    // Essentials
+    renderEssentialsEditor();
+
+    // Interests
+    renderInterestsEditor();
+
+    // Anthem
+    const anthem = activeProfile.anthem || {};
+    document.getElementById("input-anthem-enabled").checked = (anthem.enabled !== false);
+    document.getElementById("input-anthem-track").value = anthem.track || "";
+    document.getElementById("input-anthem-artist").value = anthem.artist || "";
+    document.getElementById("input-anthem-art").value = anthem.albumArt || "";
+  }
+
+  function applyEditorChanges() {
+    // Header & Bio
+    activeProfile.name = document.getElementById("input-name").value.trim();
+    activeProfile.age = parseInt(document.getElementById("input-age").value, 10) || "";
+    activeProfile.pronouns = document.getElementById("input-pronouns").value.trim();
+    activeProfile.verified = document.getElementById("input-verified").checked;
+    activeProfile.job = document.getElementById("input-job").value.trim();
+    activeProfile.school = document.getElementById("input-school").value.trim();
+    activeProfile.location = document.getElementById("input-location").value.trim();
+    activeProfile.distance = document.getElementById("input-distance").value.trim();
+    activeProfile.bio = document.getElementById("input-bio").value.trim();
+
+    // Photos
+    activeProfile.photos = JSON.parse(JSON.stringify(currentEditorPhotos));
+    activeProfile.imageOrder = activeProfile.photos.map(p => p.url);
+
+    // Anthem
+    activeProfile.anthem = {
+      enabled: document.getElementById("input-anthem-enabled").checked,
+      track: document.getElementById("input-anthem-track").value.trim(),
+      artist: document.getElementById("input-anthem-artist").value.trim(),
+      albumArt: document.getElementById("input-anthem-art").value.trim()
+    };
+
+    renderProfile(activeProfile);
+    saveDraftToStorage();
+    showToast("Profile changes applied!");
+  }
+
+  /* ---------------- Dynamic Prompts Editor ---------------- */
+  function renderPromptsEditor() {
+    const container = document.getElementById("prompts-editor-list");
+    container.innerHTML = "";
+    const prompts = activeProfile.prompts || [];
+
+    prompts.forEach((p, idx) => {
+      const card = document.createElement("div");
+      card.className = "prompt-editor-card";
+
+      // Match preset or Custom
+      const isPreset = PRESET_PROMPTS.includes(p.category);
+      const selectOptions = PRESET_PROMPTS.map(preset => {
+        const sel = (preset === p.category) ? "selected" : "";
+        return `<option value="${escapeHtml(preset)}" ${sel}>${escapeHtml(preset)}</option>`;
+      }).join("");
+
+      card.innerHTML = `
+        <div class="prompt-editor-header">
+          <span class="prompt-num-badge">#${idx + 1}</span>
+          <select class="prompt-preset-select" data-index="${idx}">
+            ${selectOptions}
+          </select>
+          <div class="prompt-editor-actions">
+            <button type="button" class="btn-card-action move-up" title="Move Up" ${idx === 0 ? "disabled" : ""}>↑</button>
+            <button type="button" class="btn-card-action move-down" title="Move Down" ${idx === prompts.length - 1 ? "disabled" : ""}>↓</button>
+            <button type="button" class="btn-card-action del" title="Delete Prompt">✕</button>
+          </div>
+        </div>
+        <input type="text" class="form-input prompt-custom-input" value="${escapeHtml(p.category)}" placeholder="Custom prompt question..." style="${isPreset && p.category !== 'Custom Question...' ? 'display:none;' : ''} margin-top:2px;">
+        <textarea class="form-textarea prompt-answer-input" placeholder="Your prompt answer...">${escapeHtml(p.answer || "")}</textarea>
+      `;
+
+      const select = card.querySelector(".prompt-preset-select");
+      const customInput = card.querySelector(".prompt-custom-input");
+      const answerArea = card.querySelector(".prompt-answer-input");
+
+      select.addEventListener("change", (e) => {
+        if (e.target.value === "Custom Question...") {
+          customInput.style.display = "block";
+          customInput.focus();
+          p.category = customInput.value || "Custom Question";
+        } else {
+          customInput.style.display = "none";
+          p.category = e.target.value;
+          customInput.value = e.target.value;
+        }
+        renderProfile(activeProfile);
+      });
+
+      customInput.addEventListener("input", (e) => {
+        p.category = e.target.value;
+        renderProfile(activeProfile);
+      });
+
+      answerArea.addEventListener("input", (e) => {
+        p.answer = e.target.value;
+        renderProfile(activeProfile);
+      });
+
+      card.querySelector(".move-up").addEventListener("click", () => {
+        if (idx > 0) {
+          const tmp = prompts[idx];
+          prompts[idx] = prompts[idx - 1];
+          prompts[idx - 1] = tmp;
+          renderPromptsEditor();
+          renderProfile(activeProfile);
+        }
+      });
+
+      card.querySelector(".move-down").addEventListener("click", () => {
+        if (idx < prompts.length - 1) {
+          const tmp = prompts[idx];
+          prompts[idx] = prompts[idx + 1];
+          prompts[idx + 1] = tmp;
+          renderPromptsEditor();
+          renderProfile(activeProfile);
+        }
+      });
+
+      card.querySelector(".del").addEventListener("click", () => {
+        prompts.splice(idx, 1);
+        renderPromptsEditor();
+        renderProfile(activeProfile);
+      });
+
+      container.appendChild(card);
+    });
+  }
+
+  /* ---------------- Essentials Badges Editor ---------------- */
+  function renderEssentialsEditor() {
+    const container = document.getElementById("essentials-editor-list");
+    container.innerHTML = "";
+    const list = activeProfile.essentials || [];
+
+    const iconKeys = Object.keys(ESSENTIAL_ICONS);
+
+    list.forEach((item, idx) => {
+      const card = document.createElement("div");
+      card.className = "essential-editor-card";
+
+      const iconOptions = iconKeys.map(k => {
+        return `<option value="${k}" ${item.icon === k ? 'selected' : ''}>${k}</option>`;
+      }).join("");
+
+      card.innerHTML = `
+        <select class="essential-icon-select" title="Choose icon">
+          ${iconOptions}
+        </select>
+        <input type="text" class="essential-input-label" value="${escapeHtml(item.label)}" placeholder="Label">
+        <input type="text" class="essential-input-value" value="${escapeHtml(item.value)}" placeholder="Value">
+        <button type="button" class="btn-card-action del" title="Delete Badge">✕</button>
+      `;
+
+      card.querySelector(".essential-icon-select").addEventListener("change", (e) => {
+        item.icon = e.target.value;
+        renderProfile(activeProfile);
+      });
+      card.querySelector(".essential-input-label").addEventListener("input", (e) => {
+        item.label = e.target.value;
+        renderProfile(activeProfile);
+      });
+      card.querySelector(".essential-input-value").addEventListener("input", (e) => {
+        item.value = e.target.value;
+        renderProfile(activeProfile);
+      });
+      card.querySelector(".del").addEventListener("click", () => {
+        list.splice(idx, 1);
+        renderEssentialsEditor();
+        renderProfile(activeProfile);
+      });
+
+      container.appendChild(card);
+    });
+  }
+
+  /* ---------------- Interests / Passions Editor ---------------- */
+  function renderInterestsEditor() {
+    const container = document.getElementById("interests-editor-chips");
+    container.innerHTML = "";
+    const list = activeProfile.interests || [];
+
+    list.forEach((tag, idx) => {
+      const chip = document.createElement("span");
+      chip.className = "interest-editor-chip";
+      chip.innerHTML = `
+        <span>${escapeHtml(tag)}</span>
+        <span class="interest-chip-del" title="Remove tag">✕</span>
+      `;
+      chip.querySelector(".interest-chip-del").addEventListener("click", () => {
+        list.splice(idx, 1);
+        renderInterestsEditor();
+        renderProfile(activeProfile);
+      });
+      container.appendChild(chip);
+    });
+  }
+
+  /* ==========================================================================
+     PHOTO GALLERY & MANUAL FRAMING MANAGER
+     ========================================================================== */
+  function renderPhotoOrderManager() {
+    const container = document.getElementById("photo-order-list");
+    const countBadge = document.getElementById("photo-count-badge");
+    if (!container) return;
+    container.innerHTML = "";
+
+    countBadge.textContent = `${currentEditorPhotos.length} photo${currentEditorPhotos.length === 1 ? '' : 's'}`;
+
+    if (currentEditorPhotos.length === 0) {
+      container.innerHTML = `<div style="font-size: 12px; color: #64748b; font-style: italic; padding: 6px 0;">No photos in list. Click "Upload Photos from Disk" or add paths below.</div>`;
+      return;
+    }
+
+    currentEditorPhotos.forEach((photo, index) => {
+      const isHero = index === 0;
+      const rawUrl = typeof photo === "string" ? photo : photo.url;
+      const caption = typeof photo === "object" ? (photo.caption || "") : "";
+      const pos = (photo && photo.position) ? photo.position : { x: 50, y: 50 };
+      const zoom = (photo && typeof photo.zoom === "number") ? photo.zoom : 1.0;
+      const displayUrl = resolvePhotoUrl(rawUrl);
+
+      const isFramingOpen = (openFramingCardIndex === index);
+
+      const card = document.createElement("div");
+      card.className = "photo-order-card" + (isHero ? " is-hero" : "");
+      card.style.flexDirection = "column";
+      card.style.alignItems = "stretch";
+
+      card.innerHTML = `
+        <div style="display:flex; align-items:center; gap:10px; width:100%;">
+          <div class="photo-order-badge" title="${isHero ? 'Primary Hero Cover Photo' : 'Photo #' + (index + 1)}">
+            ${isHero ? 'Hero' : '#' + (index + 1)}
+          </div>
+          <img class="photo-order-thumb" src="${escapeHtml(displayUrl)}" alt="Photo ${index + 1}" style="object-position: ${pos.x}% ${pos.y}%; transform: scale(${zoom});">
+          <div class="photo-order-info">
+            <input type="text" class="photo-order-path-input" value="${escapeHtml(rawUrl)}" placeholder="Path or URL" aria-label="Photo path">
+            <input type="text" class="photo-order-caption-input" value="${escapeHtml(caption)}" placeholder="Optional caption..." aria-label="Photo caption">
+          </div>
+          <div class="photo-order-actions">
+            <button type="button" class="btn-photo-action move-up" title="Move Up" ${index === 0 ? "disabled" : ""}>↑</button>
+            <button type="button" class="btn-photo-action move-down" title="Move Down" ${index === currentEditorPhotos.length - 1 ? "disabled" : ""}>↓</button>
+            <button type="button" class="btn-photo-action btn-toggle-frame ${isFramingOpen ? 'active' : ''}" title="Adjust Manual Framing & Zoom">📐</button>
+            <button type="button" class="btn-photo-action btn-replace-file" title="Replace with file from disk">🖼️</button>
+            <button type="button" class="btn-photo-action delete" title="Delete Photo">✕</button>
+          </div>
+        </div>
+
+        <!-- Collapsible Framing Tool Panel -->
+        <div class="photo-framing-panel ${isFramingOpen ? '' : 'hidden'}">
+          <div style="font-size:11px; font-weight:700; color:#e2e8f0; display:flex; justify-content:space-between;">
+            <span>Manual Framing (Focal Point &amp; Zoom)</span>
+            <span style="color:#94a3b8; font-weight:normal;">Drag crosshair or sliders</span>
+          </div>
+          <div class="photo-framing-body">
+            <div class="focal-pad" title="Click or drag to position focal point">
+              <img src="${escapeHtml(displayUrl)}" alt="Focal target">
+              <div class="focal-crosshair" style="left: ${pos.x}%; top: ${pos.y}%;"></div>
+            </div>
+            <div class="framing-controls">
+              <div class="framing-slider-row">
+                <label>Focus X</label>
+                <input type="range" class="slider-pos-x" min="0" max="100" value="${pos.x}">
+                <span class="framing-val-badge val-pos-x">${pos.x}%</span>
+              </div>
+              <div class="framing-slider-row">
+                <label>Focus Y</label>
+                <input type="range" class="slider-pos-y" min="0" max="100" value="${pos.y}">
+                <span class="framing-val-badge val-pos-y">${pos.y}%</span>
+              </div>
+              <div class="framing-slider-row">
+                <label>Zoom</label>
+                <input type="range" class="slider-zoom" min="1.0" max="2.5" step="0.05" value="${zoom}">
+                <span class="framing-val-badge val-zoom">${zoom.toFixed(2)}x</span>
+              </div>
+              <div class="framing-presets">
+                <button type="button" class="btn-framing-preset preset-center">Center</button>
+                <button type="button" class="btn-framing-preset preset-face">Face / Top</button>
+                <button type="button" class="btn-framing-preset preset-reset">Reset</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      const thumbImg = card.querySelector(".photo-order-thumb");
+      thumbImg.onerror = () => handleImageError(thumbImg, rawUrl);
+
+      // Path & Caption events
+      const pathInput = card.querySelector(".photo-order-path-input");
+      const captionInput = card.querySelector(".photo-order-caption-input");
+
+      pathInput.addEventListener("input", (e) => {
+        photo.url = e.target.value.trim();
+        thumbImg.src = resolvePhotoUrl(photo.url);
+        syncPhotosToTextarea();
+        activeProfile.photos = currentEditorPhotos;
+        renderProfile(activeProfile);
+      });
+
+      captionInput.addEventListener("input", (e) => {
+        photo.caption = e.target.value;
+        activeProfile.photos = currentEditorPhotos;
+        renderProfile(activeProfile);
+      });
+
+      // Actions
+      card.querySelector(".move-up").addEventListener("click", () => {
+        if (index > 0) {
+          const tmp = currentEditorPhotos[index];
+          currentEditorPhotos[index] = currentEditorPhotos[index - 1];
+          currentEditorPhotos[index - 1] = tmp;
+          if (openFramingCardIndex === index) openFramingCardIndex = index - 1;
+          else if (openFramingCardIndex === index - 1) openFramingCardIndex = index;
+          syncAndRerenderPhotos();
+        }
+      });
+
+      card.querySelector(".move-down").addEventListener("click", () => {
+        if (index < currentEditorPhotos.length - 1) {
+          const tmp = currentEditorPhotos[index];
+          currentEditorPhotos[index] = currentEditorPhotos[index + 1];
+          currentEditorPhotos[index + 1] = tmp;
+          if (openFramingCardIndex === index) openFramingCardIndex = index + 1;
+          else if (openFramingCardIndex === index + 1) openFramingCardIndex = index;
+          syncAndRerenderPhotos();
+        }
+      });
+
+      card.querySelector(".delete").addEventListener("click", () => {
+        currentEditorPhotos.splice(index, 1);
+        if (openFramingCardIndex === index) openFramingCardIndex = null;
+        syncAndRerenderPhotos();
+      });
+
+      // Framing Toggle
+      card.querySelector(".btn-toggle-frame").addEventListener("click", () => {
+        openFramingCardIndex = (openFramingCardIndex === index) ? null : index;
+        renderPhotoOrderManager();
+      });
+
+      // Replace file button
+      card.querySelector(".btn-replace-file").addEventListener("click", () => {
+        replaceSlotIndex = index;
+        document.getElementById("single-photo-replace-picker").click();
+      });
+
+      // Framing Controls Logic
+      const focalPad = card.querySelector(".focal-pad");
+      const crosshair = card.querySelector(".focal-crosshair");
+      const sliderX = card.querySelector(".slider-pos-x");
+      const sliderY = card.querySelector(".slider-pos-y");
+      const sliderZoom = card.querySelector(".slider-zoom");
+      const valX = card.querySelector(".val-pos-x");
+      const valY = card.querySelector(".val-pos-y");
+      const valZoom = card.querySelector(".val-zoom");
+
+      function updatePhotoFraming(newX, newY, newZoom) {
+        photo.position = { x: Math.round(newX), y: Math.round(newY) };
+        photo.zoom = parseFloat(Number(newZoom).toFixed(2));
+
+        sliderX.value = photo.position.x;
+        sliderY.value = photo.position.y;
+        sliderZoom.value = photo.zoom;
+
+        valX.textContent = `${photo.position.x}%`;
+        valY.textContent = `${photo.position.y}%`;
+        valZoom.textContent = `${photo.zoom.toFixed(2)}x`;
+
+        crosshair.style.left = `${photo.position.x}%`;
+        crosshair.style.top = `${photo.position.y}%`;
+
+        thumbImg.style.objectPosition = `${photo.position.x}% ${photo.position.y}%`;
+        thumbImg.style.transform = `scale(${photo.zoom})`;
+
+        activeProfile.photos = currentEditorPhotos;
+        renderProfile(activeProfile);
+        saveDraftToStorage();
+      }
+
+      sliderX.addEventListener("input", (e) => updatePhotoFraming(e.target.value, photo.position.y, photo.zoom));
+      sliderY.addEventListener("input", (e) => updatePhotoFraming(photo.position.x, e.target.value, photo.zoom));
+      sliderZoom.addEventListener("input", (e) => updatePhotoFraming(photo.position.x, photo.position.y, e.target.value));
+
+      card.querySelector(".preset-center").addEventListener("click", () => updatePhotoFraming(50, 50, photo.zoom));
+      card.querySelector(".preset-face").addEventListener("click", () => updatePhotoFraming(50, 25, photo.zoom));
+      card.querySelector(".preset-reset").addEventListener("click", () => updatePhotoFraming(50, 50, 1.0));
+
+      // Drag / Click on focal pad
+      let isDraggingPad = false;
+      function setFocalFromEvent(e) {
+        const rect = focalPad.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        let x = Math.round(((clientX - rect.left) / rect.width) * 100);
+        let y = Math.round(((clientY - rect.top) / rect.height) * 100);
+        x = Math.max(0, Math.min(100, x));
+        y = Math.max(0, Math.min(100, y));
+        updatePhotoFraming(x, y, photo.zoom);
+      }
+
+      focalPad.addEventListener("mousedown", (e) => {
+        isDraggingPad = true;
+        setFocalFromEvent(e);
+      });
+      window.addEventListener("mousemove", (e) => {
+        if (isDraggingPad) setFocalFromEvent(e);
+      });
+      window.addEventListener("mouseup", () => {
+        isDraggingPad = false;
+      });
+
+      container.appendChild(card);
+    });
+  }
+
+  function syncAndRerenderPhotos() {
+    activeProfile.photos = currentEditorPhotos;
+    activeProfile.imageOrder = currentEditorPhotos.map(p => p.url);
+    renderPhotoOrderManager();
+    syncPhotosToTextarea();
+    renderProfile(activeProfile);
+    saveDraftToStorage();
+  }
+
+  function syncPhotosToTextarea() {
+    const textarea = document.getElementById("input-photos");
+    if (!textarea) return;
+    textarea.value = currentEditorPhotos.map(p => p.url).join("\n");
+  }
+
+  /* ==========================================================================
+     LOCAL DISK UPLOADS & FILE HANDLING
+     ========================================================================== */
+  async function handleUploadedImageFiles(files) {
+    if (!files || files.length === 0) return;
+
+    for (const file of files) {
+      if (!file.type.startsWith("image/")) continue;
+      const cleanName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+      
+      // Save blob in IndexedDB
+      await idbSavePhoto(cleanName, file);
+      await idbSavePhoto("photos/" + cleanName, file);
+
+      // Register blob URL
+      const blobUrl = registerBlobUrl(cleanName, file);
+
+      // Check if slot in editor has this name or add new
+      const existing = currentEditorPhotos.find(p => {
+        const pUrl = (p.url || "").replace(/^photos\//, "");
+        return pUrl === cleanName;
+      });
+
+      if (existing) {
+        existing.url = "photos/" + cleanName;
+      } else {
+        currentEditorPhotos.push({
+          url: "photos/" + cleanName,
+          caption: "",
+          position: { x: 50, y: 50 },
+          zoom: 1.0
+        });
       }
     }
 
-    function showToast(message) {
-      const toast = document.getElementById("action-toast");
-      toast.textContent = message;
-      toast.classList.add("show");
-      clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(() => {
-        toast.classList.remove("show");
-      }, 1800);
-    }
+    syncAndRerenderPhotos();
+    showToast(`Loaded ${files.length} photo(s) from disk!`);
+  }
 
-    /**
-     * Setup Event Listeners
-     */
-    function setupEventListeners() {
-      // Tap navigation zones
-      document.getElementById("tap-zone-left").addEventListener("click", (e) => {
-        e.stopPropagation();
-        prevPhoto();
-      });
+  function setupWindowDropzone() {
+    const overlay = document.getElementById("window-drop-overlay");
+    let dragCounter = 0;
 
-      document.getElementById("tap-zone-right").addEventListener("click", (e) => {
-        e.stopPropagation();
-        nextPhoto();
-      });
+    window.addEventListener("dragenter", (e) => {
+      e.preventDefault();
+      dragCounter++;
+      overlay.classList.add("active");
+    });
 
-      // Desktop arrow buttons
-      document.getElementById("arrow-prev").addEventListener("click", (e) => {
-        e.stopPropagation();
-        prevPhoto();
-      });
+    window.addEventListener("dragleave", (e) => {
+      e.preventDefault();
+      dragCounter--;
+      if (dragCounter <= 0) {
+        dragCounter = 0;
+        overlay.classList.remove("active");
+      }
+    });
 
-      document.getElementById("arrow-next").addEventListener("click", (e) => {
-        e.stopPropagation();
-        nextPhoto();
-      });
+    window.addEventListener("dragover", (e) => {
+      e.preventDefault();
+    });
 
-      // Header Minimize / Scroll Cue
-      const scrollContainer = document.getElementById("screen-scroll-container");
-      
-      document.getElementById("btn-header-minimize").addEventListener("click", () => {
-        scrollContainer.scrollTo({ top: 400, behavior: "smooth" });
-      });
+    window.addEventListener("drop", async (e) => {
+      e.preventDefault();
+      dragCounter = 0;
+      overlay.classList.remove("active");
 
-      document.getElementById("btn-scroll-down").addEventListener("click", () => {
-        scrollContainer.scrollTo({ top: 480, behavior: "smooth" });
-      });
+      const files = Array.from(e.dataTransfer.files || []);
+      if (files.length === 0) return;
 
-      document.getElementById("btn-reset-view").addEventListener("click", () => {
-        scrollContainer.scrollTo({ top: 0, behavior: "smooth" });
-        goToPhoto(0);
-        showToast("View Reset");
-      });
+      const jsonFile = files.find(f => f.name.endsWith(".json"));
+      const imageFiles = files.filter(f => f.type.startsWith("image/"));
 
-      // Share button simulation
-      document.getElementById("btn-header-share").addEventListener("click", () => {
-        showToast("Profile link copied!");
-      });
-
-      document.getElementById("btn-share-profile").addEventListener("click", () => {
-        showToast("Share options opened!");
-      });
-
-      document.getElementById("btn-report-profile").addEventListener("click", () => {
-        showToast("Report modal simulated");
-      });
-
-      // Bottom Action Bar Buttons
-      document.getElementById("act-rewind").addEventListener("click", () => {
-        showToast("Rewind step");
-        goToPhoto(0);
-        scrollContainer.scrollTo({ top: 0, behavior: "smooth" });
-      });
-
-      document.getElementById("act-pass").addEventListener("click", () => {
-        triggerStamp("nope");
-        showToast(`Passed on ${activeProfile.name || "Alex"}`);
-      });
-
-      document.getElementById("act-superlike").addEventListener("click", () => {
-        triggerStamp("superlike");
-        showToast(`Super Liked ${activeProfile.name || "Alex"}! ⭐`);
-      });
-
-      document.getElementById("act-like").addEventListener("click", () => {
-        triggerStamp("like");
-        showToast(`Liked ${activeProfile.name || "Alex"}! 💚`);
-      });
-
-      document.getElementById("act-boost").addEventListener("click", () => {
-        showToast("Boost activated! ⚡");
-      });
-
-      // Live Editor Modal Controls
-      const editorOverlay = document.getElementById("editor-overlay");
-      document.getElementById("btn-toggle-editor").addEventListener("click", () => {
-        populateEditorFields();
-        editorOverlay.classList.add("open");
-      });
-
-      document.getElementById("btn-close-editor").addEventListener("click", () => {
-        editorOverlay.classList.remove("open");
-      });
-
-      editorOverlay.addEventListener("click", (e) => {
-        if (e.target === editorOverlay) {
-          editorOverlay.classList.remove("open");
-        }
-      });
-
-      document.getElementById("btn-apply-editor").addEventListener("click", async () => {
-        applyEditorChanges();
-        editorOverlay.classList.remove("open");
-        
-        if (isServerConnected) {
-          const ok = await saveProfileToServer(activeProfile);
-          if (ok) {
-            showToast("Profile & bio saved permanently to disk!");
-          } else {
-            showToast("Changes applied (error writing to disk)");
-          }
-        } else {
-          showToast("Changes applied to preview!");
-        }
-      });
-
-      // JSON Export and Import Controls
-      const jsonFilePicker = document.getElementById("json-file-picker");
-      jsonFilePicker.addEventListener("change", (e) => {
-        const file = e.target.files && e.target.files[0];
-        if (!file) return;
+      if (jsonFile) {
         const reader = new FileReader();
         reader.onload = (evt) => {
           try {
             const parsed = JSON.parse(evt.target.result);
             applyConfig(parsed);
-            showToast(`Imported ${file.name}!`);
+            showToast(`Imported ${jsonFile.name}!`);
           } catch (err) {
             alert("Error parsing JSON: " + err.message);
           }
         };
-        reader.readAsText(file);
-        jsonFilePicker.value = "";
-      });
-
-      document.getElementById("btn-header-export-json").addEventListener("click", exportProfileJson);
-      document.getElementById("btn-header-import-json").addEventListener("click", () => jsonFilePicker.click());
-      document.getElementById("btn-editor-export-json").addEventListener("click", exportProfileJson);
-      document.getElementById("btn-editor-import-json").addEventListener("click", () => jsonFilePicker.click());
-      document.getElementById("btn-copy-json").addEventListener("click", copyProfileJson);
-
-      // Photo Order & Manager Controls
-      const btnAddPhoto = document.getElementById("btn-add-photo");
-      const inputNewPhoto = document.getElementById("input-new-photo-path");
-      
-      btnAddPhoto.addEventListener("click", async () => {
-        const path = inputNewPhoto.value.trim();
-        if (!path) return;
-        currentEditorPhotos.push({ url: path, caption: "" });
-        activeProfile.photos = currentEditorPhotos;
-        activeProfile.imageOrder = currentEditorPhotos.map(p => typeof p === "string" ? p : p.url);
-        inputNewPhoto.value = "";
-        renderPhotoOrderManager();
-        syncPhotosToTextarea();
-        renderProfile(activeProfile);
-
-        if (isServerConnected) {
-          await saveProfileToServer({ photos: activeProfile.photos, imageOrder: activeProfile.imageOrder });
-        }
-      });
-
-      inputNewPhoto.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") {
-          e.preventDefault();
-          btnAddPhoto.click();
-        }
-      });
-
-      // Raw textarea two-way sync
-      const rawPhotosTextarea = document.getElementById("input-photos");
-      rawPhotosTextarea.addEventListener("input", async () => {
-        const lines = rawPhotosTextarea.value.split("\n").map(l => l.trim()).filter(Boolean);
-        currentEditorPhotos = lines.map((url, i) => {
-          const existing = currentEditorPhotos[i];
-          return {
-            url: url,
-            caption: (existing && typeof existing === "object") ? (existing.caption || "") : ""
-          };
-        });
-        activeProfile.photos = currentEditorPhotos;
-        activeProfile.imageOrder = currentEditorPhotos.map(p => typeof p === "string" ? p : p.url);
-        renderPhotoOrderManager();
-        renderProfile(activeProfile);
-
-        if (isServerConnected) {
-          await reorderPhotosOnServer(activeProfile.imageOrder);
-        }
-      });
-
-      // Interactive Photo Upload
-      const dropArea = document.getElementById("file-drop-area");
-      const fileInput = document.getElementById("local-file-picker");
-
-      dropArea.addEventListener("click", () => fileInput.click());
-
-      fileInput.addEventListener("change", async (e) => {
-        const files = Array.from(e.target.files);
-        if (files.length === 0) return;
-
-        const uploadText = document.getElementById("upload-status-text");
-        if (uploadText) uploadText.textContent = `Uploading ${files.length} photo(s)...`;
-
-        for (const file of files) {
-          if (isServerConnected) {
-            try {
-              const res = await uploadPhotoToServer(file);
-              if (res && res.photo) {
-                currentEditorPhotos.push(res.photo);
-                activeProfile.photos = currentEditorPhotos;
-                activeProfile.imageOrder = currentEditorPhotos.map(p => typeof p === "string" ? p : p.url);
-                showToast(`Saved "${file.name}" to photos/ folder!`);
-              }
-            } catch (err) {
-              console.error("Upload error:", err);
-              showToast(`Upload failed: ${err.message}`);
-            }
-          } else {
-            currentEditorPhotos.push({
-              url: URL.createObjectURL(file),
-              caption: file.name
-            });
-            activeProfile.photos = currentEditorPhotos;
-            activeProfile.imageOrder = currentEditorPhotos.map(p => typeof p === "string" ? p : p.url);
-            showToast(`Loaded ${file.name} (static mode)`);
-          }
-        }
-
-        if (uploadText) uploadText.textContent = "Upload New Photos";
-        renderProfile(activeProfile);
-        renderPhotoOrderManager();
-        syncPhotosToTextarea();
-        fileInput.value = "";
-      });
-
-      // Drag and drop handlers
-      dropArea.addEventListener("dragover", (e) => {
-        e.preventDefault();
-        dropArea.classList.add("dragover");
-      });
-
-      dropArea.addEventListener("dragleave", () => {
-        dropArea.classList.remove("dragover");
-      });
-
-      dropArea.addEventListener("drop", (e) => {
-        e.preventDefault();
-        dropArea.classList.remove("dragover");
-        if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-          fileInput.files = e.dataTransfer.files;
-          fileInput.dispatchEvent(new Event("change"));
-        }
-      });
-    }
-
-    /**
-     * Setup inline bio editor on phone mockup card
-     */
-    function setupBioInlineEditor() {
-      const btnEdit = document.getElementById("btn-quick-edit-bio");
-      const bioText = document.getElementById("feed-bio");
-      const editBox = document.getElementById("bio-inline-edit-box");
-      const textarea = document.getElementById("bio-inline-input");
-      const btnSave = document.getElementById("btn-bio-inline-save");
-      const btnCancel = document.getElementById("btn-bio-inline-cancel");
-
-      if (!btnEdit || !bioText || !editBox) return;
-
-      btnEdit.addEventListener("click", (e) => {
-        e.stopPropagation();
-        textarea.value = activeProfile.bio || "";
-        bioText.style.display = "none";
-        editBox.style.display = "block";
-        textarea.focus();
-      });
-
-      btnCancel.addEventListener("click", (e) => {
-        e.stopPropagation();
-        editBox.style.display = "none";
-        bioText.style.display = "block";
-      });
-
-      btnSave.addEventListener("click", async (e) => {
-        e.stopPropagation();
-        const newBio = textarea.value.trim();
-        activeProfile.bio = newBio;
-        bioText.textContent = newBio;
-        editBox.style.display = "none";
-        bioText.style.display = "block";
-
-        const drawerBio = document.getElementById("input-bio");
-        if (drawerBio) drawerBio.value = newBio;
-
-        if (isServerConnected) {
-          const ok = await saveProfileToServer({ bio: newBio });
-          if (ok) {
-            showToast("Bio saved permanently to disk!");
-          } else {
-            showToast("Bio updated in preview");
-          }
-        } else {
-          showToast("Bio updated in preview!");
-        }
-      });
-    }
-
-    /**
-     * Render the visual draggable / re-orderable photo cards in editor
-     */
-    function renderPhotoOrderManager() {
-      const container = document.getElementById("photo-order-list");
-      const countBadge = document.getElementById("photo-count-badge");
-      if (!container) return;
-
-      container.innerHTML = "";
-      if (countBadge) {
-        countBadge.textContent = `${currentEditorPhotos.length} photo${currentEditorPhotos.length === 1 ? '' : 's'}`;
+        reader.readAsText(jsonFile);
       }
 
-      if (currentEditorPhotos.length === 0) {
-        container.innerHTML = `<div style="font-size: 12px; color: #64748b; font-style: italic; padding: 6px 0;">No photos in list. Add a file path or URL below.</div>`;
-        return;
+      if (imageFiles.length > 0) {
+        await handleUploadedImageFiles(imageFiles);
       }
+    });
+  }
 
-      currentEditorPhotos.forEach((photoItem, index) => {
-        const photoUrl = typeof photoItem === "string" ? photoItem : photoItem.url;
-        const photoCaption = typeof photoItem === "object" ? (photoItem.caption || "") : "";
-        const isHero = index === 0;
+  /* ==========================================================================
+     EVENT LISTENERS & CONTROLS
+     ========================================================================== */
+  function setupEventListeners() {
+    // Carousel navigation
+    document.getElementById("tap-zone-left").addEventListener("click", (e) => { e.stopPropagation(); prevPhoto(); });
+    document.getElementById("tap-zone-right").addEventListener("click", (e) => { e.stopPropagation(); nextPhoto(); });
+    document.getElementById("arrow-prev").addEventListener("click", (e) => { e.stopPropagation(); prevPhoto(); });
+    document.getElementById("arrow-next").addEventListener("click", (e) => { e.stopPropagation(); nextPhoto(); });
 
-        const card = document.createElement("div");
-        card.className = "photo-order-card" + (isHero ? " is-hero" : "");
-        card.innerHTML = `
-          <div class="photo-order-badge" title="${isHero ? 'Primary Hero Cover Photo' : 'Photo #' + (index + 1)}">
-            ${isHero ? 'Hero' : '#' + (index + 1)}
-          </div>
-          <img class="photo-order-thumb" src="${escapeHtml(photoUrl)}" alt="Photo ${index + 1}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'40\\' height=\\'40\\' viewBox=\\'0 0 24 24\\' fill=\\'none\\' stroke=\\'%23666\\' stroke-width=\\'2\\'><rect x=\\'3\\' y=\\'3\\' width=\\'18\\' height=\\'18\\' rx=\\'2\\' ry=\\'2\\'/><circle cx=\\'8.5\\' cy=\\'8.5\\' r=\\'1.5\\'/><polyline points=\\'21 15 16 10 5 21\\'/></svg>'">
-          <div class="photo-order-info">
-            <input type="text" class="photo-order-path-input" value="${escapeHtml(photoUrl)}" placeholder="Path or URL" aria-label="Photo path">
-            <input type="text" class="photo-order-caption-input" value="${escapeHtml(photoCaption)}" placeholder="Optional caption..." aria-label="Photo caption">
-          </div>
-          <div class="photo-order-actions">
-            <button type="button" class="btn-photo-action move-up" title="Move up in order" ${index === 0 ? "disabled" : ""}>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><polyline points="18 15 12 9 6 15"/></svg>
-            </button>
-            <button type="button" class="btn-photo-action move-down" title="Move down in order" ${index === currentEditorPhotos.length - 1 ? "disabled" : ""}>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-            <button type="button" class="btn-photo-action delete" title="Delete photo permanently">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </button>
-          </div>
-        `;
+    // Scrolling & View resets
+    const scrollContainer = document.getElementById("screen-scroll-container");
+    document.getElementById("btn-header-minimize").addEventListener("click", () => {
+      scrollContainer.scrollTo({ top: 400, behavior: "smooth" });
+    });
+    document.getElementById("btn-scroll-down").addEventListener("click", () => {
+      scrollContainer.scrollTo({ top: 480, behavior: "smooth" });
+    });
+    document.getElementById("btn-reset-view").addEventListener("click", () => {
+      scrollContainer.scrollTo({ top: 0, behavior: "smooth" });
+      goToPhoto(0);
+      showToast("View Reset to Top");
+    });
 
-        const pathInput = card.querySelector(".photo-order-path-input");
-        const thumbImg = card.querySelector(".photo-order-thumb");
-        const captionInput = card.querySelector(".photo-order-caption-input");
+    // Mockup action simulation
+    document.getElementById("btn-header-share").addEventListener("click", () => showToast("Profile link copied!"));
+    document.getElementById("btn-share-profile").addEventListener("click", () => showToast("Share sheet opened!"));
+    document.getElementById("btn-report-profile").addEventListener("click", () => showToast("Report dialog simulated"));
 
-        pathInput.addEventListener("input", (e) => {
-          const val = e.target.value;
-          if (typeof currentEditorPhotos[index] === "string") {
-            currentEditorPhotos[index] = { url: val, caption: "" };
-          } else {
-            currentEditorPhotos[index].url = val;
-          }
-          thumbImg.src = val;
-          syncPhotosToTextarea();
-        });
+    document.getElementById("act-rewind").addEventListener("click", () => {
+      goToPhoto(0);
+      scrollContainer.scrollTo({ top: 0, behavior: "smooth" });
+      showToast("Rewind to Hero Photo");
+    });
+    document.getElementById("act-pass").addEventListener("click", () => {
+      triggerStamp("nope");
+      showToast(`Passed on ${activeProfile.name || "Alex"}`);
+    });
+    document.getElementById("act-superlike").addEventListener("click", () => {
+      triggerStamp("superlike");
+      showToast(`Super Liked ${activeProfile.name || "Alex"}! ⭐`);
+    });
+    document.getElementById("act-like").addEventListener("click", () => {
+      triggerStamp("like");
+      showToast(`Liked ${activeProfile.name || "Alex"}! 💚`);
+    });
+    document.getElementById("act-boost").addEventListener("click", () => showToast("Profile Boost activated! ⚡"));
 
-        captionInput.addEventListener("input", (e) => {
-          const val = e.target.value;
-          if (typeof currentEditorPhotos[index] === "string") {
-            currentEditorPhotos[index] = { url: currentEditorPhotos[index], caption: val };
-          } else {
-            currentEditorPhotos[index].caption = val;
-          }
-        });
+    // Editor Modal Controls
+    const editorOverlay = document.getElementById("editor-overlay");
+    document.getElementById("btn-toggle-editor").addEventListener("click", () => {
+      populateEditorFields();
+      editorOverlay.classList.add("open");
+    });
+    document.getElementById("btn-close-editor").addEventListener("click", () => {
+      editorOverlay.classList.remove("open");
+    });
+    editorOverlay.addEventListener("click", (e) => {
+      if (e.target === editorOverlay) editorOverlay.classList.remove("open");
+    });
+    document.getElementById("btn-apply-editor").addEventListener("click", () => {
+      applyEditorChanges();
+      editorOverlay.classList.remove("open");
+    });
 
-        card.querySelector(".move-up").addEventListener("click", async () => {
-          if (index > 0) {
-            const temp = currentEditorPhotos[index];
-            currentEditorPhotos[index] = currentEditorPhotos[index - 1];
-            currentEditorPhotos[index - 1] = temp;
-
-            activeProfile.photos = currentEditorPhotos;
-            activeProfile.imageOrder = currentEditorPhotos.map(p => typeof p === "string" ? p : p.url);
-
-            renderProfile(activeProfile);
-            renderPhotoOrderManager();
-            syncPhotosToTextarea();
-
-            if (isServerConnected) {
-              await reorderPhotosOnServer(activeProfile.imageOrder);
-            }
-          }
-        });
-
-        card.querySelector(".move-down").addEventListener("click", async () => {
-          if (index < currentEditorPhotos.length - 1) {
-            const temp = currentEditorPhotos[index];
-            currentEditorPhotos[index] = currentEditorPhotos[index + 1];
-            currentEditorPhotos[index + 1] = temp;
-
-            activeProfile.photos = currentEditorPhotos;
-            activeProfile.imageOrder = currentEditorPhotos.map(p => typeof p === "string" ? p : p.url);
-
-            renderProfile(activeProfile);
-            renderPhotoOrderManager();
-            syncPhotosToTextarea();
-
-            if (isServerConnected) {
-              await reorderPhotosOnServer(activeProfile.imageOrder);
-            }
-          }
-        });
-
-        card.querySelector(".delete").addEventListener("click", async () => {
-          const toDelete = currentEditorPhotos[index];
-          const photoUrl = typeof toDelete === "string" ? toDelete : toDelete.url;
-
-          const confirmMsg = isServerConnected
-            ? `Delete "${photoUrl}" permanently from disk and profile?`
-            : `Remove photo from preview?`;
-
-          if (!confirm(confirmMsg)) {
-            return;
-          }
-
-          if (isServerConnected && photoUrl.startsWith("photos/")) {
-            const ok = await deletePhotoFromServer(photoUrl);
-            if (ok) {
-              showToast("Photo deleted permanently from disk!");
-            }
-          } else {
-            showToast("Photo removed from list");
-          }
-
-          currentEditorPhotos.splice(index, 1);
-          activeProfile.photos = currentEditorPhotos;
-          activeProfile.imageOrder = currentEditorPhotos.map(p => typeof p === "string" ? p : p.url);
-
-          renderProfile(activeProfile);
-          renderPhotoOrderManager();
-          syncPhotosToTextarea();
-        });
-
-        container.appendChild(card);
-      });
-    }
-
-    /**
-     * Synchronize current photos to the raw textarea
-     */
-    function syncPhotosToTextarea() {
-      const textarea = document.getElementById("input-photos");
-      if (!textarea) return;
-      const urls = currentEditorPhotos.map(p => typeof p === "string" ? p : p.url);
-      textarea.value = urls.join("\n");
-    }
-
-    /**
-     * Desktop Keyboard Navigation
-     */
-    function setupKeyboardControls() {
-      window.addEventListener("keydown", (e) => {
-        // Ignore key events when typing inside editor inputs
-        if (["INPUT", "TEXTAREA"].includes(document.activeElement.tagName)) {
-          return;
+    // JSON Import
+    const jsonPicker = document.getElementById("json-file-picker");
+    jsonPicker.addEventListener("change", (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (evt) => {
+        try {
+          const parsed = JSON.parse(evt.target.result);
+          applyConfig(parsed);
+          showToast(`Imported ${file.name}!`);
+        } catch (err) {
+          alert("Error parsing JSON: " + err.message);
         }
+      };
+      reader.readAsText(file);
+      jsonPicker.value = "";
+    });
 
-        const scrollContainer = document.getElementById("screen-scroll-container");
+    document.getElementById("btn-header-import-json").addEventListener("click", () => jsonPicker.click());
+    document.getElementById("btn-editor-import-json").addEventListener("click", () => jsonPicker.click());
 
-        switch (e.key) {
-          case "ArrowLeft":
-            prevPhoto();
-            break;
-          case "ArrowRight":
-            nextPhoto();
-            break;
-          case "ArrowDown":
-            scrollContainer.scrollBy({ top: 120, behavior: "smooth" });
-            break;
-          case "ArrowUp":
-            scrollContainer.scrollBy({ top: -120, behavior: "smooth" });
-            break;
-          case "x":
-          case "X":
-          case "2":
-            document.getElementById("act-pass").click();
-            break;
-          case "l":
-          case "L":
-          case "4":
-            document.getElementById("act-like").click();
-            break;
-          case "s":
-          case "S":
-          case "3":
-            document.getElementById("act-superlike").click();
-            break;
-          case "r":
-          case "R":
-          case "1":
-            document.getElementById("act-rewind").click();
-            break;
-          case "b":
-          case "B":
-          case "5":
-            document.getElementById("act-boost").click();
-            break;
-          case "Escape":
-            document.getElementById("editor-overlay").classList.remove("open");
-            break;
-        }
+    // JSON Export
+    document.getElementById("btn-header-export-json").addEventListener("click", exportProfileJson);
+    document.getElementById("btn-editor-export-json").addEventListener("click", exportProfileJson);
+    document.getElementById("btn-copy-json").addEventListener("click", copyProfileJson);
+
+    // Reset Defaults
+    document.getElementById("btn-reset-defaults").addEventListener("click", () => {
+      if (confirm("Reset profile to generated example template?")) {
+        localStorage.removeItem("dating_profile_sandbox_draft");
+        applyConfig(DEFAULT_PROFILE_CONFIG);
+        showToast("Reset to generated example profile!");
+      }
+    });
+
+    // Add Section Buttons
+    document.getElementById("btn-add-prompt").addEventListener("click", () => {
+      activeProfile.prompts = activeProfile.prompts || [];
+      activeProfile.prompts.push({
+        category: "Together we could...",
+        answer: ""
       });
-    }
-
-    /**
-     * Live Editor Drawer Sync
-     */
-    function populateEditorFields() {
-      document.getElementById("input-name").value = activeProfile.name || "";
-      document.getElementById("input-age").value = activeProfile.age || "";
-      const pronounsEl = document.getElementById("input-pronouns");
-      if (pronounsEl) pronounsEl.value = activeProfile.pronouns || "";
-      document.getElementById("input-job").value = activeProfile.job || "";
-      document.getElementById("input-school").value = activeProfile.school || "";
-      document.getElementById("input-location").value = activeProfile.location || "";
-      document.getElementById("input-distance").value = activeProfile.distance || "";
-      document.getElementById("input-bio").value = activeProfile.bio || "";
-
-      // Photos & Image Order Manager
-      currentEditorPhotos = JSON.parse(JSON.stringify(activeProfile.photos || []));
-      renderPhotoOrderManager();
-      syncPhotosToTextarea();
-
-      // Prompts
-      const prompts = activeProfile.prompts || [];
-      document.getElementById("input-prompt-q1").value = prompts[0]?.category || "";
-      document.getElementById("input-prompt-a1").value = prompts[0]?.answer || "";
-      document.getElementById("input-prompt-q2").value = prompts[1]?.category || "";
-      document.getElementById("input-prompt-a2").value = prompts[1]?.answer || "";
-      document.getElementById("input-prompt-q3").value = prompts[2]?.category || "";
-      document.getElementById("input-prompt-a3").value = prompts[2]?.answer || "";
-    }
-
-    function applyEditorChanges() {
-      activeProfile.name = document.getElementById("input-name").value.trim();
-      activeProfile.age = parseInt(document.getElementById("input-age").value, 10) || "";
-      const pronounsEl = document.getElementById("input-pronouns");
-      if (pronounsEl) activeProfile.pronouns = pronounsEl.value.trim();
-      activeProfile.job = document.getElementById("input-job").value.trim();
-      activeProfile.school = document.getElementById("input-school").value.trim();
-      activeProfile.location = document.getElementById("input-location").value.trim();
-      activeProfile.distance = document.getElementById("input-distance").value.trim();
-      activeProfile.bio = document.getElementById("input-bio").value.trim();
-
-      // Apply photos & image order from current editor state
-      activeProfile.photos = JSON.parse(JSON.stringify(currentEditorPhotos));
-      activeProfile.imageOrder = activeProfile.photos.map(p => typeof p === "string" ? p : p.url);
-
-      // Parse prompts
-      const newPrompts = [];
-      const q1 = document.getElementById("input-prompt-q1").value.trim();
-      const a1 = document.getElementById("input-prompt-a1").value.trim();
-      if (q1 || a1) newPrompts.push({ category: q1 || "Prompt", answer: a1 });
-
-      const q2 = document.getElementById("input-prompt-q2").value.trim();
-      const a2 = document.getElementById("input-prompt-a2").value.trim();
-      if (q2 || a2) newPrompts.push({ category: q2 || "Prompt", answer: a2 });
-
-      const q3 = document.getElementById("input-prompt-q3").value.trim();
-      const a3 = document.getElementById("input-prompt-a3").value.trim();
-      if (q3 || a3) newPrompts.push({ category: q3 || "Prompt", answer: a3 });
-
-      activeProfile.prompts = newPrompts;
-
+      renderPromptsEditor();
       renderProfile(activeProfile);
-    }
+    });
 
-    /**
-     * Export Profile Settings as JSON file
-     */
-    function exportProfileJson() {
-      applyEditorChanges();
-
-      const exportObject = {
-        name: activeProfile.name || "",
-        age: activeProfile.age || "",
-        verified: activeProfile.verified !== false,
-        pronouns: activeProfile.pronouns || "",
-        job: activeProfile.job || "",
-        school: activeProfile.school || "",
-        location: activeProfile.location || "",
-        distance: activeProfile.distance || "",
-        bio: activeProfile.bio || "",
-        imageOrder: (activeProfile.photos || []).map(p => typeof p === "string" ? p : p.url),
-        photos: activeProfile.photos || [],
-        prompts: activeProfile.prompts || [],
-        essentials: activeProfile.essentials || [],
-        interests: activeProfile.interests || [],
-        anthem: activeProfile.anthem || {}
-      };
-
-      const jsonString = JSON.stringify(exportObject, null, 2);
-      const blob = new Blob([jsonString], { type: "application/json;charset=utf-8" });
-      const downloadUrl = URL.createObjectURL(blob);
-      const dlAnchor = document.createElement("a");
-      dlAnchor.href = downloadUrl;
-      dlAnchor.download = "profile.json";
-      document.body.appendChild(dlAnchor);
-      dlAnchor.click();
-      document.body.removeChild(dlAnchor);
-      URL.revokeObjectURL(downloadUrl);
-
-      showToast("Exported profile.json successfully!");
-    }
-
-    /**
-     * Copy profile settings JSON to clipboard
-     */
-    function copyProfileJson() {
-      applyEditorChanges();
-
-      const exportObject = {
-        name: activeProfile.name || "",
-        age: activeProfile.age || "",
-        verified: activeProfile.verified !== false,
-        pronouns: activeProfile.pronouns || "",
-        job: activeProfile.job || "",
-        school: activeProfile.school || "",
-        location: activeProfile.location || "",
-        distance: activeProfile.distance || "",
-        bio: activeProfile.bio || "",
-        imageOrder: (activeProfile.photos || []).map(p => typeof p === "string" ? p : p.url),
-        photos: activeProfile.photos || [],
-        prompts: activeProfile.prompts || [],
-        essentials: activeProfile.essentials || [],
-        interests: activeProfile.interests || [],
-        anthem: activeProfile.anthem || {}
-      };
-
-      const jsonString = JSON.stringify(exportObject, null, 2);
-
-      navigator.clipboard.writeText(jsonString).then(() => {
-        showToast("Profile JSON copied to clipboard!");
-      }).catch(() => {
-        prompt("Copy profile JSON:", jsonString);
+    document.getElementById("btn-add-essential").addEventListener("click", () => {
+      activeProfile.essentials = activeProfile.essentials || [];
+      activeProfile.essentials.push({
+        icon: "heart",
+        label: "Dating Intention",
+        value: "Long-term"
       });
-    }
+      renderEssentialsEditor();
+      renderProfile(activeProfile);
+    });
 
-    /**
-     * Clock updater for phone status bar
-     */
-    function updateClock() {
-      const now = new Date();
-      let hours = now.getHours();
-      let minutes = now.getMinutes();
-      minutes = minutes < 10 ? "0" + minutes : minutes;
-      hours = hours < 10 ? "0" + hours : hours;
-      const timeStr = `${hours}:${minutes}`;
-      const statusTime = document.getElementById("status-time");
-      if (statusTime) statusTime.textContent = timeStr;
-    }
+    const inputNewInterest = document.getElementById("input-new-interest");
+    const btnAddInterest = document.getElementById("btn-add-interest");
+    const doAddInterest = () => {
+      const val = inputNewInterest.value.trim();
+      if (!val) return;
+      activeProfile.interests = activeProfile.interests || [];
+      activeProfile.interests.push(val);
+      inputNewInterest.value = "";
+      renderInterestsEditor();
+      renderProfile(activeProfile);
+    };
+    btnAddInterest.addEventListener("click", doAddInterest);
+    inputNewInterest.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        doAddInterest();
+      }
+    });
 
-    /**
-     * Utility: HTML escape
-     */
-    function escapeHtml(str) {
-      if (!str) return "";
-      return String(str)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-    }
+    // Pick Anthem Art file
+    const anthemPicker = document.getElementById("anthem-file-picker");
+    document.getElementById("btn-pick-anthem-art").addEventListener("click", () => anthemPicker.click());
+    anthemPicker.addEventListener("change", async (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      await idbSavePhoto(file.name, file);
+      const url = registerBlobUrl(file.name, file);
+      document.getElementById("input-anthem-art").value = "photos/" + file.name;
+      activeProfile.anthem = activeProfile.anthem || {};
+      activeProfile.anthem.albumArt = "photos/" + file.name;
+      renderAnthem(activeProfile.anthem);
+      anthemPicker.value = "";
+    });
 
-    // Run on page load
-    window.addEventListener("DOMContentLoaded", initApp);
-  </script>
+    // Photo Manager Add Row
+    const inputNewPhoto = document.getElementById("input-new-photo-path");
+    const btnAddPhoto = document.getElementById("btn-add-photo");
+    btnAddPhoto.addEventListener("click", () => {
+      const path = inputNewPhoto.value.trim();
+      if (!path) return;
+      currentEditorPhotos.push({
+        url: path,
+        caption: "",
+        position: { x: 50, y: 50 },
+        zoom: 1.0
+      });
+      inputNewPhoto.value = "";
+      syncAndRerenderPhotos();
+    });
+    inputNewPhoto.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        btnAddPhoto.click();
+      }
+    });
+
+    // Raw Textarea Sync
+    const rawPhotosTextarea = document.getElementById("input-photos");
+    rawPhotosTextarea.addEventListener("input", () => {
+      const lines = rawPhotosTextarea.value.split("\n").map(l => l.trim()).filter(Boolean);
+      currentEditorPhotos = lines.map((url, i) => {
+        const existing = currentEditorPhotos[i];
+        return {
+          url: url,
+          caption: (existing && existing.caption) ? existing.caption : "",
+          position: (existing && existing.position) ? existing.position : { x: 50, y: 50 },
+          zoom: (existing && typeof existing.zoom === "number") ? existing.zoom : 1.0
+        };
+      });
+      activeProfile.photos = currentEditorPhotos;
+      activeProfile.imageOrder = currentEditorPhotos.map(p => p.url);
+      renderPhotoOrderManager();
+      renderProfile(activeProfile);
+      saveDraftToStorage();
+    });
+
+    // File Drop Area
+    const dropArea = document.getElementById("file-drop-area");
+    const localPicker = document.getElementById("local-file-picker");
+    dropArea.addEventListener("click", () => localPicker.click());
+    localPicker.addEventListener("change", (e) => {
+      handleUploadedImageFiles(Array.from(e.target.files || []));
+      localPicker.value = "";
+    });
+
+    // Single photo replace picker
+    const replacePicker = document.getElementById("single-photo-replace-picker");
+    replacePicker.addEventListener("change", async (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (file && replaceSlotIndex !== null && currentEditorPhotos[replaceSlotIndex]) {
+        const cleanName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+        await idbSavePhoto(cleanName, file);
+        await idbSavePhoto("photos/" + cleanName, file);
+        registerBlobUrl(cleanName, file);
+
+        currentEditorPhotos[replaceSlotIndex].url = "photos/" + cleanName;
+        syncAndRerenderPhotos();
+        showToast(`Replaced photo #${replaceSlotIndex + 1}!`);
+      }
+      replaceSlotIndex = null;
+      replacePicker.value = "";
+    });
+  }
+
+  /* Inline Bio Quick Editor */
+  function setupBioInlineEditor() {
+    const btnEdit = document.getElementById("btn-quick-edit-bio");
+    const bioText = document.getElementById("feed-bio");
+    const editBox = document.getElementById("bio-inline-edit-box");
+    const textarea = document.getElementById("bio-inline-input");
+    const btnSave = document.getElementById("btn-bio-inline-save");
+    const btnCancel = document.getElementById("btn-bio-inline-cancel");
+
+    if (!btnEdit || !bioText || !editBox) return;
+
+    btnEdit.addEventListener("click", (e) => {
+      e.stopPropagation();
+      textarea.value = activeProfile.bio || "";
+      bioText.style.display = "none";
+      editBox.style.display = "block";
+      textarea.focus();
+    });
+
+    btnCancel.addEventListener("click", (e) => {
+      e.stopPropagation();
+      editBox.style.display = "none";
+      bioText.style.display = "block";
+    });
+
+    btnSave.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const newBio = textarea.value.trim();
+      activeProfile.bio = newBio;
+      bioText.textContent = newBio;
+      editBox.style.display = "none";
+      bioText.style.display = "block";
+
+      const drawerBio = document.getElementById("input-bio");
+      if (drawerBio) drawerBio.value = newBio;
+      saveDraftToStorage();
+      showToast("Bio updated!");
+    });
+  }
+
+  /* Keyboard Navigation */
+  function setupKeyboardControls() {
+    window.addEventListener("keydown", (e) => {
+      if (["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement.tagName)) return;
+      const scrollContainer = document.getElementById("screen-scroll-container");
+
+      switch (e.key) {
+        case "ArrowLeft": prevPhoto(); break;
+        case "ArrowRight": nextPhoto(); break;
+        case "ArrowDown": scrollContainer.scrollBy({ top: 120, behavior: "smooth" }); break;
+        case "ArrowUp": scrollContainer.scrollBy({ top: -120, behavior: "smooth" }); break;
+        case "x": case "X": case "2": document.getElementById("act-pass").click(); break;
+        case "l": case "L": case "4": document.getElementById("act-like").click(); break;
+        case "s": case "S": case "3": document.getElementById("act-superlike").click(); break;
+        case "r": case "R": case "1": document.getElementById("act-rewind").click(); break;
+        case "b": case "B": case "5": document.getElementById("act-boost").click(); break;
+        case "Escape": document.getElementById("editor-overlay").classList.remove("open"); break;
+      }
+    });
+  }
+
+  /* ==========================================================================
+     JSON EXPORT / IMPORT
+     ========================================================================== */
+  function exportProfileJson() {
+    applyEditorChanges();
+
+    // Clean relative paths for export (remove blob:)
+    const exportPhotos = (activeProfile.photos || []).map(p => {
+      let cleanUrl = p.url;
+      if (cleanUrl.startsWith("blob:")) {
+        cleanUrl = "photos/photo.jpg";
+      }
+      return {
+        url: cleanUrl,
+        caption: p.caption || "",
+        position: p.position ? { x: p.position.x, y: p.position.y } : { x: 50, y: 50 },
+        zoom: typeof p.zoom === "number" ? p.zoom : 1.0
+      };
+    });
+
+    const exportObject = {
+      name: activeProfile.name || "",
+      age: activeProfile.age || "",
+      verified: (activeProfile.verified !== false),
+      pronouns: activeProfile.pronouns || "",
+      job: activeProfile.job || "",
+      school: activeProfile.school || "",
+      location: activeProfile.location || "",
+      distance: activeProfile.distance || "",
+      bio: activeProfile.bio || "",
+      imageOrder: exportPhotos.map(p => p.url),
+      photos: exportPhotos,
+      prompts: activeProfile.prompts || [],
+      essentials: activeProfile.essentials || [],
+      interests: activeProfile.interests || [],
+      anthem: activeProfile.anthem || {}
+    };
+
+    const jsonString = JSON.stringify(exportObject, null, 2);
+    const blob = new Blob([jsonString], { type: "application/json;charset=utf-8" });
+    const downloadUrl = URL.createObjectURL(blob);
+    const dlAnchor = document.createElement("a");
+    dlAnchor.href = downloadUrl;
+    dlAnchor.download = "profile.json";
+    document.body.appendChild(dlAnchor);
+    dlAnchor.click();
+    document.body.removeChild(dlAnchor);
+    URL.revokeObjectURL(downloadUrl);
+
+    showToast("Exported profile.json successfully!");
+  }
+
+  function copyProfileJson() {
+    applyEditorChanges();
+
+    const exportPhotos = (activeProfile.photos || []).map(p => ({
+      url: p.url.startsWith("blob:") ? "photos/photo.jpg" : p.url,
+      caption: p.caption || "",
+      position: p.position || { x: 50, y: 50 },
+      zoom: p.zoom || 1.0
+    }));
+
+    const exportObject = {
+      name: activeProfile.name || "",
+      age: activeProfile.age || "",
+      verified: (activeProfile.verified !== false),
+      pronouns: activeProfile.pronouns || "",
+      job: activeProfile.job || "",
+      school: activeProfile.school || "",
+      location: activeProfile.location || "",
+      distance: activeProfile.distance || "",
+      bio: activeProfile.bio || "",
+      imageOrder: exportPhotos.map(p => p.url),
+      photos: exportPhotos,
+      prompts: activeProfile.prompts || [],
+      essentials: activeProfile.essentials || [],
+      interests: activeProfile.interests || [],
+      anthem: activeProfile.anthem || {}
+    };
+
+    const jsonString = JSON.stringify(exportObject, null, 2);
+    navigator.clipboard.writeText(jsonString).then(() => {
+      showToast("Profile JSON copied to clipboard!");
+    }).catch(() => {
+      prompt("Copy profile JSON:", jsonString);
+    });
+  }
+
+  /* Stamps, Toasts & Time */
+  let stampTimeout = null;
+  let toastTimeout = null;
+
+  function triggerStamp(type) {
+    const target = document.getElementById("stamp-" + type);
+    if (!target) return;
+    document.querySelectorAll(".stamp-badge").forEach(s => s.classList.remove("visible"));
+    clearTimeout(stampTimeout);
+    void target.offsetWidth;
+    target.classList.add("visible");
+    stampTimeout = setTimeout(() => target.classList.remove("visible"), 1100);
+  }
+
+  function showToast(message) {
+    const toast = document.getElementById("action-toast");
+    if (!toast) return;
+    toast.textContent = message;
+    toast.classList.add("show");
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => toast.classList.remove("show"), 1800);
+  }
+
+  function updateClock() {
+    const now = new Date();
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    hours = hours < 10 ? "0" + hours : hours;
+    const el = document.getElementById("status-time");
+    if (el) el.textContent = `${hours}:${minutes}`;
+  }
+
+  function escapeHtml(str) {
+    if (!str) return "";
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  window.addEventListener("DOMContentLoaded", initApp);
+</script>
 </body>
 </html>
